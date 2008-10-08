@@ -6,9 +6,9 @@ SEGMENT code
 	mov ss, ax
 	mov sp, stacktop
 
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;; verificação da validade do argumento passado ;;
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	
 	mov bl, [ds:0x80]	;; bl contem o numero de caracteres do nome do arquivo de entrada
 	cmp bl, 10			;; ' imgXX.bmp' == 10 caracteres
@@ -69,24 +69,26 @@ VerificaDigitos:
 		ret
 	
 
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;; verificação da validade do argumento passado ;;
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	
 ; _____________________________________________________________
 
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;; abertura do arquivo de entrada ;;
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	
 AbreArquivo:	
-	mov ah, 0x3D		;; serviço do DOS de abertura de arquivo
+	;; abertura do arquivo
+	mov ah, 0x3D			;; serviço do DOS de abertura de arquivo
 	mov al, 0			;; modo de abertura: read-only
 	mov bh, 0x00
-	mov bl, [ds:0x80]	;; n de caracteres do argumento
+	mov bl, [ds:0x80]		;; n de caracteres do argumento
 	mov byte[ds:0x82+bx-1], 0x00	;; nome do arquivo deve terminar com o byte 0x00 (ASCIIZ)
-	mov dx, 0x82		;; offset para o primeiro caractere do nome do arquivo
+	mov dx, 0x82			;; offset para o primeiro caractere do nome do arquivo
 	int 0x21
+	mov bx, ax			;; bx <- handle do arquivo aberto
 	
 	;; agora o valor antigo de ds já não é importante, pois já foi utilizado o argumento passado ao programa.
 	;; portanto, o segmento de dados é inicializado definitivamente.
@@ -94,14 +96,10 @@ AbreArquivo:
 	mov ds, ax
 	
 	;; verificar a flag Carry
-	pushf
-	pop bx
-	and bx, 0x0001
-	cmp bx, 1				;; CF=0 -> OK / CF=1 -> erro na abertura do arquivo
-	je ErroAbreArquivo
+	jc ErroAbreArquivo
 	;; se chegar até aqui, o arquivo abriu normalmente e AX contem o handle para o arquivo de entrada
-	mov [ap_arq_in], ax		;; o handle do arquivo é salvo na memória
-	jmp Next
+	mov [handle_arq_in], bx		;; o handle do arquivo eh salvo na memoria
+	jmp VerificaImagem
 	
 ErroAbreArquivo:
 	mov ah, 9
@@ -110,35 +108,127 @@ ErroAbreArquivo:
 	jmp Fim				;; termina a execução do programa
 	
 	
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;; abertura do arquivo de entrada ;;
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; _____________________________________________________________
 
-Next:
+
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;; verificacao e leitura do arquivo para a memoria ;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 	
+VerificaImagem:
+	;; leitura dos dois primeiros bytes do arquivo
+	mov ah, 0x3F		; servico de leitura
+	mov bx, [handle_arq_in]
+	mov cx, 2		; n de bytes a serem lidos
+	mov dx, tipo_arq	; ds:dx aponta para onde os bytes serao lidos
+	int 0x21
+
+	;; verificacao do tipo do arquivo
+	mov ax, [tipo_arq]
+	cmp ax, 'BM'		; caso os caracteres lidos dos 2 primeiros bytes do arquivo
+	je CarregaImagem	; sejam 'BM', carrega o resto do arquivo na memoria
+	;; caso contrario, o arquivo nao eh do tipo bmp (mesmo com a extensao no nome)
+	;; fecha arquvo, imprime msg de erro e finaliza execucao
+	mov ah, 0x3E
+	;; como a leitura n afeta bx, este continua tendo o valor do handle do arquivo
+	int 0x21
+	mov ah, 9
+	mov dx, MsgErroArquivo
+	int 0x21
+	jmp Fim
+	
+
+CarregaImagem:	
+	;; leitura do tamanho do arquivo
+	;; assumiremos que o arquivo tem no maximo 64K, entao os 2 primeiros bytes que representam
+	;; o tamanho estarao necessariamente zerados: 0000 XXXXh
+	;; portanto, moveremos o apontador interno do arquivo de duas unidades (desconsideraremos os bytes zerados)
+	mov ah, 0x42		; servico do DOS para mover o file pointer
+	;; bx continua contendo o handle para o arquivo
+	mov cx, 0
+	mov dx, 2		; avanco de 2 bytes
+	mov al, 1		; move a partir da posicao corrente
+	int 0x21
+
+	;; leitura dos dois bytes do tamanho
+	mov ah, 0x3F
+	;; bx continua contendo o handle para o arquivo
+	mov cx, 2
+	mov dx, tamanho_arq
+	int 0x21
+
+	;; para a leitura do arquivo inteiro, primeiramente, setaremos o file pointer para
+	;; o inicio (como se tivessemos acabado de abri-lo)
+	mov ah, 0x42
+	;; bx continua contendo o handle para o arquivo
+	mov cx, 0		
+	mov dx, 0		; move 0 bytes
+	mov al, 0		; a partir do inicio do arquivo
+	int 0x21
+
+	;; para a leitura, colocaremos o valor de ES temporariamente em DS
+	push ds			; guarda ds na pilha
+	mov ax, es
+	mov ds, ax
+	mov dx, img		; DS:DX <- "ES:img"
+	mov bx, [handle_arq_in]
+	mov cx, [tamanho_arq]
+	int 0x21		; arquivo eh salvo INTEIRO na memoria no segmento ES
+
+	;; recupera ds
+	pop ds
+
+	;; fecha o arquivo de entrada
+	mov ah, 0x3E
+	;; bx continua contendo o handle para o arquivo
+	int 0x21
+	jmp Next
+	
+	
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;; verificacao e leitura do arquivo para a memoria ;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	
+; _____________________________________________________________ 
+	
+Next:	
+
 Fim:
 	mov ah, 0x4C
 	int 0x21
+
 	
-	
+;; segmento de dados
 SEGMENT data
 
 ;; nomes dos arquivos de entrada e saida
 arq_out: db 'saida.bmp',0x00
 
 ;; apontador (handle) para os arquivos de entrada e saida
-ap_arq_in: resb 2
-ap_arq_out: resb 2
+handle_arq_in: resb 2
+handle_arq_out: resb 2
 
 ;; msg de erro
 MsgErroFormato: db 'ERRO: Verifique se o nome do arquivo esta no formato imgXX.bmp',13,10,'$'
 MsgErroAbreArquivo: db 'ERRO ao tentar abrir o arquivo. Verifique se o arquivo especificado esta no diretorio.',13,10,'$'
+MsgErroArquivo:	db 'ERRO: O arquivo nao eh do tipo BMP especificado.',13,10,'$'
+	
+;; variaveis usadas na leitura do arquivo
+tipo_arq: resb 2
+tamanho_arq: resb 2
+	
 
-;SEGMENT img
+;; este segmento (ES) eh para guardar o arquivo inteiro na memoria.
+SEGMENT data2
+img:	resb 0xFFF0	; ~64K (ao colocar 0xFFFF, o tlink diz que o segmento excede 64K)
+	
 
-
+	
 SEGMENT stack stack
 	resb 0xFF	;; 256
 stacktop:
