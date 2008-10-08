@@ -171,15 +171,17 @@ CarregaImagem:
 	mov al, 0		; a partir do inicio do arquivo
 	int 0x21
 
+	;; **PROBLEMA**
 	;; para a leitura, colocaremos o valor de ES temporariamente em DS
 	push ds			; guarda ds na pilha
 	mov ax, es
 	mov ds, ax
 	mov dx, img		; DS:DX <- "ES:img"
-	mov bx, [handle_arq_in]
+	;; bx continua contendo o handle para o arquivo
 	mov cx, [tamanho_arq]
 	int 0x21		; arquivo eh salvo INTEIRO na memoria no segmento ES
-
+	;; **PROBLEMA**
+	
 	;; recupera ds
 	pop ds
 
