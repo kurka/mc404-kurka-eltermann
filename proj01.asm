@@ -164,7 +164,7 @@ CarregaImagem:
 	mov dx, 0		; move 0 bytes
 	mov al, 0		; a partir do inicio do arquivo
 	int 0x21
-	
+
 	;; para a leitura, colocaremos o valor de ES temporariamente em DS
 	mov cx, [tamanho_arq]
 	push ds			; guarda ds na pilha
