@@ -127,7 +127,7 @@ VerificaImagem:
 	mov cx, 2		; n de bytes a serem lidos
 	mov dx, tipo_arq	; ds:dx aponta para onde os bytes serao lidos
 	int 0x21
-
+	
 	;; verificacao do tipo do arquivo
 	mov ax, [tipo_arq]
 	cmp ax, 'BM'		; caso os caracteres lidos dos 2 primeiros bytes do arquivo
@@ -145,15 +145,9 @@ VerificaImagem:
 
 CarregaImagem:	
 	;; leitura do tamanho do arquivo
-	;; assumiremos que o arquivo tem no maximo 64K, entao os 2 primeiros bytes que representam
-	;; o tamanho estarao necessariamente zerados: 0000 XXXXh
-	;; portanto, moveremos o apontador interno do arquivo de duas unidades (desconsideraremos os bytes zerados)
-	mov ah, 0x42		; servico do DOS para mover o file pointer
-	;; bx continua contendo o handle para o arquivo
-	mov cx, 0
-	mov dx, 2		; avanco de 2 bytes
-	mov al, 1		; move a partir da posicao corrente
-	int 0x21
+	;; assumiremos que o arquivo tem no maximo 64K, entao os 2 ultimos bytes que representam
+	;; o tamanho estarao necessariamente zerados
+	;; portanto, apenas os dois primeiros bytes importam
 
 	;; leitura dos dois bytes do tamanho
 	mov ah, 0x3F
@@ -170,8 +164,7 @@ CarregaImagem:
 	mov dx, 0		; move 0 bytes
 	mov al, 0		; a partir do inicio do arquivo
 	int 0x21
-
-	;; **PROBLEMA**
+	
 	;; para a leitura, colocaremos o valor de ES temporariamente em DS
 	mov cx, [tamanho_arq]
 	push ds			; guarda ds na pilha
@@ -181,7 +174,6 @@ CarregaImagem:
 	mov ah, 0x3F
 	;; bx continua contendo o handle para o arquivo
 	int 0x21		; arquivo eh salvo INTEIRO na memoria no segmento ES
-	;; **PROBLEMA**
 	
 	;; recupera ds
 	pop ds
