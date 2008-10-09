@@ -178,7 +178,7 @@ CarregaImagem:
 	mov ds, ax
 	mov dx, img		; DS:DX <- "ES:img"
 	;; bx continua contendo o handle para o arquivo
-	mov cx, [tamanho_arq]
+	mov cx, 10
 	int 0x21		; arquivo eh salvo INTEIRO na memoria no segmento ES
 	;; **PROBLEMA**
 	
