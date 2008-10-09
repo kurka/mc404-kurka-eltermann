@@ -80,6 +80,12 @@ VerificaDigitos:
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	
 AbreArquivo:	
+	;; agora o valor antigo de ds já não é importante, pois já foi utilizado o argumento passado ao programa.
+	;; portanto, o segmento de dados é inicializado definitivamente.
+	mov ax, data
+	mov ds, ax
+
+
 	mov ah, 0x3D		;; serviço do DOS de abertura de arquivo
 	mov al, 0			;; modo de abertura: read-only
 	mov bh, 0x00
@@ -88,10 +94,6 @@ AbreArquivo:
 	mov dx, 0x82		;; offset para o primeiro caractere do nome do arquivo
 	int 0x21
 	
-	;; agora o valor antigo de ds já não é importante, pois já foi utilizado o argumento passado ao programa.
-	;; portanto, o segmento de dados é inicializado definitivamente.
-	mov ax, data
-	mov ds, ax
 	
 	;; verificar a flag Carry
 	pushf
@@ -101,7 +103,10 @@ AbreArquivo:
 	je ErroAbreArquivo
 	;; se chegar até aqui, o arquivo abriu normalmente e AX contem o handle para o arquivo de entrada
 	mov [ap_arq_in], ax		;; o handle do arquivo é salvo na memória
-	jmp Next
+	
+	mov di, 64			;inicializa di, pra usar como contador
+	mov si, 0
+	jmp LeArquivo
 	
 ErroAbreArquivo:
 	mov ah, 9
@@ -115,9 +120,21 @@ ErroAbreArquivo:
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; _____________________________________________________________
+ 
+LeArquivo:
+	mov ah, 0x3F			;chama rotina de leitura
+	mov bx, ap_arq_in		;handle do arquivo
+	mov cx, 1			;numero de bytes lidos (=1 pixel)
+	mov dx, [buffer]		;endereco do buffer, aonde vao ser guardadas as infos
 
-Next:
-	
+	mov ax, buffer
+	mov [imagem+si], ax
+	inc si
+	dec di
+	jz Fim
+	jmp LeArquivo
+; copia arquivo lido pra memoria
+
 Fim:
 	mov ah, 0x4C
 	int 0x21
@@ -131,13 +148,14 @@ arq_out: db 'saida.bmp',0x00
 ;; apontador (handle) para os arquivos de entrada e saida
 ap_arq_in: resb 2
 ap_arq_out: resb 2
+buffer: resb 1
 
 ;; msg de erro
 MsgErroFormato: db 'ERRO: Verifique se o nome do arquivo esta no formato imgXX.bmp',13,10,'$'
 MsgErroAbreArquivo: db 'ERRO ao tentar abrir o arquivo. Verifique se o arquivo especificado esta no diretorio.',13,10,'$'
 
-;SEGMENT img
-
+SEGMENT img		;espaco que guarda a imagem lida em disco
+	imagem resb 0xFF
 
 SEGMENT stack stack
 	resb 0xFF	;; 256
