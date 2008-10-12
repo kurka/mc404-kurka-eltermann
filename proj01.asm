@@ -221,8 +221,8 @@ CarregaImagem:
 
 	
 	;; algoritmo do processamento (pseudo-codigo em alto nivel)
-	;; para i de 1 a altura {
-	;;   para j de 1 a largura {
+	;; para i de altura até 1 {
+	;;   para j de largura até 1 {
 	;;     verifica(pixel)
 	;;     se (branco)-> continua no proximo pixel
 	;;     se (preto) -> verifica(vizinhos)
@@ -237,28 +237,106 @@ CarregaImagem:
 
 	
 	;; Inicio
-	;; Como o arquivo nao apresenta a secao "'Color Map', a imagem
+
+	;; Como o arquivo nao apresenta a secao 'Color Map', a imagem
 	;; comeca em -> es:img + 0x36
 
 	;; Verificacao para cores:
+	;; Memoria  [base] [b+1] [b+2]
 	;; BRANCO:   0xFF, 0xFF, 0xFF
 	;; PRETO:    0x00, 0x00, 0x00
 	;; VERMELHO: 0x00, 0x00, 0xFF
+
+	;; Registradores:
+	;; AX -> contador para altura
+	;; CX -> contador para largura
+	;; DX -> verificacao dos bytes do pixel
+
+
+	xor ax, ax		; zera contador para altura
+	
+ForAltura:	
+	cmp ax, [es:img + 0x16]	; se ax == altura , ja verificou todos os pixels, 
+	je GeraArquivo		; entao pula para a criacao do arquivo
+	
+	xor cx, cx		; zera contador para largura a cada nova linha
+
+ForLargura:
+	cmp cx, [es:img + 0x12]	; se cx == largura da imagem,
+	je FimForLargura	; ja percorreu todos os pixels daquela linha
+
+	call SeBranco
+	cmp dl, 1
+	je FimForLargura	; se o pixel for branco, vai para o proximo
+
+	;; pixel nao branco
+	call SePreto
+	cmp dl, 0		; se o pixel NAO for preto (possivel pixel ja pintado),
+	je FimForLargura	; vai para o proximo
+	
+	;; pixel preto
+	call VerificaVizinhos
 	
 	
-	;; ********* !!! TEST AREA !!! ***********
+FimForLargura:
+	inc cx
+	jmp ForLargura
 
-	;; pinta o primeiro byte de vermelho!!
-	mov word[es:img + 0x36],0x0000
-	 
-	;; ********* !!! TEST AREA !!! ***********
+
+FimForAltura:
+	inc ax
+	jmp ForAltura
+
+	
+	;; Daqui pra baixo, estao as definicoes das rotinas utilizadas
+
+;; rotina para verificar se um dado pixel eh branco
+;; retorna dl=1 p/ pixel branco
+;;	   dl=0 caso contrario 
+SeBranco:	
+	mov dx, [es:img + 0x36 + ??]
+	cmp dx, 0xFFFF
+	je ContinuaSeBranco
+	mov dl, 0		; se os dois primeiros bytes nao forem 0xFF e 0xFF
+	ret			; ja retorna que o pixel nao eh branco
+ContinuaSeBranco:
+	mov dh, [es:img + 0x38 + ??] ; [es:img + 0x36 + ?? + 2]
+	cmp dh, 0xFF
+	je FimSeBranco
+	mov dl, 0
+	ret
+FimSeBranco:
+	mov dl, 1		; se chegar ate aqui, o pixel eh branco
+	ret
+
+
+;; rotina para verificar se um dado pixel eh preto
+;; retorna dl=1 p/ pixel preto
+;;	   dl=0 caso contrario 
+SePreto:	
+	mov dx, [es:img + 0x36 + ??]
+	cmp dx, 0x0000
+	je ContinuaSePreto
+	mov dl, 0		; se os dois primeiros bytes nao forem 0x00 e 0x00
+	ret			; ja retorna que o pixel nao eh branco
+ContinuaSePreto:
+	mov dh, [es:img + 0x38 + ??] ; [es:img + 0x36 + ?? + 2]
+	cmp dh, 0x00
+	je FimSePreto
+	mov dl, 0
+	ret
+FimSePreto:
+	mov dl, 1		; se chegar ate aqui, o pixel eh preto
+	ret
 
 
 	
-
-	;; continua para a geracao do arquivo de saida...
+;; rotina para verificar cada um dos vizinhos de um pixel preto
+;; e pinta-lo se for branco
+VerificaVizinhos:	
 	
 
+	
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;; processamento da imagem ;;
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -270,6 +348,8 @@ CarregaImagem:
 	;; geracao do arquivo de saida ;;
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+GeraArquivo:	
 	;; criacao do arquivo
 	mov ah, 0x3C
 	mov cx, 0x00
@@ -297,12 +377,13 @@ CarregaImagem:
 	;; geracao do arquivo de saida ;;
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
+; _____________________________________________________________
 	
 Fim:
 	mov ah, 0x4C
 	int 0x21
 
+; _____________________________________________________________
 	
 ;; segmento de dados
 SEGMENT data
@@ -325,12 +406,14 @@ tamanho_arq: resb 2
 ;; numero de bytes somado a cada linha (vai de 0 a 3)
 apendice: resb 1
 	
+; _____________________________________________________________	
+	
 	
 ;; este segmento (ES) eh para guardar o arquivo inteiro na memoria.
 SEGMENT data2
 img:	resb 0xFFF0	; ~64K (ao colocar 0xFFFF, o tlink diz que o segmento excede 64K)
 	
-
+; _____________________________________________________________
 	
 SEGMENT stack stack
 	resb 0xFF	;; 256
