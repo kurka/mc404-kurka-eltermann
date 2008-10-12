@@ -221,15 +221,14 @@ CarregaImagem:
 
 	
 	;; algoritmo do processamento (pseudo-codigo em alto nivel)
-	;; para i de altura até 1 {
-	;;   para j de largura até 1 {
+	;; para i de 0 até altura-1 {
+	;;   para j de 0 até largura-1 {
 	;;     verifica(pixel)
 	;;     se (branco)-> continua no proximo pixel
 	;;     se (preto) -> verifica(vizinhos)
 	;;       enquanto houver vizinhos
-	;;         se(preto) -> passa para o proximo
-	;;         se(vermelho)-> passa para o proximo
 	;;         se(branco)-> pinta de vermelho
+	;;         caso contraio -> passa ao prox vizinho
 	;;       fim enquanto
 	;;     fim se(preto)
 	;;   fim para(largura)
@@ -263,27 +262,19 @@ ForAltura:
 
 ForLargura:
 	cmp cx, [es:img + 0x12]	; se cx == largura da imagem,
-	je FimForLargura	; ja percorreu todos os pixels daquela linha
+	je SaiForLargura	; ja percorreu todos os pixels daquela linha
 
-	call SeBranco
-	cmp dl, 1
-	je FimForLargura	; se o pixel for branco, vai para o proximo
-
-	;; pixel nao branco
 	call SePreto
-	cmp dl, 0		; se o pixel NAO for preto (possivel pixel ja pintado),
-	je FimForLargura	; vai para o proximo
+	cmp dl, 0		
+	je VoltaForLargura	; se o pixel NAO for preto, continua verificando
+	call VerificaVizinhos	; caso contrario, chama a rotina de verificacao dos vizinhos
 	
-	;; pixel preto
-	call VerificaVizinhos
-	
-	
-FimForLargura:
+VoltaForLargura:
 	inc cx
 	jmp ForLargura
 
 
-FimForAltura:
+SaiForLargura:
 	inc ax
 	jmp ForAltura
 
