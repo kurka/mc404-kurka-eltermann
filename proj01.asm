@@ -285,8 +285,9 @@ SaiForLargura:
 	add di, [apendice]	; soma o apendice ao contador de deslocamento
 	inc ax
 	cmp ax, [es:img + 0x16]	; se ax == altura , ja verificou todos os pixels, 
-	je GeraArquivo		; entao pula para a criacao do arquivo
-	jmp ForAltura
+				; entao pula para a criacao do arquivo
+	jne ForAltura
+	jmp GeraArquivo
 
 
 	;; Daqui pra baixo, estao as definicoes das rotinas utilizadas
