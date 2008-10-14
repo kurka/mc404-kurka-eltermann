@@ -121,19 +121,36 @@ ErroAbreArquivo:
 
 	
 VerificaImagem:
-	;; leitura dos dois primeiros bytes do arquivo
+	;; para a verificacao, serao lidos os 34 primeiros bytes do arquivo,
+	;; que contem algumas informacoes do cabecalho.
+	
+	;; leitura dos bytes
 	mov ah, 0x3F		; servico de leitura
 	mov bx, [handle_arq_in]
-	mov cx, 2		; n de bytes a serem lidos
-	mov dx, tipo_arq	; ds:dx aponta para onde os bytes serao lidos
+	mov cx, 34		; n de bytes a serem lidos
+	mov dx, inicio_cabecalho
 	int 0x21
 	
-	;; verificacao do tipo do arquivo
-	mov ax, [tipo_arq]
-	cmp ax, 'BM'		; caso os caracteres lidos dos 2 primeiros bytes do arquivo
-	je CarregaImagem	; sejam 'BM', carrega o resto do arquivo na memoria
-	;; caso contrario, o arquivo nao eh do tipo bmp (mesmo com a extensao no nome)
-	;; fecha arquvo, imprime msg de erro e finaliza execucao
+	;; verificacao do tipo do arquivo (2 primeiros bytes)
+	cmp word [inicio_cabecalho], 'BM'		; o identificador do arquivo deve ser 'BM'
+	jne ErroImagem
+
+	;; verificacao do numero de bits/pixel
+	cmp word [inicio_cabecalho + 0x1C], 24		; o numero de bits/pixel deve ser 24
+	jne ErroImagem
+
+	;; verificacao do tipo de compressao do arquivo
+	cmp word [inicio_cabecalho + 0x1E], 0
+	jne ErroImagem
+	cmp word [inicio_cabecalho + 0x20], 0		; o valor de compressao deve ser 0 para os dois bytes
+	jne ErroImagem
+
+	;; Se a execucao chegar ate aqui, o arquivo esta OK!
+	jmp CarregaImagem
+	
+ErroImagem:
+	;; arquivo nao esta no formato especificado.
+	;; fecha o arquivo
 	mov ah, 0x3E
 	;; como a leitura n afeta bx, este continua tendo o valor do handle do arquivo
 	int 0x21
@@ -144,18 +161,6 @@ VerificaImagem:
 	
 
 CarregaImagem:	
-	;; leitura do tamanho do arquivo
-	;; assumiremos que o arquivo tem no maximo 64K, entao os 2 ultimos bytes que representam
-	;; o tamanho estarao necessariamente zerados
-	;; portanto, apenas os dois primeiros bytes importam
-
-	;; leitura dos dois bytes do tamanho
-	mov ah, 0x3F
-	;; bx continua contendo o handle para o arquivo
-	mov cx, 2
-	mov dx, tamanho_arq
-	int 0x21
-
 	;; para a leitura do arquivo inteiro, primeiramente, setaremos o file pointer para
 	;; o inicio (como se tivessemos acabado de abri-lo)
 	mov ah, 0x42
@@ -169,8 +174,13 @@ CarregaImagem:
 	mov ax, data2
 	mov es, ax
 	
+	;; tamanho do arquivo
+	;; assumiremos que o arquivo tem no maximo 64K, entao os 2 ultimos bytes que representam
+	;; o tamanho estarao necessariamente zerados
+	;; portanto, apenas os dois primeiros bytes importam
+	mov cx, [inicio_cabecalho + 2] ; cx <- tamanho do arquivo em bytes
+
 	;; para a leitura, colocaremos o valor de ES temporariamente em DS
-	mov cx, [tamanho_arq]
 	push ds			; guarda ds na pilha
 	mov ax, es
 	mov ds, ax
@@ -216,8 +226,8 @@ CarregaImagem:
 	mov bx, ax
 	shl ax, 1		; ax <- 2*ax
 	add ax, bx		; ax <- 2*ax + bx = 3*ax
-	and al, 0x03		; al <- ax%4
-	mov byte [apendice], al
+	and ax, 0x03		; al <- ax%4
+	mov word [apendice], ax
 
 	
 	;; algoritmo do processamento (pseudo-codigo em alto nivel)
@@ -234,9 +244,6 @@ CarregaImagem:
 	;;   fim para(largura)
 	;; fim para(altura)
 
-	
-	;; Inicio
-
 	;; Como o arquivo nao apresenta a secao 'Color Map', a imagem
 	;; comeca em -> es:img + 0x36
 
@@ -250,48 +257,51 @@ CarregaImagem:
 	;; AX -> contador para altura
 	;; CX -> contador para largura
 	;; DX -> verificacao dos bytes do pixel
-
+	;; DI -> apontador do primeiro byte do pixel lido
+	;; SI -> sera usado na verificacao das bordas do pixel
 
 	xor ax, ax		; zera contador para altura
-	
+
+	push di			; guarda di na memoria
+	xor di, di		; zera o apontador para o byte atual
+
 ForAltura:	
-	cmp ax, [es:img + 0x16]	; se ax == altura , ja verificou todos os pixels, 
-	je GeraArquivo		; entao pula para a criacao do arquivo
-	
 	xor cx, cx		; zera contador para largura a cada nova linha
 
 ForLargura:
-	cmp cx, [es:img + 0x12]	; se cx == largura da imagem,
-	je SaiForLargura	; ja percorreu todos os pixels daquela linha
-
-	call SePreto
-	cmp dl, 0		
+	call SePreto		; Retora dl=1 se o pixel for preto e dl=0 caso contrario
+	cmp dl, 0	
 	je VoltaForLargura	; se o pixel NAO for preto, continua verificando
 	call VerificaVizinhos	; caso contrario, chama a rotina de verificacao dos vizinhos
 	
 VoltaForLargura:
+	add di, 3		; soma 3 bytes ao contador de deslocamento
 	inc cx
+	cmp cx, [es:img + 0x12]	; se cx == largura da imagem,
+	je SaiForLargura	; ja percorreu todos os pixels daquela linha
 	jmp ForLargura
 
-
 SaiForLargura:
+	add di, [apendice]	; soma o apendice ao contador de deslocamento
 	inc ax
+	cmp ax, [es:img + 0x16]	; se ax == altura , ja verificou todos os pixels, 
+	je GeraArquivo		; entao pula para a criacao do arquivo
 	jmp ForAltura
 
-	
+
 	;; Daqui pra baixo, estao as definicoes das rotinas utilizadas
 
 ;; rotina para verificar se um dado pixel eh branco
 ;; retorna dl=1 p/ pixel branco
 ;;	   dl=0 caso contrario 
 SeBranco:	
-	mov dx, [es:img + 0x36 + ??]
+	mov dx, [es:img + 0x36 + bx]
 	cmp dx, 0xFFFF
 	je ContinuaSeBranco
 	mov dl, 0		; se os dois primeiros bytes nao forem 0xFF e 0xFF
 	ret			; ja retorna que o pixel nao eh branco
 ContinuaSeBranco:
-	mov dh, [es:img + 0x38 + ??] ; [es:img + 0x36 + ?? + 2]
+	mov dh, [es:img + 0x38 + bx] ; [es:img + 0x36 + bx + 2]
 	cmp dh, 0xFF
 	je FimSeBranco
 	mov dl, 0
@@ -300,18 +310,18 @@ FimSeBranco:
 	mov dl, 1		; se chegar ate aqui, o pixel eh branco
 	ret
 
-
+	
 ;; rotina para verificar se um dado pixel eh preto
 ;; retorna dl=1 p/ pixel preto
 ;;	   dl=0 caso contrario 
 SePreto:	
-	mov dx, [es:img + 0x36 + ??]
+	mov dx, [es:img + 0x36 + di]
 	cmp dx, 0x0000
 	je ContinuaSePreto
 	mov dl, 0		; se os dois primeiros bytes nao forem 0x00 e 0x00
 	ret			; ja retorna que o pixel nao eh branco
 ContinuaSePreto:
-	mov dh, [es:img + 0x38 + ??] ; [es:img + 0x36 + ?? + 2]
+	mov dh, [es:img + 0x38 + di] ; [es:img + 0x36 + di + 2]
 	cmp dh, 0x00
 	je FimSePreto
 	mov dl, 0
@@ -321,11 +331,183 @@ FimSePreto:
 	ret
 
 
-	
 ;; rotina para verificar cada um dos vizinhos de um pixel preto
 ;; e pinta-lo se for branco
-VerificaVizinhos:	
+VerificaVizinhos:
+	;; SI contera o "estado" do pixel em relacao as bordas.
+	;; Os 4 ultimos bits serao flags para dizer se o pixel esta em algum
+	;; limite das bordas.
+	;; SI: 0000 0000 0000 [bEsq][bCima][bDir][bBaixo]
+	;; 0 -> OK. 1 -> problema para aquela direcao
+	push si			; guarda si na pilha
+	xor si, si
 	
+	;; verifica o pixel da ESQUERDA
+
+	;; verifica borda pela esquerda
+	cmp cx, 0		; caso a coluna atual seja a primeira, 
+	je SetBitEsq		; pula ao proximo vizinho
+	
+	mov bx, di
+	sub bx, 3		; bx <- di-3
+	call SeBranco
+	cmp dl, 0		; caso pixel NAO seja branco, pula ao prox
+	je PixelDireita
+	mov word [es:img + 0x36 + bx], 0x0000 ; caso contrario, PINTA-O
+SetBitEsq:
+	or si, 0x0008		; seta o bit da esquerda de SI
+PixelDireita:
+	;; verifica o pixel da DIREITA
+
+	;; verifica borda pela direita
+	mov bx, cx
+	inc bx
+	cmp bx, [es:img + 0x12]
+	je SetBitDir
+
+	mov bx, di
+	add bx, 3		; bx <- di+3
+	call SeBranco
+	cmp dl, 0
+	je PixelAbaixo
+	mov word [es:img + 0x36 + bx], 0x0000
+SetBitDir:
+	or si, 0x0002
+PixelAbaixo:	
+	;; verifica o pixel ABAIXO
+
+	;; verifica borda de baixo
+	cmp ax, 0
+	je SetBitBaixo
+	
+	;; bx <- di - ([largura]*3 + [apendice])
+	mov bx,[es:img + 0x12]	
+	shl bx, 1
+	add bx,[es:img + 0x12]
+	add bx, [apendice]
+	neg bx
+	add bx, di
+	call SeBranco
+	cmp dl, 0
+	je PixelAcima
+	mov word [es:img + 0x36 + bx], 0x0000
+SetBitBaixo:	
+	or si, 0x0001
+PixelAcima:	
+	;; verifica o pixel ACIMA
+
+	;; verifica borda de cima
+	mov bx, ax
+	inc bx
+	cmp bx, [es:img + 0x16]
+	je SetBitCima
+	
+	;; bx <- di + ([largura]*3 + [apendice])
+	mov bx,[es:img + 0x12]	
+	shl bx, 1
+	add bx,[es:img + 0x12]
+	add bx, [apendice]
+	add bx, di
+	call SeBranco
+	cmp dl, 0
+	je PixelInfEsq
+	mov word [es:img + 0x36 + bx], 0x0000
+SetBitCima:	
+	or si, 4
+PixelInfEsq:
+	;; verifica o pixel INFERIOR ESQUERDO
+
+	;; verifica borda de baixo
+	test si, 0x0001
+	jnz PixelInfDir
+
+	;; verifica borda da esquerda
+	test si, 0x0008
+	jnz PixelInfDir
+
+	;; bx <- di - ([largura]*3 + [apendice] + 1)
+	mov bx,[es:img + 0x12]	
+	shl bx, 1
+	add bx,[es:img + 0x12]
+	add bx, [apendice]
+	inc bx
+	neg bx
+	add bx, di
+	call SeBranco
+	cmp dl, 0
+	je PixelInfDir
+	mov word [es:img + 0x36 + bx], 0x0000
+PixelInfDir:
+	;; verifica o pixel INFERIOR DIREITO
+
+	;; verifica borda de baixo
+	test si, 0x0001
+	jnz PixelSupEsq
+
+	;; verifica borda da direita
+	test si, 0x0002
+	jnz PixelSupEsq
+
+	;; bx <- di - ([largura]*3 + [apendice] - 1)
+	mov bx,[es:img + 0x12]	
+	shl bx, 1
+	add bx,[es:img + 0x12]
+	add bx, [apendice]
+	dec bx
+	neg bx
+	add bx, di
+	call SeBranco
+	cmp dl, 0
+	je PixelSupEsq
+	mov word [es:img + 0x36 + bx], 0x0000
+PixelSupEsq:
+	;; verifica o pixel SUPERIOR ESQUERDO
+
+	;; verifica a borda de cima
+	test si, 0x0004
+	jnz PixelSupDir
+
+	;; verifica a borda da esquerda
+	test si, 0x0008
+	jnz PixelInfDir
+
+	;; bx <- di + ([largura]*3 + [apendice]) -1
+	mov bx,[es:img + 0x12]	
+	shl bx, 1
+	add bx,[es:img + 0x12]
+	add bx, [apendice]
+	dec bx
+	add bx, di
+	call SeBranco
+	cmp dl, 0
+	je PixelSupEsq
+	mov word [es:img + 0x36 + bx], 0x0000
+PixelSupDir:	
+	;; verifica o pixel SUPERIOR DIREITO
+
+	;; verifica a borda de cima
+	test si, 0x0003
+	jnz FimVerificaVizinhos
+
+	;; verifica a borda da direita
+	test si, 0x0002
+	jnz FimVerificaVizinhos
+
+	;; bx <- di + ([largura]*3 + [apendice]) +1
+	mov bx,[es:img + 0x12]	
+	shl bx, 1
+	add bx,[es:img + 0x12]
+	add bx, [apendice]
+	inc bx
+	add bx, di
+	call SeBranco
+	cmp dl, 0
+	je PixelSupEsq
+	mov word [es:img + 0x36 + bx], 0x0000
+FimVerificaVizinhos:
+	pop si			; recupera si
+	ret
+
 
 	
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -340,7 +522,10 @@ VerificaVizinhos:
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-GeraArquivo:	
+GeraArquivo:
+	;; recupera o di utilizado no processamento da imagem
+	pop di
+	
 	;; criacao do arquivo
 	mov ah, 0x3C
 	mov cx, 0x00
@@ -349,7 +534,7 @@ GeraArquivo:
 
 	;; escrita no arquivo
 	mov bx, ax		; bx <- handle para arquivo de saida
-	mov cx, [tamanho_arq]
+	mov cx, [inicio_cabecalho + 2]
 	push ds			; guarda ds na pilha
 	mov ax, es
 	mov ds, ax		; ds <- (temporariamente) es
@@ -391,11 +576,10 @@ MsgErroAbreArquivo: db 'ERRO ao tentar abrir o arquivo. Verifique se o arquivo e
 MsgErroArquivo:	db 'ERRO: O arquivo nao eh do tipo BMP especificado.',13,10,'$'
 	
 ;; variaveis usadas na leitura do arquivo
-tipo_arq: resb 2
-tamanho_arq: resb 2
+inicio_cabecalho: resb 34
 
 ;; numero de bytes somado a cada linha (vai de 0 a 3)
-apendice: resb 1
+apendice: resb 2
 	
 ; _____________________________________________________________	
 	
