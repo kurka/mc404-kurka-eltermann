@@ -273,6 +273,7 @@ ForLargura:
 	cmp dl, 0	
 	je VoltaForLargura	; se o pixel NAO for preto, continua verificando
 	call VerificaVizinhos	; caso contrario, chama a rotina de verificacao dos vizinhos
+
 	
 VoltaForLargura:
 	add di, 3		; soma 3 bytes ao contador de deslocamento
@@ -284,10 +285,10 @@ VoltaForLargura:
 SaiForLargura:
 	add di, [apendice]	; soma o apendice ao contador de deslocamento
 	inc ax
-	cmp ax, [es:img + 0x16]	; se ax == altura , ja verificou todos os pixels, 
-				; entao pula para a criacao do arquivo
-	jne ForAltura
-	jmp GeraArquivo
+	cmp ax, [es:img + 0x16]	; se ax NAO for igual a altura, ainda nao chegou ao fim,
+				; entao volta para o for inicial
+	jne ForAltura		; caso contrario, ja verificou todos os pixels e pula para
+	jmp GeraArquivo		; a geracao do arquivo
 
 
 	;; Daqui pra baixo, estao as definicoes das rotinas utilizadas
@@ -296,14 +297,12 @@ SaiForLargura:
 ;; retorna dl=1 p/ pixel branco
 ;;	   dl=0 caso contrario 
 SeBranco:	
-	mov dx, [es:img + 0x36 + bx]
-	cmp dx, 0xFFFF
+	cmp word [es:img + 0x36 + bx], 0xFFFF
 	je ContinuaSeBranco
 	mov dl, 0		; se os dois primeiros bytes nao forem 0xFF e 0xFF
 	ret			; ja retorna que o pixel nao eh branco
 ContinuaSeBranco:
-	mov dh, [es:img + 0x38 + bx] ; [es:img + 0x36 + bx + 2]
-	cmp dh, 0xFF
+	cmp byte [es:img + 0x38 + bx], 0xFF  ; [es:img + 0x36 + bx + 2]
 	je FimSeBranco
 	mov dl, 0
 	ret
@@ -316,14 +315,12 @@ FimSeBranco:
 ;; retorna dl=1 p/ pixel preto
 ;;	   dl=0 caso contrario 
 SePreto:	
-	mov dx, [es:img + 0x36 + di]
-	cmp dx, 0x0000
+	cmp word [es:img + 0x36 + di], 0x0000
 	je ContinuaSePreto
 	mov dl, 0		; se os dois primeiros bytes nao forem 0x00 e 0x00
 	ret			; ja retorna que o pixel nao eh branco
 ContinuaSePreto:
-	mov dh, [es:img + 0x38 + di] ; [es:img + 0x36 + di + 2]
-	cmp dh, 0x00
+	cmp byte [es:img + 0x38 + di], 0x00 ; [es:img + 0x36 + di + 2]
 	je FimSePreto
 	mov dl, 0
 	ret
@@ -334,17 +331,18 @@ FimSePreto:
 
 ;; rotina para verificar cada um dos vizinhos de um pixel preto
 ;; e pinta-lo se for branco
-VerificaVizinhos:
+VerificaVizinhos:		
 	;; SI contera o "estado" do pixel em relacao as bordas.
 	;; Os 4 ultimos bits serao flags para dizer se o pixel esta em algum
 	;; limite das bordas.
 	;; SI: 0000 0000 0000 [bEsq][bCima][bDir][bBaixo]
 	;; 0 -> OK. 1 -> problema para aquela direcao
-	push si			; guarda si na pilha
-	xor si, si
-	
-	;; verifica o pixel da ESQUERDA
 
+	push si			; guarda si na pilha
+	xor si, si		; zera o registrador das "flags'
+
+	;; verifica o pixel da ESQUERDA
+	
 	;; verifica borda pela esquerda
 	cmp cx, 0		; caso a coluna atual seja a primeira, 
 	je SetBitEsq		; pula ao proximo vizinho
@@ -355,6 +353,7 @@ VerificaVizinhos:
 	cmp dl, 0		; caso pixel NAO seja branco, pula ao prox
 	je PixelDireita
 	mov word [es:img + 0x36 + bx], 0x0000 ; caso contrario, PINTA-O
+	jmp PixelDireita
 SetBitEsq:
 	or si, 0x0008		; seta o bit da esquerda de SI
 PixelDireita:
@@ -372,6 +371,7 @@ PixelDireita:
 	cmp dl, 0
 	je PixelAbaixo
 	mov word [es:img + 0x36 + bx], 0x0000
+	jmp PixelAbaixo
 SetBitDir:
 	or si, 0x0002
 PixelAbaixo:	
@@ -392,6 +392,7 @@ PixelAbaixo:
 	cmp dl, 0
 	je PixelAcima
 	mov word [es:img + 0x36 + bx], 0x0000
+	jmp PixelAcima
 SetBitBaixo:	
 	or si, 0x0001
 PixelAcima:	
@@ -413,6 +414,7 @@ PixelAcima:
 	cmp dl, 0
 	je PixelInfEsq
 	mov word [es:img + 0x36 + bx], 0x0000
+	jmp PixelInfEsq
 SetBitCima:	
 	or si, 4
 PixelInfEsq:
@@ -426,12 +428,12 @@ PixelInfEsq:
 	test si, 0x0008
 	jnz PixelInfDir
 
-	;; bx <- di - ([largura]*3 + [apendice] + 1)
+	;; bx <- di - ([largura]*3 + [apendice] + 3)
 	mov bx,[es:img + 0x12]	
 	shl bx, 1
 	add bx,[es:img + 0x12]
 	add bx, [apendice]
-	inc bx
+	add bx, 3
 	neg bx
 	add bx, di
 	call SeBranco
@@ -449,12 +451,12 @@ PixelInfDir:
 	test si, 0x0002
 	jnz PixelSupEsq
 
-	;; bx <- di - ([largura]*3 + [apendice] - 1)
+	;; bx <- di - ([largura]*3 + [apendice] - 3)
 	mov bx,[es:img + 0x12]	
 	shl bx, 1
 	add bx,[es:img + 0x12]
 	add bx, [apendice]
-	dec bx
+	sub bx, 3
 	neg bx
 	add bx, di
 	call SeBranco
@@ -472,12 +474,12 @@ PixelSupEsq:
 	test si, 0x0008
 	jnz PixelInfDir
 
-	;; bx <- di + ([largura]*3 + [apendice]) -1
+	;; bx <- di + ([largura]*3 + [apendice]) -3
 	mov bx,[es:img + 0x12]	
 	shl bx, 1
 	add bx,[es:img + 0x12]
 	add bx, [apendice]
-	dec bx
+	sub bx, 3
 	add bx, di
 	call SeBranco
 	cmp dl, 0
@@ -494,12 +496,12 @@ PixelSupDir:
 	test si, 0x0002
 	jnz FimVerificaVizinhos
 
-	;; bx <- di + ([largura]*3 + [apendice]) +1
+	;; bx <- di + ([largura]*3 + [apendice]) +3
 	mov bx,[es:img + 0x12]	
 	shl bx, 1
 	add bx,[es:img + 0x12]
 	add bx, [apendice]
-	inc bx
+	add bx, 3
 	add bx, di
 	call SeBranco
 	cmp dl, 0
