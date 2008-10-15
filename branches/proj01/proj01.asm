@@ -331,189 +331,191 @@ FimSePreto:
 
 ;; rotina para verificar cada um dos vizinhos de um pixel preto
 ;; e pinta-lo se for branco
+;;
+	;; 	;;
+	
 VerificaVizinhos:		
 	;; SI contera o "estado" do pixel em relacao as bordas.
 	;; Os 4 ultimos bits serao flags para dizer se o pixel esta em algum
 	;; limite das bordas.
 	;; SI: 0000 0000 0000 [bEsq][bCima][bDir][bBaixo]
 	;; 0 -> OK. 1 -> problema para aquela direcao
-
-	push si			; guarda si na pilha
-	xor si, si		; zera o registrador das "flags'
+ 	push si			; guarda si na pilha
+ 	xor si, si		; zera o registrador das "flags'
 
 	;; verifica o pixel da ESQUERDA
 	
 	;; verifica borda pela esquerda
-	cmp cx, 0		; caso a coluna atual seja a primeira, 
+	cmp cx, 0		; caso a coluna atual seja a primeira,
 	je SetBitEsq		; pula ao proximo vizinho
-	
+
 	mov bx, di
 	sub bx, 3		; bx <- di-3
-	call SeBranco
+ 	call SeBranco
 	cmp dl, 0		; caso pixel NAO seja branco, pula ao prox
 	je PixelDireita
 	mov word [es:img + 0x36 + bx], 0x0000 ; caso contrario, PINTA-O
-	jmp PixelDireita
+	jmp PixelDireita		      
 SetBitEsq:
-	or si, 0x0008		; seta o bit da esquerda de SI
-PixelDireita:
+ 	or si, 0x0008		; seta o bit da esquerda de SI
+	PixelDireita:
 	;; verifica o pixel da DIREITA
 
-	;; verifica borda pela direita
+	;; verifica borda pela direita 
 	mov bx, cx
 	inc bx
 	cmp bx, [es:img + 0x12]
 	je SetBitDir
-
 	mov bx, di
 	add bx, 3		; bx <- di+3
-	call SeBranco
-	cmp dl, 0
-	je PixelAbaixo
-	mov word [es:img + 0x36 + bx], 0x0000
-	jmp PixelAbaixo
+ 	call SeBranco
+ 	cmp dl, 0
+ 	je PixelAbaixo
+ 	mov word [es:img + 0x36 + bx], 0x0000
+ 	jmp PixelAbaixo
 SetBitDir:
-	or si, 0x0002
-PixelAbaixo:	
-	;; verifica o pixel ABAIXO
+ 	or si, 0x0002
+ PixelAbaixo:
+ 	;; verifica o pixel ABAIXO
 
-	;; verifica borda de baixo
-	cmp ax, 0
-	je SetBitBaixo
-	
-	;; bx <- di - ([largura]*3 + [apendice])
-	mov bx,[es:img + 0x12]	
-	shl bx, 1
-	add bx,[es:img + 0x12]
-	add bx, [apendice]
-	neg bx
-	add bx, di
-	call SeBranco
-	cmp dl, 0
-	je PixelAcima
-	mov word [es:img + 0x36 + bx], 0x0000
-	jmp PixelAcima
-SetBitBaixo:	
-	or si, 0x0001
-PixelAcima:	
-	;; verifica o pixel ACIMA
+ 	;; verifica borda de baixo
+ 	cmp ax, 0
+ 	je SetBitBaixo
 
-	;; verifica borda de cima
-	mov bx, ax
-	inc bx
-	cmp bx, [es:img + 0x16]
-	je SetBitCima
-	
-	;; bx <- di + ([largura]*3 + [apendice])
-	mov bx,[es:img + 0x12]	
-	shl bx, 1
-	add bx,[es:img + 0x12]
-	add bx, [apendice]
-	add bx, di
-	call SeBranco
-	cmp dl, 0
-	je PixelInfEsq
-	mov word [es:img + 0x36 + bx], 0x0000
-	jmp PixelInfEsq
-SetBitCima:	
-	or si, 4
-PixelInfEsq:
-	;; verifica o pixel INFERIOR ESQUERDO
+ 	;; bx <- di - ([largura]*3 + [apendice])
+ 	mov bx,[es:img + 0x12]
+ 	shl bx, 1
+ 	add bx,[es:img + 0x12]
+ 	add bx, [apendice]
+ 	neg bx
+ 	add bx, di
+ 	call SeBranco
+ 	cmp dl, 0
+ 	je PixelAcima
+ 	mov word [es:img + 0x36 + bx], 0x0000
+ 	jmp PixelAcima
+ SetBitBaixo:
+ 	or si, 0x0001
+ PixelAcima:
+ 	;; verifica o pixel ACIMA
 
-	;; verifica borda de baixo
-	test si, 0x0001
-	jnz PixelInfDir
+ 	;; verifica borda de cima
+ 	mov bx, ax
+ 	inc bx
+ 	cmp bx, [es:img + 0x16]
+ 	je SetBitCima
 
-	;; verifica borda da esquerda
-	test si, 0x0008
-	jnz PixelInfDir
+ 	;; bx <- di + ([largura]*3 + [apendice])
+ 	mov bx,[es:img + 0x12]
+ 	shl bx, 1
+ 	add bx,[es:img + 0x12]
+ 	add bx, [apendice]
+ 	add bx, di
+ 	call SeBranco
+ 	cmp dl, 0
+ 	je PixelInfEsq
+ 	mov word [es:img + 0x36 + bx], 0x0000
+ 	jmp PixelInfEsq
+ SetBitCima:
+ 	or si, 0x0004
+ PixelInfEsq:
+ 	;; verifica o pixel INFERIOR ESQUERDO
 
-	;; bx <- di - ([largura]*3 + [apendice] + 3)
-	mov bx,[es:img + 0x12]	
-	shl bx, 1
-	add bx,[es:img + 0x12]
-	add bx, [apendice]
-	add bx, 3
-	neg bx
-	add bx, di
-	call SeBranco
-	cmp dl, 0
-	je PixelInfDir
-	mov word [es:img + 0x36 + bx], 0x0000
-PixelInfDir:
-	;; verifica o pixel INFERIOR DIREITO
+ 	;; verifica borda de baixo
+ 	test si, 0x0001
+ 	jnz PixelInfDir
 
-	;; verifica borda de baixo
-	test si, 0x0001
-	jnz PixelSupEsq
+ 	;; verifica borda da esquerda
+ 	test si, 0x0008
+ 	jnz PixelInfDir
 
-	;; verifica borda da direita
-	test si, 0x0002
-	jnz PixelSupEsq
+ 	;; bx <- di - ([largura]*3 + [apendice] + 3)
+ 	mov bx,[es:img + 0x12]
+ 	shl bx, 1
+ 	add bx,[es:img + 0x12]
+ 	add bx, [apendice]
+ 	add bx, 3
+ 	neg bx
+ 	add bx, di
+ 	call SeBranco
+ 	cmp dl, 0
+ 	je PixelInfDir
+ 	mov word [es:img + 0x36 + bx], 0x0000
+ PixelInfDir:
+ 	;; verifica o pixel INFERIOR DIREITO
 
-	;; bx <- di - ([largura]*3 + [apendice] - 3)
-	mov bx,[es:img + 0x12]	
-	shl bx, 1
-	add bx,[es:img + 0x12]
-	add bx, [apendice]
-	sub bx, 3
-	neg bx
-	add bx, di
-	call SeBranco
-	cmp dl, 0
-	je PixelSupEsq
-	mov word [es:img + 0x36 + bx], 0x0000
-PixelSupEsq:
-	;; verifica o pixel SUPERIOR ESQUERDO
+ 	;; verifica borda de baixo
+ 	test si, 0x0001
+ 	jnz PixelSupEsq
 
-	;; verifica a borda de cima
-	test si, 0x0004
-	jnz PixelSupDir
+ 	;; verifica borda da direita
+ 	test si, 0x0002
+ 	jnz PixelSupEsq
 
-	;; verifica a borda da esquerda
-	test si, 0x0008
-	jnz PixelInfDir
+ 	;; bx <- di - ([largura]*3 + [apendice] - 3)
+ 	mov bx,[es:img + 0x12]
+ 	shl bx, 1
+ 	add bx,[es:img + 0x12]
+ 	add bx, [apendice]
+ 	sub bx, 3
+ 	neg bx
+ 	add bx, di
+ 	call SeBranco
+ 	cmp dl, 0
+ 	je PixelSupEsq
+ 	mov word [es:img + 0x36 + bx], 0x0000
+ PixelSupEsq:
+ 	;; verifica o pixel SUPERIOR ESQUERDO
 
-	;; bx <- di + ([largura]*3 + [apendice]) -3
-	mov bx,[es:img + 0x12]	
-	shl bx, 1
-	add bx,[es:img + 0x12]
-	add bx, [apendice]
-	sub bx, 3
-	add bx, di
-	call SeBranco
-	cmp dl, 0
-	je PixelSupEsq
-	mov word [es:img + 0x36 + bx], 0x0000
-PixelSupDir:	
-	;; verifica o pixel SUPERIOR DIREITO
+ 	;; verifica a borda de cima
+ 	test si, 0x0004
+ 	jnz PixelSupDir
 
-	;; verifica a borda de cima
-	test si, 0x0003
-	jnz FimVerificaVizinhos
+ 	;; verifica a borda da esquerda
+ 	test si, 0x0008
+ 	jnz PixelInfDir
 
-	;; verifica a borda da direita
-	test si, 0x0002
-	jnz FimVerificaVizinhos
+ 	;; bx <- di + ([largura]*3 + [apendice] -3)
+ 	mov bx,[es:img + 0x12]
+ 	shl bx, 1
+ 	add bx,[es:img + 0x12]
+ 	add bx, [apendice]
+ 	sub bx, 3
+ 	add bx, di
+ 	call SeBranco
+ 	cmp dl, 0
+	je PixelSupDir
+  	mov word [es:img + 0x36 + bx], 0x0000
+ PixelSupDir:
+ 	;; verifica o pixel SUPERIOR DIREITO
 
-	;; bx <- di + ([largura]*3 + [apendice]) +3
-	mov bx,[es:img + 0x12]	
-	shl bx, 1
-	add bx,[es:img + 0x12]
-	add bx, [apendice]
-	add bx, 3
-	add bx, di
-	call SeBranco
-	cmp dl, 0
-	je PixelSupEsq
-	mov word [es:img + 0x36 + bx], 0x0000
-FimVerificaVizinhos:
+;; verifica a borda de cima
+ 	test si, 0x0003
+ 	jnz FimVerificaVizinhos
+
+ 	;; verifica a borda da direita
+ 	test si, 0x0002
+ 	jnz FimVerificaVizinhos
+
+ 	;; bx <- di + ([largura]*3 + [apendice]) +3
+ 	mov bx,[es:img + 0x12]
+ 	shl bx, 1
+ 	add bx,[es:img + 0x12]
+ 	add bx, [apendice]
+ 	add bx, 3
+ 	add bx, di
+ 	call SeBranco
+ 	cmp dl, 0
+ 	je FimVerificaVizinhos
+ 	mov word [es:img + 0x36 + bx], 0x0000
+ FimVerificaVizinhos:
 	pop si			; recupera si
 	ret
-
-
 	
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	
+	
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	
 	;; processamento da imagem ;;
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
