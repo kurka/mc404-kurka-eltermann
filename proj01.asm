@@ -356,7 +356,7 @@ VerificaVizinhos:
 	je PixelDireita
 	mov word [es:img + 0x36 + bx], 0x0000 ; caso contrario, PINTA-O
 	jmp PixelDireita		      
-SetBitEsq:
+ SetBitEsq:
  	or si, 0x0008		; seta o bit da esquerda de SI
 	PixelDireita:
 	;; verifica o pixel da DIREITA
@@ -373,7 +373,7 @@ SetBitEsq:
  	je PixelAbaixo
  	mov word [es:img + 0x36 + bx], 0x0000
  	jmp PixelAbaixo
-SetBitDir:
+ SetBitDir:
  	or si, 0x0002
  PixelAbaixo:
  	;; verifica o pixel ABAIXO
