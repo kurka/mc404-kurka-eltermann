@@ -221,23 +221,15 @@ CarregaImagem:
 	;; logo, deve-se somar um n de bytes a cada linha afim de normaliza-la
 	;; 0 <= (numero de bytes a mais / linha)-chamemos de 'apendice' <= 3
 
-	;; apendice = (3*ax)%2 caso 0000 ou 0010. se 0001->0011; se 0011->0001
+	;; apendice = [4 - (3*largura)%4] % 4
 	mov ax, [es:img + 0x12]	; ax <- largura
 	mov bx, ax
 	shl ax, 1		; ax <- 2*ax
 	add ax, bx		; ax <- 2*ax + bx = 3*ax
 	and ax, 3		; ax <- (3*ax)%4
-	cmp ax, 1
-	je ApendiceUm
-	cmp dx, 3
-	je ApendiceTres
-	jmpFimApendice
-ApendiceUm:
-	or ax, 2		; 0001 -> 0011
-	jmp FimApendice
-ApendiceTres:
-	and ax, 1		; 0011 -> 0001
-FimApendice:	
+	neg ax
+	add ax, 4		; ax <- 4 - (3*ax)%4
+	and ax, 3		; ax <- [4 - (3*ax)%4] % 4
 	mov word [apendice], ax
 
 	
@@ -427,7 +419,7 @@ PixelAcima:
 	mov word [es:img + 0x36 + bx], 0x0000
 	jmp PixelInfEsq
 SetBitCima:	
-	or si, 4
+	or si, 0x0004
 PixelInfEsq:
 	;; verifica o pixel INFERIOR ESQUERDO
 
@@ -483,7 +475,7 @@ PixelSupEsq:
 
 	;; verifica a borda da esquerda
 	test si, 0x0008
-	jnz PixelInfDir
+	jnz PixelSupDir
 
 	;; bx <- di + ([largura]*3 + [apendice]) -3
 	mov bx,[es:img + 0x12]	
