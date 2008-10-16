@@ -221,13 +221,26 @@ CarregaImagem:
 	;; logo, deve-se somar um n de bytes a cada linha afim de normaliza-la
 	;; 0 <= (numero de bytes a mais / linha)-chamemos de 'apendice' <= 3
 
-	;; apendice = (largura*3)%4 [resto da divisao inteira]
+	;; Op=word: AX:=DX:AX / Op DX:=Rest
+	mov dx, 0
 	mov ax, [es:img + 0x12]	; ax <- largura
 	mov bx, ax
 	shl ax, 1		; ax <- 2*ax
 	add ax, bx		; ax <- 2*ax + bx = 3*ax
-	and ax, 0x03		; al <- ax%4
-	mov word [apendice], ax
+	mov bx, 4		; bx <- divisor
+	div bx			; dx <- resto da divisao por 4
+	cmp dx, 1
+	je ApendiceUm
+	cmp dx, 3
+	je ApendiceTres
+	jmpFimApendice
+ApendiceUm:
+	or dx, 2		; 0001 -> 0011
+	jmp FimApendice
+ApendiceTres:
+	and dx, 1		; 0011 -> 0001
+FimApendice:	
+	mov word [apendice], dx
 
 	
 	;; algoritmo do processamento (pseudo-codigo em alto nivel)
@@ -505,7 +518,7 @@ PixelSupDir:
 	add bx, di
 	call SeBranco
 	cmp dl, 0
-	je PixelSupEsq
+	je FimVerificaVizinhos
 	mov word [es:img + 0x36 + bx], 0x0000
 FimVerificaVizinhos:
 	pop si			; recupera si
