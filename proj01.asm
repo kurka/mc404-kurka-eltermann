@@ -221,26 +221,24 @@ CarregaImagem:
 	;; logo, deve-se somar um n de bytes a cada linha afim de normaliza-la
 	;; 0 <= (numero de bytes a mais / linha)-chamemos de 'apendice' <= 3
 
-	;; Op=word: AX:=DX:AX / Op DX:=Rest
-	mov dx, 0
+	;; apendice = (3*ax)%2 caso 0000 ou 0010. se 0001->0011; se 0011->0001
 	mov ax, [es:img + 0x12]	; ax <- largura
 	mov bx, ax
 	shl ax, 1		; ax <- 2*ax
 	add ax, bx		; ax <- 2*ax + bx = 3*ax
-	mov bx, 4		; bx <- divisor
-	div bx			; dx <- resto da divisao por 4
-	cmp dx, 1
+	and ax, 3		; ax <- (3*ax)%4
+	cmp ax, 1
 	je ApendiceUm
 	cmp dx, 3
 	je ApendiceTres
 	jmpFimApendice
 ApendiceUm:
-	or dx, 2		; 0001 -> 0011
+	or ax, 2		; 0001 -> 0011
 	jmp FimApendice
 ApendiceTres:
-	and dx, 1		; 0011 -> 0001
+	and ax, 1		; 0011 -> 0001
 FimApendice:	
-	mov word [apendice], dx
+	mov word [apendice], ax
 
 	
 	;; algoritmo do processamento (pseudo-codigo em alto nivel)
