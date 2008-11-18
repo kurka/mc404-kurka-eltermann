@@ -60,30 +60,28 @@ CarregaCom:
 	mov ah, 0x42
 	;; bx continua contendo o handle para o arquivo
 	xor cx, cx
-	xor dx, dx		; cx:dx = 0x00000000
+	xor dx, dx		; cx e dx <-  0x0000
 	mov al, 2		; move a partir do fim do arquivo
 	int 0x21
-	dec ax
-	;; guarda o tamanho do arquivo em bytes na pilha
-	push ax
+	;; guarda o tamanho do arquivo em bytes na memoria
+	mov [tam_arq_com], ax
 
 	;; para a leitura, o file-pointer sera novamente movido ao inicio do arquivo
 	mov ah, 0x42
 	;; bx continua contendo o handle para o arquivo
-	xor cx, cx
-	xor dx, dx		; cx:dx = 0x00000000
+	;; cx == dx == 0x0000
 	mov al, 0		; move a partir do começo do arquivo
 	int 0x21
 
 	;; cx <- tamanho do arquivo em bytes
-	pop cx
+	mov cx, [tam_arq_com]
 	
 	;; colocaremos o valor de ES temporariamente em DS
 	push ds			; guarda ds na pilha
 	mov ax, es
 	mov ds, ax
 	mov dx, bin		; DS:DX <- "ES:bin"
-	mov ah, 0x3F
+	mov ah, 0x3F 		; leitura
 	;; bx continua contendo o handle para o arquivo
 	int 0x21		; arquivo eh salvo INTEIRO na memoria no segmento ES
 	
@@ -94,15 +92,54 @@ CarregaCom:
 	mov ah, 0x3E
 	;; bx continua contendo o handle para o arquivo
 	int 0x21
-	jmp Fim
+	jmp Next
 	
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;; leitura do arquivo executavel para a memoria ;;
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; _____________________________________________________________ 
+
+
+Next:	
+	
+	;; Criacao do arquivo de saida (que contera o codigo do programa)
+	mov ah, 0x3C
+	xor cx, cx 		; cx <- 0x0000
+	mov dx, arq_saida	; dx aponta para o nome do arquivo
+	int 0x21
+	mov bx, ax 		; bx <- handle do arquivo de saida
+
+
+	;;/* AREA DE TESTES!!! ;;
+
+	;; Teste da leitura: copiar o arquivo binario exatamente como ele eh, para o arquivo de saida
+	;; e comparar os dois (diff)
+
+	;; bx continua contendo o handle do arq de saida
+	mov cx, [tam_arq_com]
+	push ds
+	mov ax, es
+	mov ds, ax
+	mov dx, bin 		; DS:DX <- "ES:bin"
+	mov ah, 0x40
+	int 0x21
+
+	pop ds
+
+	jmp Fim
+	
+	;; fecha arquivo de saida
+	mov ah, 0x3E
+	;; bx continua contendo o handle do arq de saida
+	int 0x21
+	
+
+	;; AREA DE TESTES!!! */;;	
+
 	
 	
+
 Fim:
 	mov ah, 0x4C
 	int 0x21
@@ -116,7 +153,11 @@ SEGMENT data
 
 ;; msg de erro
 MsgErroAbreArquivo: db 'ERRO ao tentar abrir o arquivo. Verifique se o arquivo especificado esta no diretorio.',13,10,'$'
-	
+
+;; nome do arquivo de saida
+arq_saida: db 'codigo.asm',0x00
+
+tam_arq_com: resb 2
 	
 ; _____________________________________________________________	
 	
