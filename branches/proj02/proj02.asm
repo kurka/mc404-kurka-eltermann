@@ -166,6 +166,29 @@ tam_arq_com: resb 2
 linha_de_comando: resb 50
 
 
+;; Vetor de registradores
+;; Tamanho de cada elemento: 2 bytes (2 caracteres)
+;; Indice: vai de 0h a Fh
+;; Exemplos...
+;; word[vetor_registradores + 2*0h] = 'AL'
+;; word[vetor_registradores + 2*8h] = 'AX'
+;; word[vetor_registradores + 2*Fh] = 'DI'
+;; 
+;; 			|----- w=0 -----||----- w=1 -----|
+vetor_registradores: db 'ALCLDLBLAHCHDHBHAXCXDXBXSPBPSIDI'
+;; 			|0-1-2-3-4-5-6-7||8-9-A-B-C-D-E-F|
+
+	
+;; Vetor das instrucoes de shift e rotacoes
+;; Tamanho de cada elemento: 3 bytes (3 caracteres)
+;; Indice: vai de 0h a 7h
+;; Exemplos...
+;; 3<bytes>[vetor_TTT + 3*0h] = 'rol'
+;; 3<bytes>[vetor_TTT + 3*7h] = 'sar'
+;;
+vetor_TTT: db 'rolrorrclrcrshlshr---sar'
+;;	      |-0--1--2--3--4--5--6--7-|
+	
 ; _____________________________________________________________	
 	
 	
