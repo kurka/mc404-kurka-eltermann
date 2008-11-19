@@ -1,0 +1,376 @@
+MOV
+1000100w || mod reg r/m
+1000101w || mod reg r/m
+1100011w || mod 000 r/m || data || data if w=1
+1011 w reg || data || data if w=1
+1010000w || addr-low || addr-high
+1010001w || addr-low || addr-high
+10001110 || mod 0 reg r/m
+10001100 || mod 0 reg r/m
+
+PUSH
+11111111 || mod 110 r/m
+01010reg
+000reg110
+011010s0 || data || data if s=0
+
+POP
+10001111 || mod 000 r/m
+01011reg
+000reg111 || (reg ?01)
+
+PUSHA = push all
+01100000
+
+POPA = pop all
+01100001
+
+XCHG = exchange
+1000011w || mod reg r/m
+10010reg
+
+XLAT = translate byte to AL
+11010111
+
+IN = input from
+1110010w || port
+1110110w
+
+OUT = output from
+1110010w || port
+1110110w
+
+LEA = load e.a. to register
+10001101 || mod reg r/m
+
+LDS = load pointer to DS
+11000101 || mod reg r/m || (mod ?11)
+
+LES = load pointer to ES
+11000100 || mod reg r/m || (mod ?11)
+
+ENTER = build stack frame
+11001000 || data-low || data-high || L
+
+LEAVE = tear down stack frame
+11001001
+
+LAHF = load AH with flags
+10011111
+
+SAHF = store AH into flags
+10011110
+
+PUSHF = push flags
+10011100
+
+POPF = pop flags
+10011101
+
+
+ADD
+000000dw || mod reg r/m
+100000sw || mod 000 r/m || data || data if sw=01
+0000010w || data || data if w=1
+
+ADC = add with carry
+000100dw || mod reg r/m
+100000sw || mod 010 r/m || data || data if sw=01
+0001010w || data || data if w=1
+
+INC = increment
+1111111w || mod 000 r/m
+01000reg
+
+AAA = ascii adjust for addition
+00110111
+
+DAA = decimal adjust for addition
+00100111
+
+SUB
+001010dw || mod reg r/m
+100000sw || mod 101 r/m || data || data if sw=01
+0001110w || data || data if w=1
+
+SBB = subtract with borrow
+000110dw || mod reg r/m
+100000sw || mod 001 r/m || data || data if sw=01
+0001110w || data || data if w=1
+
+DEC = decrement
+1111111w || mod 001 r/m
+01001reg
+
+NEG = change signal (complemento de 2!)
+1111011w || mod reg r/m
+
+CMP = compare
+0011101w || mod reg r/m
+0011100w || mod reg r/m
+100000sw || mod 111 r/m || data || data if sw=01
+0011110w || data || data if w=1
+
+AAS = ascii adjust for subtraction
+00111111
+
+DAS = decimal adjust for subtraction
+00101111
+
+MUL = multiply (unsigned)
+1111011w || mod 100 r/m
+
+IMUL = integer multiply (signed)
+1111011w || mod 101 r/m
+011010s1 || mod reg r/m || data || data if s=0
+
+AAM = ascii adjust for multiply
+11010100 || 00001010
+
+DIV = divide (unsigned)
+1111011w || mod 110 r/m
+
+IDIV = integer divid (signed)
+1111011w || mod 111 r/m
+
+AAD = ascii adjust for divide
+11010101 || 00001010
+
+CBW = convert byte to word
+10011000
+
+CWD = convert word to double-word
+10011001
+
+
+NOT = não lógico bit a bit
+1111011w || mod 010 r/m
+
+AND
+001000dw || mod reg r/m
+1000000w || mod 100 r/m || data || data if w=1
+0010010w || data || data if w=1
+
+OR
+000010dw || mod reg r/m
+1000000w || mod 001 r/m || data || data if w=1
+0000110w || data || data if w=1
+
+XOR
+001100dw || mod reg r/m
+1000000w || mod 110 r/m || data || data if w=1
+0011010w || data || data if w=1
+
+TEST = and function to flags, no result
+1000010w || mod reg r/m
+1111011w || mod 000 r/m || data || data if w=1
+1010100w || data || data if w=1
+
+SHIFTS/ROTATES
+1101000w || mod TTT r/m
+1101001w || mod TTT r/m
+1100000w || mod TTT r/m || count
+
+
+Funções de manipulação de strings
+
+MOVS = mov byte/word
+1010010w
+
+INS = input byte/word from DX port
+0110110w
+
+OUTS = output byte/word to DX port
+0110111w
+
+CMPS = compare byte/word
+1010011w
+
+SCAS = scan byte/word
+1010111w
+
+LODS = load byte/word to AL/AX
+1010110w
+
+STOS = store byte/word from AL/AX
+1010101w
+
+(repeated by count in CX:)
+
+MOV = move byte/word
+11110010 || 1010010w
+
+INS
+11110010 || 0110110w
+
+OUTS
+11110010 || 0110111w
+
+CMPS
+1111001z || 1010011w
+
+SCAS
+1111001z || 1010111w
+
+LODS
+11110010 || 0101001w
+
+STOS
+11110100 || 0101001w
+
+
+Jumps...
+
+JE/JZ = equal/zero
+01110100 || disp
+
+JL/JNGE
+01111100 || disp
+
+JLE/JNG
+01111110 || disp
+
+JB/JNAE
+01110010 || disp
+
+JC
+01110010 || disp
+
+JBE/JNA
+01110110 || disp
+
+JP/JPE
+01111010 || disp
+
+JO
+01110000 || disp
+
+JS
+01111000 || disp
+
+JNE/JNZ
+01110101 || disp
+
+
+JNL/JGE
+01111101 || disp
+
+JNLE/JG
+01111111 || disp
+
+JNB/JAE
+01110011 || disp
+
+JNC
+01110011 || disp
+
+JNBE/JA
+01110111 || disp
+
+JNP/JPO
+01111011 || disp
+
+JNO
+01110001 || disp
+
+JNS
+01111001 || disp
+
+
+CALL
+11101000 || disp-low || disp-high
+11111111 || mod 010 r/m
+11111111 || mod 011 r/m || (mod ?11)
+10011010 || segment offset <4 bytes> || selector <4 bytes>
+
+RET
+11000011
+11000010 || data-low || data-high
+11001011
+11001010 || data-low || data-high
+
+JMP
+11101011 || disp-low
+11101001 || disp-low || disp-high
+11111111 || mod 100 r/m
+11111111 || mod 101 r/m || (mod ?11)
+11101010 || segment offset <4 bytes> || selector <4 bytes>
+
+
+LOOP = loop cx times
+11100010 || disp
+
+LOOPZ/LOOPE = loop while zero/equal
+11100001 || disp
+
+LOOPNZ/LOOPNE = loop while not zero/not equal
+11100000 || disp
+
+JCXZ = jump if CX=zero
+11100011 || disp
+
+
+INT = interrupt
+11001101 || type
+11001100
+
+INTO = interrupt on overflow
+11001110
+
+BOUND = detect value out of range
+01100010 || mod reg r/m
+
+IRET = interrupt return
+11001111
+
+
+CLC = clear carry
+11111000
+
+CMC = complement carry
+11110101
+
+STC = set carry
+11111001
+
+CLD = clear direction
+11111100
+
+STD = set direction
+11111101
+
+CLI = clear interrupt
+11111010
+
+STI = set interrupt
+11111011
+
+HLT = halt
+11110100
+
+WAIT
+10011011
+
+LOCK = bus lock prefix
+11110000
+
+ESC = math coprocessor escape
+11011MMM || mod PPP r/m
+
+NOP = no operation
+10010000
+
+
+Segment override prefix
+
+CS
+00101110
+
+SS
+00110110
+
+DS
+00111110
+
+ES
+00100110
