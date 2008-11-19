@@ -158,7 +158,14 @@ MsgErroAbreArquivo: db 'ERRO ao tentar abrir o arquivo. Verifique se o arquivo e
 arq_saida: db 'codigo.asm',0x00
 
 tam_arq_com: resb 2
-	
+
+
+
+;; espaco de memoria reservado para a 'montagem' da linha de comando, antes
+;; desta ser escrita no arquivo
+linha_de_comando: resb 50
+
+
 ; _____________________________________________________________	
 	
 	
