@@ -1,3 +1,4 @@
+Table:	
 dw case00
 dw case01
 dw case02
@@ -649,4 +650,6 @@ caseFF:	;1111 1111 mod 000 r/m (disp-lo),(disp-hi) inc  mem16
 	;; mod 101 r/m (disp-lo),(disp-hi) jmp  mem16 (intersegment)
 	;; mod 110 r/m (disp-lo),(disp-hi) push mem16
 	;; mod 111 r/m                     —	
-	
+
+
+
