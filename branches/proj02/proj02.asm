@@ -92,7 +92,7 @@ CarregaCom:
 	mov ah, 0x3E
 	;; bx continua contendo o handle para o arquivo
 	int 0x21
-	jmp Next
+	jmp AbreArquivoSaida
 	
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;; leitura do arquivo executavel para a memoria ;;
@@ -101,9 +101,13 @@ CarregaCom:
 ; _____________________________________________________________ 
 
 
-Next:	
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;; abertura do arquivo de saida ;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 	
-	;; Criacao do arquivo de saida (que contera o codigo do programa)
+AbreArquivoSaida:	
+	
+	;; criacao do arquivo de saida (que contera o codigo do programa)
 	mov ah, 0x3C
 	xor cx, cx 		; cx <- 0x0000
 	mov dx, arq_saida	; dx aponta para o nome do arquivo
@@ -127,17 +131,41 @@ Next:
 
 	pop ds
 
-	jmp Fim
-	
+
 	;; fecha arquivo de saida
 	mov ah, 0x3E
 	;; bx continua contendo o handle do arq de saida
 	int 0x21
+
+	
+	jmp Fim
 	
 
 	;; AREA DE TESTES!!! */;;	
 
+
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;; abertura do arquivo de saida ;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 	
+; _____________________________________________________________
+
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;; leitura do arquivo executavel para a memoria ;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+
+
+
+	
+
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;; leitura do arquivo executavel para a memoria ;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	
+; _____________________________________________________________ 
 	
 
 Fim:
@@ -155,10 +183,9 @@ SEGMENT data
 MsgErroAbreArquivo: db 'ERRO ao tentar abrir o arquivo. Verifique se o arquivo especificado esta no diretorio.',13,10,'$'
 
 ;; nome do arquivo de saida
-arq_saida: db 'codigo.asm',0x00
+arq_saida: db 'saida.asm',0x00
 
 tam_arq_com: resb 2
-
 
 
 ;; espaco de memoria reservado para a 'montagem' da linha de comando, antes
