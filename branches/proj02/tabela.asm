@@ -1,273 +1,3 @@
-Table:	
-dw case00
-dw case01
-dw case02
-dw case03
-dw case04
-dw case05
-dw case06
-dw case07
-dw case08
-dw case09
-dw case0A
-dw case0B
-dw case0C
-dw case0D
-dw case0E
-dw case0F
-dw case10
-dw case11
-dw case12
-dw case13
-dw case14
-dw case15
-dw case16
-dw case17
-dw case18
-dw case19
-dw case1A
-dw case1B
-dw case1C
-dw case1D
-dw case1E
-dw case1F
-dw case20
-dw case21
-dw case22
-dw case23
-dw case24
-dw case25
-dw case26
-dw case27
-dw case28
-dw case29
-dw case2A
-dw case2B
-dw case2C
-dw case2D
-dw case2E
-dw case2F
-dw case30
-dw case31
-dw case32
-dw case33
-dw case34
-dw case35
-dw case36
-dw case37
-dw case38
-dw case39
-dw case3A
-dw case3B
-dw case3C
-dw case3D
-dw case3E
-dw case3F
-dw case40
-dw case41
-dw case42
-dw case43
-dw case44
-dw case45
-dw case46
-dw case47
-dw case48
-dw case49
-dw case4A
-dw case4B
-dw case4C
-dw case4D
-dw case4E
-dw case4F
-dw case50
-dw case51
-dw case52
-dw case53
-dw case54
-dw case55
-dw case56
-dw case57
-dw case58
-dw case59
-dw case5A
-dw case5B
-dw case5C
-dw case5D
-dw case5E
-dw case5F
-dw case60
-dw case61
-dw case62
-dw case63
-dw case64
-dw case65
-dw case66
-dw case67
-dw case68
-dw case69
-dw caseDefault
-dw caseDefault
-dw caseDefault
-dw caseDefault
-dw caseDefault
-dw caseDefault
-dw case70
-dw case71
-dw case72
-dw case73
-dw case74
-dw case75
-dw case76
-dw case77
-dw case78
-dw case79
-dw case7A
-dw case7B
-dw case7C
-dw case7D
-dw case7E
-dw case7F
-dw case80
-dw case81
-dw case82
-dw case83
-dw case84
-dw case85
-dw case86
-dw case87
-dw case88
-dw case89
-dw case8A
-dw case8B
-dw case8C
-dw case8D
-dw case8E
-dw case8F
-dw case90
-dw case91
-dw case92
-dw case93
-dw case94
-dw case95
-dw case96
-dw case97
-dw case98
-dw case99
-dw case9A
-dw case9B
-dw case9C
-dw case9D
-dw case9E
-dw case9F
-dw caseA0
-dw caseA1
-dw caseA2
-dw caseA3
-dw caseA4
-dw caseA5
-dw caseA6
-dw caseA7
-dw caseA8
-dw caseA9
-dw caseAA
-dw caseAB
-dw caseAC
-dw caseAD
-dw caseAE
-dw caseAF
-dw caseB0
-dw caseB1
-dw caseB2
-dw caseB3
-dw caseB4
-dw caseB5
-dw caseB6
-dw caseB7
-dw caseB8
-dw caseB9
-dw caseBA
-dw caseBB
-dw caseBC
-dw caseBD
-dw caseBE
-dw caseBF
-dw caseC0
-dw caseC1
-dw caseC2
-dw caseC3
-dw caseC4
-dw caseC5
-dw caseC6
-dw caseC7
-dw caseC8
-dw caseC9
-dw caseCA
-dw caseCB
-dw caseCC
-dw caseCD
-dw caseCE
-dw caseCF
-dw caseD0
-dw caseD1
-dw caseD2
-dw caseD3
-dw caseD4
-dw caseD5
-dw caseD6
-dw caseD7
-dw caseD8
-dw caseD9
-dw caseDA
-dw caseDB
-dw caseDC
-dw caseDD
-dw caseDE
-dw caseDF
-dw caseE0
-dw caseE1
-dw caseE2
-dw caseE3
-dw caseE4
-dw caseE5
-dw caseE6
-dw caseE7
-dw caseE8
-dw caseE9
-dw caseEA
-dw caseEB
-dw caseEC
-dw caseED
-dw caseEE
-dw caseEF
-dw caseF0
-dw caseF1
-dw caseF2
-dw caseF3
-dw caseF4
-dw caseF5
-dw caseF6
-dw caseF7
-dw caseF8
-dw caseF9
-dw caseFA
-dw caseFB
-dw caseFC
-dw caseFD
-dw caseFE
-dw caseFF
-	
-
-
-
-
-;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;DECLARACOES
-;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-
-
-
 case00:	;0000 0000 mod reg r/m (disp-lo),(disp-hi) add  reg8/mem8, reg8 
 case01:	;0000 0001 mod reg r/m (disp-lo),(disp-hi) add  reg16/mem16,reg16
 case02:	;0000 0010 mod reg r/m (disp-lo),(disp-hi) add  reg8,reg8/mem8
@@ -277,15 +7,12 @@ case05:	;0000 0101 data-lo     data-hi             add  AX,immed16
 case06:	;0000 0110                                 push ES
 case07:	;0000 0111                                 pop  ES
 case08:	;0000 0100 mod reg r/m (disp-lo),(disp-hi) or   reg8/mem8,reg8
-
-
 case09:	;0000 1001 mod reg r/m (disp-lo),(disp-hi) or   reg16/mem16,reg16
 case0A:	;0000 1010 mod reg r/m (disp-lo),(disp-hi) or   reg8,reg8/mem8
 case0B:	;0000 1011 mod reg r/m (disp-lo),(disp-hi) or   reg16,reg16/mem16
 case0C:	;0000 1100 data-8                          or   AL, immed8
 case0D:	;0000 1101 data-lo     data-hi             or   AX,immed16
 case0E:	;0000 1110                                 push CS
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;case0F:	;0000 1111                                 —
 case10:	;0001 0000 mod reg r/m (disp-lo),(disp-hi) adc  reg8/mem8,reg8
 case11:	;0001 0001 mod reg r/m (disp-lo),(disp-hi) adc   reg16/mem16,reg16
 case12:	;0001 0010 mod reg r/m (disp-lo),(disp-hi) adc  reg8,reg8/mem8
@@ -308,32 +35,24 @@ case22:	;0010 0010 mod reg r/m (disp-lo),(disp-hi) and  reg8,reg8/mem8
 case23:	;0010 0011 mod reg r/m (disp-lo),(disp-hi) and   reg16,reg16/mem16
 case24:	;0010 0100 data-8                          and  AL,immed8
 case25:	;0010 0101 data-lo     data-hi             and  AX,immed16
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;case26:	;0010 0110                                 ES:  (segment override prefix)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;case27:	;0010 0111                                 daa
 case28:	;0010 1000 mod reg r/m (disp-lo),(disp-hi) sub  reg8/mem8,reg8
 case29:	;0010 1001 mod reg r/m (disp-lo),(disp-hi) sub   reg16/mem16,reg16
 case2A:	;0010 1010 mod reg r/m (disp-lo),(disp-hi) sub  reg8,reg8/mem8
 case2B:	;0010 1011 mod reg r/m (disp-lo),(disp-hi) sub   reg16,reg16/mem16
 case2C:	;0010 1100 data-8                          sub  AL,immed8
 case2D:	;0010 1101 data-lo     data-hi             sub  AX,immed16
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;case2E:	;0010 1110                                 DS:  (segment override prefix)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;case2F:	;0010 1111                                 das
 case30:	;0011 0000 mod reg r/m (disp-lo),(disp-hi) xor  reg8/mem8,reg8
 case31:	;0011 0001 mod reg r/m (disp-lo),(disp-hi) xor   reg16/mem16,reg16
 case32:	;0011 0010 mod reg r/m (disp-lo),(disp-hi) xor  reg8,reg8/mem8
 case33:	;0011 0011 mod reg r/m (disp-lo),(disp-hi) xor  reg16,reg16/mem16
 case34:	;0011 0100 data-8                          xor  AL,immed8
 case35:	;0011 0101 data-lo     data-hi             xor  AX,immed16
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;case36:	;0011 0110                                 SS:  (segment override prefix)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;case37:	;0011 0111                                 aaa
 case38:	;0011 1000 mod reg r/m (disp-lo),(disp-hi) xor  reg8/mem8,reg8
 case39:	;0011 1001 mod reg r/m (disp-lo),(disp-hi) xor  reg16/mem16,reg16
 case3A:	;0011 1010 mod reg r/m (disp-lo),(disp-hi) xor  reg8,reg8/mem8
 case3B:	;0011 1011 mod reg r/m (disp-lo),(disp-hi) xor  reg16,reg16/mem16
 case3C:	;0011 1100 data-8                          xor  AL,immed8
 case3D:	;0011 1101 data-lo     data-hi             xor  AX,immed16
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;case3E:	;0011 1110                                 DS:  (segment override prefix)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;case3F:	;0011 1111                                 aas
 case40:	;0100 0000                                 inc  AX
 case41:	;0100 0001                                 inc  CX
 case42:	;0100 0010                                 inc  DX
@@ -368,12 +87,6 @@ case5E:	;0101 1110                              pop         SI
 case5F:	;0101 1111                              pop         DI
 case60:	;0110 0000                              pusha
 case61:	;0110 0001                              popa
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;case62:	;0110 0010 mod reg r/m                  bound       reg16,mem16
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;case63:	;0110 0011                              —
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;case64:	;0110 0100                              —
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;case65:	;0110 0101                              —
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;case66: ;0110 0110                              -
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;case67:	;0110 0111                              —
 case68:	;0110 1000 data-lo     data-hi          push        immed16
 case69:	;0110 1001 mod reg r/m data-lo, data-hi imul        immed16
 case70:	;0111 0000 IP-inc-8                     jo          short-label
@@ -458,18 +171,8 @@ caseA0:	;1010 0000 addr-lo     addr-hi               mov   AL,mem8
 caseA1:	;1010 0001 addr-lo     addr-hi               mov   AX,mem16
 caseA2:	;1010 0010 addr-lo     addr-hi               mov   mem8,AL
 caseA3:	;1010 0011 addr-lo     addr-hi               mov   mem16,AL
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseA4:	;1010 0100                                   movs   dest-str8,src-str8
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseA5:	;1010 0101                                   movs  dest-str16,src-str16
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseA6: ;1010 0110                                   cmps dest-str8,src-str8
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseA7:	;1010 0111                                   cmps  dest-str16,src-str16
 caseA8:	;1010 1000 data-8                            test  AL,immed8
 caseA9:	;1010 1001 data-lo     data-hi               test  AX,immed16
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseAA:	;1010 1010                     stos    dest-str8
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseAB:	;1010 1011                     stos    dest-str16
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseAC:	;1010 1100                     lods    src-str8
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseAD:	;1010 1101                     lods    src-str16
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseAE:	;1010 1110                     scas    dest-str8
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseAF:	;1010 1111                     scas    dest-str16
 caseB0:	;1011 0000 data-8              mov     AL,immed8
 caseB1:	;1011 0001 data-8              mov     CL,immed8
 caseB2:	;1011 0010 data-8              mov     DL,immed8
@@ -513,7 +216,6 @@ caseC6:	;1100 0110 mod 000 r/m (disp-lo),(disp-hi),data-8          mov     mem8,
 	;;             mod 100 r/m                                     —
 	;;             mod 101 r/m                                     —
 	;;             mod 110 r/m                                     —
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseC6:	;1100 0110 mod 111 r/m                                   
 caseC7:	;1100 0111 mod 000 r/m (disp-lo),(disp-hi),data-lo,data-hi mov        mem16,immed16
 	;;             mod 001 r/m                                     —
 	;;             mod 010 r/m                                     —
@@ -522,14 +224,9 @@ caseC7:	;1100 0111 mod 000 r/m (disp-lo),(disp-hi),data-lo,data-hi mov        me
 	;;             mod 101 r/m                                     —
 	;;             mod 110 r/m                                     — 
 	;;             mod 111 r/m                                     —
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseC8:	;1100 1000 data-lo     data-hi, level                      enter   immed16, immed8
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseC9:	;1100 1001                                                 leave
 caseCA:	;1100 1010 data-lo     data-hi                             ret     immed16 (intersegment)
 caseCB:	;1100 1011                                                 ret     (intersegment)
 caseCC:	;1100 1100                                                 int     3
-caseCD:	;1100 1101 data-8                                          int     immed8
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseCE:	;1100 1110                                                 into
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseCF:	;1100 1111                                     iret          
 caseD0:	;1101 0000 mod 000 r/m (disp-lo),(disp-hi)                 rol     reg8/mem8,1
 	;;             mod 001 r/m (disp-lo),(disp-hi)                 ror     reg8/mem8,1
 	;;             mod 010 r/m (disp-lo),(disp-hi)                 rcl     reg8/mem8,1
@@ -563,20 +260,6 @@ caseD3:	;1101 0011 mod 000 r/m (disp-lo),(disp-hi) rol           reg16/mem16,CL
 	;;             mod 101 r/m (disp-lo),(disp-hi) shr           reg16/mem16,CL
 	;;             mod 110 r/m                     —
 	;;             mod 111 r/m (disp-lo),(disp-hi) sar           reg16/mem16,CL
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseD4:	;1101 0100 0000 1010                       aam
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseD5:	;1101 0101 0000 1010                       aad
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseD6:	;1101 0110                                 —
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseD7:	;1101 0111                                 xlat          source-table
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseD8:	;1101 1000 mod 000 r/m (disp-lo),(disp-hi) esc           opcode,source
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseD9:	;1101 1001 mod 001 r/m (disp-lo),(disp-hi) esc           opcode,source
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseDA:	;1101 1010 mod 010 r/m (disp-lo),(disp-hi) esc           opcode,source
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseDB:	;1101 1011 mod 011 r/m (disp-lo),(disp-hi) esc           opcode,source
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseDC:	;1101 1100 mod 100 r/m (disp-lo),(disp-hi) esc           opcode,source
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseDD:	;1101 1101 mod 101 r/m (disp-lo),(disp-hi) esc           opcode,source
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseDE:	;1101 1110 mod 110 r/m (disp-lo),(disp-hi) esc           opcode,source
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseDF:	;1101 1111 mod 111 r/m (disp-lo),(disp-hi) esc           opcode,source
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseE0:	;1110 0000 IP-inc-8                        loopne/loopnz  short-label
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseE1:	;1110 0001 IP-inc-8                                        loope/loopz    short-label
 caseE2:	;1110 0010 IP-inc-8                                        loop          short-label
 caseE3:	;1110 0011 IP-inc-8                                        jcxz          short-label
 caseE4:	;1110 0100 data-8                                          in            AL,immed8
@@ -591,12 +274,6 @@ caseEC:	;1110 1100                                                 in           
 caseED:	;1110 1101                                                 in            AX,DX
 caseEE:	;1110 1110                                                 out           AL,DX
 caseEF:	;1110 1111                                                 out           AX,DX
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseF0:	;1111 0000                                                 lock          (prefix)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseF1:	;1111 0001                                                 —
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseF2:	;1111 0010                                                 repne/repnz
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseF3:	;1111 0011                                                 rep/repe/repz
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseF4:	;1111 0100                                                 hlt
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseF5:	;1111 0101                                                 cmc
 caseF6:	;1111 0110 mod 000 r/m (disp-lo),(disp-hi),data-8          test           reg8/mem8,immed8
 	;; mod 001 r/m                                     —
 	;; mod 010 r/m (disp-lo),(disp-hi)                 not           reg8/mem8
@@ -622,11 +299,6 @@ caseFD:	;1111 1101                                 std
 caseFE:	;1111 1110 mod 000 r/m (disp-lo),(disp-hi) inc  mem16
    	;;             mod 001 r/m (disp-lo),(disp-hi) dec  mem16
 	;;             mod 010 r/m                     —
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;caseFE:	;1111 1110 mod 011 r/m                     —
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	;; mod 100 r/m                     —
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	;; mod 101 r/m                     —
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	;; mod 110 r/m                     —
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	;; mod 111 r/m                     —
 caseFF:	;1111 1111 mod 000 r/m (disp-lo),(disp-hi) inc  mem16
 	;; mod 001 r/m (disp-lo),(disp-hi) dec  mem16
 	;; mod 010 r/m (disp-lo),(disp-hi) call reg16/mem16 (intrasegment)
