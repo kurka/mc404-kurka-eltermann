@@ -114,61 +114,51 @@ AbreArquivoSaida:
 	int 0x21
 	mov bx, ax 		; bx <- handle do arquivo de saida
 
-
-	;;/* AREA DE TESTES!!! ;;
-
-	;; Teste da leitura: copiar o arquivo binario exatamente como ele eh, para o arquivo de saida
-	;; e comparar os dois (diff)
-
-	;; bx continua contendo o handle do arq de saida
-	mov cx, [tam_arq_com]
-	push ds
-	mov ax, es
-	mov ds, ax
-	mov dx, bin 		; DS:DX <- "ES:bin"
-	mov ah, 0x40
-	int 0x21
-
-	pop ds
-
-
-	;; fecha arquivo de saida
-	mov ah, 0x3E
-	;; bx continua contendo o handle do arq de saida
-	int 0x21
-
+	jmp While
 	
-	jmp Fim
-	
-
-	;; AREA DE TESTES!!! */;;	
-
-
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;; abertura do arquivo de saida ;;
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 	
 ; _____________________________________________________________
 
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	;; leitura do arquivo executavel para a memoria ;;
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;; processamento dos dados ;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+While:	
 
-
-
-
-
+	;; Para percorrer todos os bytes do arquivo executavel, o registrador DI sera
+	;; usado como indice de acesso (facilitando o enderecamento com o segmento ES)
 	
+	push di			; salva di na pilha
+	xor di, di		; di <- 0x0000
 
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	;; leitura do arquivo executavel para a memoria ;;
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;; caso o di ja tenha percorrido todo o arquivo .COM, termina a execucao
+	cmp di, [tam_arq_com]
+	je Fim
+
+	;; blablabla
+
+	jmp While
+	
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;; processamento dos dados ;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	
 ; _____________________________________________________________ 
 	
 
 Fim:
+
+	;; recupera di
+	pop di
+	
+	;; fecha arquivo de saida
+	mov ah, 0x3E
+	;; bx continua contendo o handle do arq de saida
+	int 0x21
+
 	mov ah, 0x4C
 	int 0x21
 
