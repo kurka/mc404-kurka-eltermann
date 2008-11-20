@@ -128,6 +128,26 @@ AbreArquivoSaida:
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+	;; escreve o inicio do codigo no arquivo de saida
+	org 100h
+	section .text
+	start:
+
+	mov word[linha_de_comando], 'or'
+	mov word[linha_de_comando], 'g '
+	mov word[linha_de_comando], '10'
+	mov word[linha_de_comando], '0h'
+	mov byte[linha_de_comando], 13
+	mov word[linha_de_comando], 'or'
+	mov word[linha_de_comando], 'or'
+	mov word[linha_de_comando], 'or'
+	mov word[linha_de_comando], 'or'
+	mov word[linha_de_comando], 'or'
+	mov word[linha_de_comando], 'or'
+	mov word[linha_de_comando], 'or'
+	
+	
+
 	;; Para percorrer todos os bytes do arquivo executavel, o registrador DI sera
 	;; usado como indice de acesso (facilitando o enderecamento com o segmento ES)
 
@@ -184,426 +204,475 @@ HexToAscii:
 	
 	;; Rotinas de "montagem" da linha de comando
 	;; Saida: linha_de_comando definida
-	;; 	  cx <- numero de caracteres da linha de comando (incluindo 0x13)
+	;; 	  cx <- numero de caracteres da linha de comando (incluindo 13d)
 
 
 
 
 
-
-;;; Funcao nao valida para processador 80X86
+;;; Funcao invalida para processador 80X86
 case0F:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'0F'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86
-case26:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'26'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-case27:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'27'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-case2E:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'2E'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-case2F:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'2F'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-case36:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'36'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-case37:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'37'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-case3E:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'3E'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-case3F:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'3F'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-case62:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'62'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-case63:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'63'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-case64:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'64'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-case65:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'65'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-case66:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'66'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-case67:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'67'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-caseA4:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'A4'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-caseA5:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'A5'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-caseA6:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'A6'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-caseAA:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'AA'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-caseAB:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'AB'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-caseAC:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'AC'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-caseAD:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'AD'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-caseAE:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'AE'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-caseAF:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'AF'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-caseC6:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'C6'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-caseC8:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'C8'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
-caseC9:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'C9'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-	
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 0'
+	mov word[linha_de_comando + 4],'Fh'
+	mov byte[linha_de_comando + 6],13
+	ret 
 
-;; 'int XXh',0x13	
+
+;;; Funcao invalida para processador 80X86
+case26:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 2'
+	mov word[linha_de_comando + 4],'6h'
+	mov byte[linha_de_comando + 6],13
+	ret
+	
+;;; Funcao invalida para processador 80X86	
+case27:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 2'
+	mov word[linha_de_comando + 4],'7h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+case2E:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 2'
+	mov word[linha_de_comando + 4],'Eh'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+case2F:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 2'
+	mov word[linha_de_comando + 4],'Fh'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+case36:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 3'
+	mov word[linha_de_comando + 4],'6h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+case37:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 3'
+	mov word[linha_de_comando + 4],'7h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+case3E:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 3'
+	mov word[linha_de_comando + 4],'Eh'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+case3F:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 3'
+	mov word[linha_de_comando + 4],'Fh'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+case62:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 6'
+	mov word[linha_de_comando + 4],'2h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+case63:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 6'
+	mov word[linha_de_comando + 4],'3h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+case64:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 6'
+	mov word[linha_de_comando + 4],'4h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+case65:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 6'
+	mov word[linha_de_comando + 4],'5h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+case66:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 6'
+	mov word[linha_de_comando + 4],'6h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+case67:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 6'
+	mov word[linha_de_comando + 4],'7h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+case6A:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 6'
+	mov word[linha_de_comando + 4],'Ah'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+case6B:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 6'
+	mov word[linha_de_comando + 4],'Bh'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+case6C:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 6'
+	mov word[linha_de_comando + 4],'Ch'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+case6D:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 6'
+	mov word[linha_de_comando + 4],'Dh'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+case6E:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 6'
+	mov word[linha_de_comando + 4],'Eh'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+case6F:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 6'
+	mov word[linha_de_comando + 4],'Fh'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+caseA4:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' A'
+	mov word[linha_de_comando + 4],'4h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+caseA5:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' A'
+	mov word[linha_de_comando + 4],'5h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+caseA6:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' A'
+	mov word[linha_de_comando + 4],'6h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+caseAA:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' A'
+	mov word[linha_de_comando + 4],'Ah'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+caseAB:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' A'
+	mov word[linha_de_comando + 4],'Bh'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+caseAC:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' A'
+	mov word[linha_de_comando + 4],'Ch'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+caseAD:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' A'
+	mov word[linha_de_comando + 4],'Dh'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+caseAE:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' A'
+	mov word[linha_de_comando + 4],'Eh'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+caseAF:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' A'
+	mov word[linha_de_comando + 4],'Fh'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+caseC6:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' C'
+	mov word[linha_de_comando + 4],'6h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+caseC8:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' C'
+	mov word[linha_de_comando + 4],'8h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
+caseC9:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' C'
+	mov word[linha_de_comando + 4],'9h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;; 'int XYh', 13
 caseCD:
 	mov cx, 8
 	mov word[linha_de_comando],'in'
 	mov word[linha_de_comando + 2],'t '
 	inc di
-	call HexToAscii		; ax <- 'XX'
+	call HexToAscii		; ax <- 'XY'
 	mov word[linha_de_comando + 4], ax
-	mov word[linha_de_comando + 6],'h',0x13
+	mov byte[linha_de_comando + 6],'h'
+	mov byte[linha_de_comando + 7],13
 	ret
 	
-;;; Funcao nao valida para processador 80X86	
+;;; Funcao invalida para processador 80X86	
 caseCE:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'CE'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' C'
+	mov word[linha_de_comando + 4],'Eh'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
 caseCF:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'CF'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' C'
+	mov word[linha_de_comando + 4],'Fh'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
 caseD4:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'D4'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' D'
+	mov word[linha_de_comando + 4],'4h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
 caseD5:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'D5'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' D'
+	mov word[linha_de_comando + 4],'5h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
 caseD6:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'D6'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' D'
+	mov word[linha_de_comando + 4],'6h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
 caseD7:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'D7'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' D'
+	mov word[linha_de_comando + 4],'7h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
 caseD8:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'D8'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' D'
+	mov word[linha_de_comando + 4],'8h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
 caseD9:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'D9'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' D'
+	mov word[linha_de_comando + 4],'9h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
 caseDA:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'DA'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' D'
+	mov word[linha_de_comando + 4],'Ah'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
 caseDB:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'DB'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' D'
+	mov word[linha_de_comando + 4],'Bh'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
 caseDC:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'DC'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' D'
+	mov word[linha_de_comando + 4],'Ch'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
 caseDD:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'DD'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' D'
+	mov word[linha_de_comando + 4],'Dh'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
 caseDE:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'DE'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' D'
+	mov word[linha_de_comando + 4],'Eh'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
 caseDF:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'DF'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' D'
+	mov word[linha_de_comando + 4],'Fh'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
 caseE0:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'0F'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' E'
+	mov word[linha_de_comando + 4],'0h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
 caseE1:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'E1'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' E'
+	mov word[linha_de_comando + 4],'1h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
 caseF0:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'0F'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' F'
+	mov word[linha_de_comando + 4],'0h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
 caseF1:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'0F'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' F'
+	mov word[linha_de_comando + 4],'1h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
 caseF2:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'0F'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' F'
+	mov word[linha_de_comando + 4],'2h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
 caseF3:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'0F'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' F'
+	mov word[linha_de_comando + 4],'3h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
 caseF4:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'F4'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' F'
+	mov word[linha_de_comando + 4],'4h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
 caseF5:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'F5'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
-;;; Funcao nao valida para processador 80X86	
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' F'
+	mov word[linha_de_comando + 4],'5h'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;; Funcao invalida para processador 80X86	
 caseFE:
-    mov cx, 8
-    mov word[linha_de_comando],'db'
-    mov word[linha_de_comando + 2],'  '
-    mov word[linha_de_comando + 4],'FE'
-    mov word[linha_de_comando + 6],'h', 0x13
-    ret 
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' F'
+	mov word[linha_de_comando + 4],'Eh'  
+	mov byte[linha_de_comando + 6],13
+	ret 
 	
 	
 
