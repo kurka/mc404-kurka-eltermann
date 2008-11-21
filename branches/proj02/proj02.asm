@@ -130,28 +130,11 @@ AbreArquivoSaida:
 Principal:	
 
 	;; escreve o inicio do codigo no arquivo de saida
+	;; linha_de_codigo recebe as primeiras diretrizes em sua definicao
 	;; org 100h
 	;; section .text
 	;; start:
 	mov cx, 30
-	mov word[linha_de_comando], 'or'
-	mov word[linha_de_comando + 2], 'g '
-	mov word[linha_de_comando + 4], '10'
-	mov word[linha_de_comando + 6], '0h'
-	mov byte[linha_de_comando + 8], 13
-	mov word[linha_de_comando + 9], 'se'
-	mov word[linha_de_comando + 11], 'ct'
-	mov word[linha_de_comando + 13], 'io'
-	mov word[linha_de_comando + 15], 'n '
-	mov word[linha_de_comando + 17], '.t'
-	mov word[linha_de_comando + 19], 'ex'
-	mov byte[linha_de_comando + 21], 't'
-	mov byte[linha_de_comando + 22], 13
-	mov word[linha_de_comando + 23], 'st'
-	mov word[linha_de_comando + 25], 'ar'
-	mov word[linha_de_comando + 27], 't:'
-	mov byte[linha_de_comando + 29], 13
-
 	call Imprime
 	
 	;; TESTANDO...
@@ -965,6 +948,7 @@ caseDefault:
 Fim:
 
 	;; recupera di
+	;; TESTE!!!
 	;; 	pop di
 	
 	;; fecha arquivo de saida
@@ -994,7 +978,7 @@ handle_arq_out:	resb 2
 
 ;; espaco de memoria reservado para a 'montagem' da linha de comando, antes
 ;; desta ser escrita no arquivo
-linha_de_comando: resb 50
+linha_de_comando: db 'org 100h',13,'section .text',13,'start:'13
 
 
 ;; Tabela de apontadores para o codigo
