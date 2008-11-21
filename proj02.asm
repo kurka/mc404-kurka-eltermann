@@ -135,22 +135,22 @@ Principal:
 	;; start:
 	mov cx, 30
 	mov word[linha_de_comando], 'or'
-	mov word[linha_de_comando], 'g '
-	mov word[linha_de_comando], '10'
-	mov word[linha_de_comando], '0h'
-	mov byte[linha_de_comando], 13
-	mov word[linha_de_comando], 'se'
-	mov word[linha_de_comando], 'ct'
-	mov word[linha_de_comando], 'io'
-	mov word[linha_de_comando], 'n '
-	mov word[linha_de_comando], '.t'
-	mov word[linha_de_comando], 'ex'
-	mov byte[linha_de_comando], 't'
-	mov byte[linha_de_comando], 13
-	mov word[linha_de_comando], 'st'
-	mov word[linha_de_comando], 'ar'
-	mov word[linha_de_comando], 't:'
-	mov byte[linha_de_comando], 13
+	mov word[linha_de_comando + 2], 'g '
+	mov word[linha_de_comando + 4], '10'
+	mov word[linha_de_comando + 6], '0h'
+	mov byte[linha_de_comando + 8], 13
+	mov word[linha_de_comando + 9], 'se'
+	mov word[linha_de_comando + 11], 'ct'
+	mov word[linha_de_comando + 13], 'io'
+	mov word[linha_de_comando + 15], 'n '
+	mov word[linha_de_comando + 17], '.t'
+	mov word[linha_de_comando + 19], 'ex'
+	mov byte[linha_de_comando + 21], 't'
+	mov byte[linha_de_comando + 22], 13
+	mov word[linha_de_comando + 23], 'st'
+	mov word[linha_de_comando + 25], 'ar'
+	mov word[linha_de_comando + 27], 't:'
+	mov byte[linha_de_comando + 29], 13
 
 	call Imprime
 	
@@ -965,11 +965,11 @@ caseDefault:
 Fim:
 
 	;; recupera di
-	pop di
+	;; 	pop di
 	
 	;; fecha arquivo de saida
+	mov bx, [handle_arq_out]
 	mov ah, 0x3E
-	;; bx continua contendo o handle do arq de saida
 	int 0x21
 
 	mov ah, 0x4C
