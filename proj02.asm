@@ -115,7 +115,7 @@ AbreArquivoSaida:
 	mov bx, ax 		; bx <- handle do arquivo de saida
 	mov [handle_arq_out],bx	; salva o handle do arquivo de saida na memoria
 
-	jmp While
+	jmp Principal
 	
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;; abertura do arquivo de saida ;;
@@ -127,25 +127,36 @@ AbreArquivoSaida:
 	;; processamento dos dados ;;
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+Principal:	
 
 	;; escreve o inicio do codigo no arquivo de saida
-	org 100h
-	section .text
-	start:
-
+	;; org 100h
+	;; section .text
+	;; start:
+	mov cx, 30
 	mov word[linha_de_comando], 'or'
 	mov word[linha_de_comando], 'g '
 	mov word[linha_de_comando], '10'
 	mov word[linha_de_comando], '0h'
 	mov byte[linha_de_comando], 13
-	mov word[linha_de_comando], 'or'
-	mov word[linha_de_comando], 'or'
-	mov word[linha_de_comando], 'or'
-	mov word[linha_de_comando], 'or'
-	mov word[linha_de_comando], 'or'
-	mov word[linha_de_comando], 'or'
-	mov word[linha_de_comando], 'or'
+	mov word[linha_de_comando], 'se'
+	mov word[linha_de_comando], 'ct'
+	mov word[linha_de_comando], 'io'
+	mov word[linha_de_comando], 'n '
+	mov word[linha_de_comando], '.t'
+	mov word[linha_de_comando], 'ex'
+	mov byte[linha_de_comando], 't'
+	mov byte[linha_de_comando], 13
+	mov word[linha_de_comando], 'st'
+	mov word[linha_de_comando], 'ar'
+	mov word[linha_de_comando], 't:'
+	mov byte[linha_de_comando], 13
+
+	call Imprime
 	
+	;; TESTANDO...
+	jmp Fim
+	;; TESTANDO...
 	
 
 	;; Para percorrer todos os bytes do arquivo executavel, o registrador DI sera
@@ -162,15 +173,17 @@ While:
 	;; BX sera usado como o indice para a tabela
 	xor bx, bx		; bx <- 0x0000
 	mov bl, byte[bin + di]	; bl <- byte do arquivo executavel
-	call [Table + 2*bx]	; chamada da rotina para a instrucao especifica
+	shl bx, 1		; bx <- bx*2
+	call [Table + bx]	; chamada da rotina para a instrucao especifica
 	call Imprime		; escreve a linha de comando no arquivo de saida
 
-	;; caso o di ja tenha percorrido todo o arquivo .COM, termina a execucao
+	;; caso o di ainda nao tenha percorrido todo o arquivo .COM, executa novamente
+	;; para o proximo comando	
 	inc di
 	cmp di, [tam_arq_com]
-	je Fim
-	;; caso contrario, executa novamente para o proximo comando
-	jmp While
+	jne While
+	;; caso contrario, termina a execucao
+	jmp Fim
 
 	
 ;; Rotina de escrita da linha de comando no arquivo
@@ -180,24 +193,29 @@ Imprime:
 	;; cx contem o numero de caracteres a escrever
 	mov dx, linha_de_comando
 	int 0x21
+	ret
 
 
-;; Saida: AX <- valor em ascii do byte atual apontado pelo DI
+;; Saida: AX <- valor em ascii do byte atual apontado por DI
 HexToAscii:
 	xor ax,ax		; ax <- 0x0000
 	mov bl, byte[bin + di]
 	mov bh, bl
-	and bl, 00001111b	; bl <- nibble - significativo do byte
-	and bh, 11110000b	; bh <- nibble + significativo do byte
+	and bl, 00001111b	; bl <- apenas o nibble - significativo do byte
+	and bh, 11110000b	; bh <- apenas o nibble + significativo do byte
 
-	;; AH <- ascii do nibble MENOS significativo
+	;; AH <- valor em ascii da representacao em hexa do nibble MENOS significativo
 
 
 	
 
 
-	;; AL <- ascii do nibble MAIS significativo
+	;; AL <- valor em ascii da representacao em hexa do nibble MAIS significativo
 
+
+
+
+	ret
 
 
 	
@@ -208,6 +226,21 @@ HexToAscii:
 
 
 
+case00:
+case01:
+case02:
+case03:
+case04:
+case05:
+case06:
+case07:
+case08:
+case09:
+case0A:
+case0B:
+case0C:
+case0D:
+case0E:
 
 
 ;;; Funcao invalida para processador 80X86
@@ -220,6 +253,33 @@ case0F:
 	ret 
 
 
+case10:
+case11:
+case12:
+case13:
+case14:
+case15:
+case16:
+case17:
+case18:
+case19:
+case1A:
+case1B:
+case1C:
+case1D:
+case1E:
+case1F:
+
+
+case20:
+case21:
+case22:
+case23:
+case24:
+case25:
+
+	
+	
 ;;; Funcao invalida para processador 80X86
 case26:
 	mov cx, 7
@@ -228,7 +288,6 @@ case26:
 	mov word[linha_de_comando + 4],'6h'
 	mov byte[linha_de_comando + 6],13
 	ret
-	
 ;;; Funcao invalida para processador 80X86	
 case27:
 	mov cx, 7
@@ -237,6 +296,15 @@ case27:
 	mov word[linha_de_comando + 4],'7h'  
 	mov byte[linha_de_comando + 6],13
 	ret 
+
+case28:
+case29:
+case2A:
+case2B:
+case2C:
+case2D:
+
+
 ;;; Funcao invalida para processador 80X86	
 case2E:
 	mov cx, 7
@@ -253,6 +321,16 @@ case2F:
 	mov word[linha_de_comando + 4],'Fh'  
 	mov byte[linha_de_comando + 6],13
 	ret 
+
+case30:
+case31:
+case32:
+case33:
+case34:
+case35:
+
+
+
 ;;; Funcao invalida para processador 80X86	
 case36:
 	mov cx, 7
@@ -269,6 +347,15 @@ case37:
 	mov word[linha_de_comando + 4],'7h'  
 	mov byte[linha_de_comando + 6],13
 	ret 
+
+case38:
+case39:
+case3A:
+case3B:
+case3C:
+case3D:
+
+
 ;;; Funcao invalida para processador 80X86	
 case3E:
 	mov cx, 7
@@ -285,6 +372,48 @@ case3F:
 	mov word[linha_de_comando + 4],'Fh'  
 	mov byte[linha_de_comando + 6],13
 	ret 
+
+
+case40:
+case41:
+case42:
+case43:
+case44:
+case45:
+case46:
+case47:
+case48:
+case49:
+case4A:
+case4B:
+case4C:
+case4D:
+case4E:
+case4F:
+
+case50:
+case51:
+case52:
+case53:
+case54:
+case55:
+case56:
+case57:
+case58:
+case59:
+case5A:
+case5B:
+case5C:
+case5D:
+case5E:
+case5F:
+
+
+case60:
+case61:
+
+	
+
 ;;; Funcao invalida para processador 80X86	
 case62:
 	mov cx, 7
@@ -333,6 +462,13 @@ case67:
 	mov word[linha_de_comando + 4],'7h'  
 	mov byte[linha_de_comando + 6],13
 	ret 
+
+
+case68:
+case69:
+
+
+
 ;;; Funcao invalida para processador 80X86	
 case6A:
 	mov cx, 7
@@ -381,6 +517,68 @@ case6F:
 	mov word[linha_de_comando + 4],'Fh'  
 	mov byte[linha_de_comando + 6],13
 	ret 
+
+
+case70:
+case71:
+case72:
+case73:
+case74:
+case75:
+case76:
+case77:
+case78:
+case79:
+case7A:
+case7B:
+case7C:
+case7D:
+case7E:
+case7F:
+
+
+case80:
+case81:
+case82:
+case83:
+case84:
+case85:
+case86:
+case87:
+case88:
+case89:
+case8A:
+case8B:
+case8C:
+case8D:
+case8E:
+case8F:
+	
+
+case90:
+case91:
+case92:
+case93:
+case94:
+case95:
+case96:
+case97:
+case98:
+case99:
+case9A:
+case9B:
+case9C:
+case9D:
+case9E:
+case9F:
+
+	
+caseA0:
+caseA1:
+caseA2:
+caseA3:
+	
+	
 ;;; Funcao invalida para processador 80X86	
 caseA4:
 	mov cx, 7
@@ -405,6 +603,12 @@ caseA6:
 	mov word[linha_de_comando + 4],'6h'  
 	mov byte[linha_de_comando + 6],13
 	ret 
+
+caseA7:
+caseA8:
+caseA9:
+
+	
 ;;; Funcao invalida para processador 80X86	
 caseAA:
 	mov cx, 7
@@ -453,6 +657,33 @@ caseAF:
 	mov word[linha_de_comando + 4],'Fh'  
 	mov byte[linha_de_comando + 6],13
 	ret 
+
+
+caseB0:
+caseB1:
+caseB2:
+caseB3:
+caseB4:
+caseB5:
+caseB6:
+caseB7:
+caseB8:
+caseB9:
+caseBA:
+caseBB:
+caseBC:
+caseBD:
+caseBE:
+caseBF:
+
+
+caseC0:
+caseC1:
+caseC2:
+caseC3:
+caseC4:
+caseC5:
+
 ;;; Funcao invalida para processador 80X86	
 caseC6:
 	mov cx, 7
@@ -461,6 +692,9 @@ caseC6:
 	mov word[linha_de_comando + 4],'6h'  
 	mov byte[linha_de_comando + 6],13
 	ret 
+
+caseC7:
+
 ;;; Funcao invalida para processador 80X86	
 caseC8:
 	mov cx, 7
@@ -477,6 +711,11 @@ caseC9:
 	mov word[linha_de_comando + 4],'9h'  
 	mov byte[linha_de_comando + 6],13
 	ret 
+
+caseCA:
+caseCB:
+caseCC:
+
 ;; 'int XYh', 13
 caseCD:
 	mov cx, 8
@@ -505,6 +744,13 @@ caseCF:
 	mov word[linha_de_comando + 4],'Fh'  
 	mov byte[linha_de_comando + 6],13
 	ret 
+
+	
+caseD0:
+caseD1:
+caseD2:
+caseD3:
+
 ;;; Funcao invalida para processador 80X86	
 caseD4:
 	mov cx, 7
@@ -601,6 +847,8 @@ caseDF:
 	mov word[linha_de_comando + 4],'Fh'  
 	mov byte[linha_de_comando + 6],13
 	ret 
+
+
 ;;; Funcao invalida para processador 80X86	
 caseE0:
 	mov cx, 7
@@ -617,6 +865,23 @@ caseE1:
 	mov word[linha_de_comando + 4],'1h'  
 	mov byte[linha_de_comando + 6],13
 	ret 
+
+caseE2:	
+caseE3:	
+caseE4:	
+caseE5:	
+caseE6:	
+caseE7:	
+caseE8:	
+caseE9:	
+caseEA:	
+caseEB:	
+caseEC:	
+caseED:	
+caseEE:	
+caseEF:	
+
+
 ;;; Funcao invalida para processador 80X86	
 caseF0:
 	mov cx, 7
@@ -664,7 +929,17 @@ caseF5:
 	mov word[linha_de_comando + 2],' F'
 	mov word[linha_de_comando + 4],'5h'  
 	mov byte[linha_de_comando + 6],13
-	ret 
+	ret
+
+caseF6:	
+caseF7:	
+caseF8:	
+caseF9:	
+caseFA:	
+caseFB:	
+caseFC:	
+caseFD:	
+	
 ;;; Funcao invalida para processador 80X86	
 caseFE:
 	mov cx, 7
@@ -674,8 +949,11 @@ caseFE:
 	mov byte[linha_de_comando + 6],13
 	ret 
 	
+caseFF:	
 	
 
+
+caseDefault:	
 	
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;; processamento dos dados ;;
