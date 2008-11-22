@@ -183,7 +183,7 @@ caseB6:	;1011 0110 data-8              mov     DH,immed8
 caseB7:	;1011 0111 data-8              mov     BH,immed8
 caseB8:	;1011 1000 data-lo     data-hi mov     AX,immed16
 caseB9:	;1011 1001 data-lo     data-hi mov     CX,immed16
-caseBA:	;1011 1010 data-lo     data-hi mov     DX,immed16
+
 caseBB:	;1011 1011 data-lo     data-hi mov     BX,immed16
 caseBC:	;1011 1100 data-lo     data-hi mov     SP,immed16
 caseBD:	;1011 1101 data-lo     data-hi mov     BP,immed16
