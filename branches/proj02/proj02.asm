@@ -1,4 +1,4 @@
-bSEGMENT code
+SEGMENT code
 ..start:
 
 	;; inicializa segmento de pilha
