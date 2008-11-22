@@ -620,7 +620,18 @@ caseB0:
 caseB1:
 caseB2:
 caseB3:
+;; mov AH, XYh
 caseB4:
+	mov cx, 12
+	mov word[linha_de_comando], 'mo'
+	mov word[linha_de_comando + 2], 'v '
+	mov word[linha_de_comando + 4], 'AH'
+	mov word[linha_de_comando + 6], ', '
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 8], ax
+	mov byte[linha_de_comando + 10], 'h'
+	mov byte[linha_de_comando + 11], 13
 caseB5:
 caseB6:
 caseB7:
