@@ -112,8 +112,7 @@ AbreArquivoSaida:
 	xor cx, cx 		; cx <- 0x0000
 	mov dx, arq_saida	; dx aponta para o nome do arquivo
 	int 0x21
-	mov bx, ax 		; bx <- handle do arquivo de saida
-	mov [handle_arq_out],bx	; salva o handle do arquivo de saida na memoria
+	mov [handle_arq_out],ax	; salva o handle do arquivo de saida na memoria
 
 	jmp Principal
 	
@@ -123,9 +122,9 @@ AbreArquivoSaida:
 	
 ; _____________________________________________________________
 
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	;; processamento dos dados ;;
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;; escrita das instrucoes ;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 Principal:	
 
@@ -137,10 +136,6 @@ Principal:
 	mov cx, 30
 	call Imprime
 	
-	;; TESTANDO...
-	jmp Fim
-	;; TESTANDO...
-	
 
 	;; Para percorrer todos os bytes do arquivo executavel, o registrador DI sera
 	;; usado como indice de acesso (facilitando o enderecamento com o segmento ES)
@@ -148,14 +143,14 @@ Principal:
 	push di			; salva di na pilha
 	xor di, di		; di <- 0x0000
 
-While:	
+WhileInstrucoes:	
 	;; Interpretacao dos bytes do arquivo binario:
 	;; Usaremos uma tabela com enderecos de trechos do codigo (do segmento CS).
 	;; Para isso, a indexacao da tabela eh feita diretamente com o byte do arquivo .COM
 
 	;; BX sera usado como o indice para a tabela
 	xor bx, bx		; bx <- 0x0000
-	mov bl, byte[bin + di]	; bl <- byte do arquivo executavel
+	mov bl, byte[es:bin + di]	; bl <- byte do arquivo executavel
 	shl bx, 1		; bx <- bx*2
 	call [Table + bx]	; chamada da rotina para a instrucao especifica
 	call Imprime		; escreve a linha de comando no arquivo de saida
@@ -163,15 +158,32 @@ While:
 	;; caso o di ainda nao tenha percorrido todo o arquivo .COM, executa novamente
 	;; para o proximo comando	
 	inc di
-	cmp di, [tam_arq_com]
-	jne While
+	;; TESTE!!!
+	;; 	cmp di, [tam_arq_com]
+	cmp di,9
+	;; TESTE!!!
+	jne WhileInstrucoes
 	;; caso contrario, termina a execucao
 	jmp Fim
 
 	
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	;; processamento dos dados ;;
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;; escrita das instrucoes ;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; _____________________________________________________________
+
+	;;;;;;;;;;;;;;;;;;;;;;;
+	;; escrita dos dados ;;
+	;;;;;;;;;;;;;;;;;;;;;;;
+
+WhileDados:
+	
+
+
+	;;;;;;;;;;;;;;;;;;;;;;;
+	;; escrita dos dados ;;
+	;;;;;;;;;;;;;;;;;;;;;;;
 
 ; _____________________________________________________________
 
@@ -632,6 +644,7 @@ caseB4:
 	mov word[linha_de_comando + 8], ax
 	mov byte[linha_de_comando + 10], 'h'
 	mov byte[linha_de_comando + 11], 13
+	ret
 caseB5:
 caseB6:
 caseB7:
@@ -652,6 +665,7 @@ caseBA:
 	mov word[linha_de_comando + 10], ax
 	mov byte[linha_de_comando + 12], 'h'
 	mov byte[linha_de_comando + 13], 13
+	ret
 caseBB:
 caseBC:
 caseBD:
@@ -709,7 +723,6 @@ caseCD:
 	mov byte[linha_de_comando + 6],'h'
 	mov byte[linha_de_comando + 7],13
 	ret
-	
 ;;; Funcao invalida para processador 80X86	
 caseCE:
 	mov cx, 7
@@ -965,7 +978,7 @@ Imprime:
 ;; Saida: AX <- valor em ascii do byte atual apontado por DI
 HexToAscii:
 	xor ax,ax		; ax <- 0x0000
-	mov bl, byte[bin + di]
+	mov bl, byte[es:bin + di]
 	mov bh, bl 		; bh <- copia do byte
 	and bl, 00001111b	; bl <- apenas o nibble - significativo do byte
 
@@ -1009,8 +1022,7 @@ MaisSignificativoMaiorNove:
 Fim:
 
 	;; recupera di
-	;; TESTE!!!
-	;; 	pop di
+	pop di
 	
 	;; fecha arquivo de saida
 	mov bx, [handle_arq_out]
