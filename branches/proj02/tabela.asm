@@ -177,7 +177,7 @@ caseB0:	;1011 0000 data-8              mov     AL,immed8
 caseB1:	;1011 0001 data-8              mov     CL,immed8
 caseB2:	;1011 0010 data-8              mov     DL,immed8
 caseB3:	;1011 0011 data-8              mov     BL,immed8
-caseB4:	;1011 0100 data-8              mov     AH,immed8
+
 caseB5:	;1011 0101 data-8              mov     CH,immed8
 caseB6:	;1011 0110 data-8              mov     DH,immed8
 caseB7:	;1011 0111 data-8              mov     BH,immed8
