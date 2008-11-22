@@ -111,14 +111,8 @@ case8E:	;1000 1110 mod OSR r/m (disp-lo),(disp-hi)   mov    SEGREG,reg16/mem16
 	;; mod 1 - r/m                       —
 case8F:	;1000 1111                                   pop   mem16
 case90:	;1001 0000                                   nop   (xchg AX,AX)
-case98:	;1001 1000                                   cbw
-case99:	;1001 1001                                   cwd
+
 case9A:	;1001 1010 disp-lo     disp-hi,seg-lo,seg-hi call  far-proc
-case9B:	;1001 1011                                   wait
-case9C:	;1001 1100                                   pushf
-case9D:	;1001 1101                                   popf
-case9E:	;1001 1110                                   sahf
-case9F:	;1001 1111                                   lahf
 caseA0:	;1010 0000 addr-lo     addr-hi               mov   AL,mem8
 caseA1:	;1010 0001 addr-lo     addr-hi               mov   AX,mem16
 caseA2:	;1010 0010 addr-lo     addr-hi               mov   mem8,AL
