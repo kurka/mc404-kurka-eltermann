@@ -1512,12 +1512,43 @@ caseF5:
 
 caseF6:	
 caseF7:	
-caseF8:	
-caseF9:	
-caseFA:	
-caseFB:	
-caseFC:	
-caseFD:	
+
+;;clc
+caseF8:
+	mov cx, 4
+	mov word[linha_de_comando],'cl'
+	mov byte[linha_de_comando + 2],'c'
+	mov byte[linha_de_comando + 3],13	
+;;stc
+caseF9:
+	mov cx, 4
+	mov word[linha_de_comando],'st'
+	mov byte[linha_de_comando + 2],'c'
+	mov byte[linha_de_comando + 3],13	
+;;cli
+caseFA:
+	mov cx, 4
+	mov word[linha_de_comando],'cl'
+	mov byte[linha_de_comando + 2],'i'
+	mov byte[linha_de_comando + 3],13	
+;;sti
+caseFB:
+	mov cx, 4
+	mov word[linha_de_comando],'st'
+	mov byte[linha_de_comando + 2],'i'
+	mov byte[linha_de_comando + 3],13	
+;;cld
+caseFC:
+	mov cx, 4
+	mov word[linha_de_comando],'cl'
+	mov byte[linha_de_comando + 2],'d'
+	mov byte[linha_de_comando + 3],13	
+;;std
+caseFD:
+	mov cx, 4
+	mov word[linha_de_comando],'st'
+	mov byte[linha_de_comando + 2],'d'
+	mov byte[linha_de_comando + 3],13	
 	
 ;;; Funcao invalida para processador 80X86	
 caseFE:
