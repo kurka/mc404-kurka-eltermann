@@ -169,46 +169,20 @@ While:
 	jmp Fim
 
 	
-;; Rotina de escrita da linha de comando no arquivo
-Imprime:	
-	mov ah, 0x40
-	mov bx, [handle_arq_out]
-	;; cx contem o numero de caracteres a escrever
-	mov dx, linha_de_comando
-	int 0x21
-	ret
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;; processamento dos dados ;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+; _____________________________________________________________
 
-;; Saida: AX <- valor em ascii do byte atual apontado por DI
-HexToAscii:
-	xor ax,ax		; ax <- 0x0000
-	mov bl, byte[bin + di]
-	mov bh, bl
-	and bl, 00001111b	; bl <- apenas o nibble - significativo do byte
-	and bh, 11110000b	; bh <- apenas o nibble + significativo do byte
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;; tabela das rotinas para cada instrucao ;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-	;; AH <- valor em ascii da representacao em hexa do nibble MENOS significativo
-
-
+	;; Cada funcao, quando chamada, deve retornar o vetor 'linha_de_comando' montado
+	;; de acordo com a instrucao do byte lido. Alem disso, retorna tambem no registrador
+	;; CX o numero de caracteres a serem escritos (incluindo o byte 13 <pula linha>)
 	
-
-
-	;; AL <- valor em ascii da representacao em hexa do nibble MAIS significativo
-
-
-
-
-	ret
-
-
-	
-	
-	;; Rotinas de "montagem" da linha de comando
-	;; Saida: linha_de_comando definida
-	;; 	  cx <- numero de caracteres da linha de comando (incluindo 13d)
-
-
-
 case00:
 case01:
 case02:
@@ -937,12 +911,74 @@ caseFF:
 
 
 caseDefault:	
+
+
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;; tabela das rotinas para cada instrucao ;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	;; processamento dos dados ;;
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; _____________________________________________________________
+
+	;;;;;;;;;;;;;;;;;;;;;;;;
+	;; funcoes auxiliares ;;
+	;;;;;;;;;;;;;;;;;;;;;;;;
+
 	
+;; Funcao de escrita da linha de comando no arquivo
+;; Entrada: linha_de_comando definida;
+;; 	    cx: numero de caracteres a serem escritos, incluindo o byte 13 (pula linha)
+Imprime:	
+	mov ah, 0x40
+	mov bx, [handle_arq_out]
+	;; cx contem o numero de caracteres a escrever
+	mov dx, linha_de_comando
+	int 0x21
+	ret
+
+
+;; Funcao de conversao de um byte para uma word que contem sua representacao em hexa (valores ascii)
+;; Saida: AX <- valor em ascii do byte atual apontado por DI
+HexToAscii:
+	xor ax,ax		; ax <- 0x0000
+	mov bl, byte[bin + di]
+	mov bh, bl 		; bh <- copia do byte
+	and bl, 00001111b	; bl <- apenas o nibble - significativo do byte
+
+	;; AH <- valor em ascii da representacao em hexa do nibble MENOS significativo
+	mov ah, bl
+	cmp ah, 9
+	ja MenosSignificativoMaiorNove
+	;; 0 <= byte - significativo <= 9
+	add ah, 0x30
+	jmp MaisSignificativo
+MenosSignificativoMaiorNove:
+	;; byte - significativo >= A
+	add ah, 0x37
+
+MaisSignificativo:
+	;; AL <- valor em ascii da representacao em hexa do nibble MAIS significativo
+	mov al, bh 		; al <- byte original
+	shr al, 4 		; al <- apenas o nibble + significativo do byte
+	cmp al, 9
+	ja MaisSignificativoMaiorNove
+	;; 0 <= byte + significativo <= 9
+	add al, 0x30
+	ret
+MaisSignificativoMaiorNove:	
+	;; byte + significativo >= A
+	add al, 0x37
+	ret
+
+
+	
+	;;;;;;;;;;;;;;;;;;;;;;;;
+	;; funcoes auxiliares ;;
+	;;;;;;;;;;;;;;;;;;;;;;;;
+
 ; _____________________________________________________________ 
+
+
+
 	
 
 Fim:
@@ -978,7 +1014,7 @@ handle_arq_out:	resb 2
 
 ;; espaco de memoria reservado para a 'montagem' da linha de comando, antes
 ;; desta ser escrita no arquivo
-linha_de_comando: db 'org 100h',13,'section .text',13,'start:'13
+linha_de_comando: db 'org 100h',13,'section .text',13,'start:',13
 
 
 ;; Tabela de apontadores para o codigo
