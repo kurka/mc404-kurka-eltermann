@@ -226,7 +226,7 @@ case0A:
 case0B:
 
 ;;or AL, XYh
-caseOC:
+case0C:
 	mov cx, 12
 	mov word[linha_de_comando], 'or'
 	mov word[linha_de_comando + 2], '  '
@@ -240,7 +240,7 @@ caseOC:
 	ret	
 
 ;;or AX, XYZWh
-caseOD:
+case0D:
 	mov cx,14 
 	mov word[linha_de_comando], 'or'
 	mov word[linha_de_comando + 2], '  '
@@ -847,11 +847,11 @@ case5F:
 
 ;;pusha	
 case60:
-	mov cx, 7
+	mov cx, 6
 	mov word[linha_de_comando],'pu'
 	mov word[linha_de_comando + 2],'sh'
-	mov byte[linha_de_comando + 4],'a '  
-	mov byte[linha_de_comando + 6],13
+	mov byte[linha_de_comando + 4],'a'  
+	mov byte[linha_de_comando + 5],13
 	ret
 ;;popa
 case61:
