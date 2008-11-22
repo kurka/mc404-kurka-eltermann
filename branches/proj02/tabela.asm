@@ -220,12 +220,6 @@ caseF7:	;1111 0111 mod 000 r/m (disp-lo),(disp-hi),data-lo,data-hi test         
 	;; mod 101 r/m (disp-lo),(disp-hi)                 imul          reg16/mem16
 	;; mod 110 r/m (disp-lo),(disp-hi)                 div           reg16/mem16
 	;; mod 111 r/m (disp-lo),(disp-hi)                 idiv          reg16/mem16
-caseF8:	;1111 1000                                 clc
-caseF9:	;1111 1001                                 stc
-caseFA:	;1111 1010                                 cli
-caseFB:	;1111 1011                                 sti
-caseFC:	;1111 1100                                 cld
-caseFD:	;1111 1101                                 std
 caseFE:	;1111 1110 mod 000 r/m (disp-lo),(disp-hi) inc  mem16
    	;;             mod 001 r/m (disp-lo),(disp-hi) dec  mem16
 	;;             mod 010 r/m                     —
