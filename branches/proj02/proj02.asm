@@ -201,9 +201,6 @@ case00:
 case01:
 case02:
 case03:
-
-case04:	;0000 0100 data-8                          add  AL,immed8
-case05:	;0000 0101 data-lo     data-hi             add  AX,immed16
 case04:
 case05:
 ;;push es
@@ -433,8 +430,6 @@ case28:
 case29:
 case2A:
 case2B:
-case2C:	;0010 1100 data-8                          sub  AL,immed8
-case2D:	;0010 1101 data-lo     data-hi             sub  AX,immed16	
 ;;sub AL, XYh
 case2C:
 	mov cx, 12
