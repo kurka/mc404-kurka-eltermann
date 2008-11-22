@@ -750,7 +750,7 @@ case54:
 	mov word[linha_de_comando],'pu'
 	mov word[linha_de_comando + 2],'sh'
 	mov word[linha_de_comando + 4],' S'  
-	mov byte[linha_de_comando + 6],'X'
+	mov byte[linha_de_comando + 6],'P'
 	mov byte[linha_de_comando + 7],13	
 	ret 
 ;;push bp
@@ -759,7 +759,7 @@ case55:
 	mov word[linha_de_comando],'pu'
 	mov word[linha_de_comando + 2],'sh'
 	mov word[linha_de_comando + 4],' B'  
-	mov byte[linha_de_comando + 6],'X'
+	mov byte[linha_de_comando + 6],'P'
 	mov byte[linha_de_comando + 7],13	
 	ret 
 ;;push si	
@@ -768,8 +768,7 @@ case56:
 	mov word[linha_de_comando],'pu'
 	mov word[linha_de_comando + 2],'sh'
 	mov word[linha_de_comando + 4],' S'  
-	mov by
-	mov byte[linha_de_comando + 6],'X'
+	mov byte[linha_de_comando + 6],'I'
 	mov byte[linha_de_comando + 7],13	
 	ret 
 ;;push di	
@@ -778,10 +777,9 @@ case57:
 	mov word[linha_de_comando],'pu'
 	mov word[linha_de_comando + 2],'sh'
 	mov word[linha_de_comando + 4],' D'  
-	mov byte[linha_de_comando + 6],'X'
+	mov byte[linha_de_comando + 6],'I'
 	mov byte[linha_de_comando + 7],13	
 	ret
-
 ;;pop ax
 case58:
 	mov cx, 7
