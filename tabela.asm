@@ -119,22 +119,6 @@ caseA2:	;1010 0010 addr-lo     addr-hi               mov   mem8,AL
 caseA3:	;1010 0011 addr-lo     addr-hi               mov   mem16,AL
 caseA8:	;1010 1000 data-8                            test  AL,immed8
 caseA9:	;1010 1001 data-lo     data-hi               test  AX,immed16
-caseB0:	;1011 0000 data-8              mov     AL,immed8
-caseB1:	;1011 0001 data-8              mov     CL,immed8
-caseB2:	;1011 0010 data-8              mov     DL,immed8
-caseB3:	;1011 0011 data-8              mov     BL,immed8
-
-caseB5:	;1011 0101 data-8              mov     CH,immed8
-caseB6:	;1011 0110 data-8              mov     DH,immed8
-caseB7:	;1011 0111 data-8              mov     BH,immed8
-caseB8:	;1011 1000 data-lo     data-hi mov     AX,immed16
-caseB9:	;1011 1001 data-lo     data-hi mov     CX,immed16
-
-caseBB:	;1011 1011 data-lo     data-hi mov     BX,immed16
-caseBC:	;1011 1100 data-lo     data-hi mov     SP,immed16
-caseBD:	;1011 1101 data-lo     data-hi mov     BP,immed16
-caseBE:	;1011 1110 data-lo     data-hi mov     SI,immed16
-caseBF:	;1011 1111 data-lo     data-hi mov     DI,immed16
 caseC0:	;1100 0000 mod 000 r/m data-8  rol     reg8/mem8, immed8
 	;;             mod 001 r/m data-8  ror     reg8/mem8, immed8
 	;;             mod 010 r/m data-8  rcl     reg8/mem8, immed8
