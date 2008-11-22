@@ -626,7 +626,21 @@ caseB6:
 caseB7:
 caseB8:
 caseB9:
+;; mov DX, XYZWh
 caseBA:
+	mov cx,14 
+	mov word[linha_de_comando], 'mo'
+	mov word[linha_de_comando + 2], 'v '
+	mov word[linha_de_comando + 4], 'DX'
+	mov word[linha_de_comando + 6], ', '
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 8], ax
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 10], ax
+	mov byte[linha_de_comando + 12], 'h'
+	mov byte[linha_de_comando + 13], 13
 caseBB:
 caseBC:
 caseBD:
