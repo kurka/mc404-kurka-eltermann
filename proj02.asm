@@ -155,13 +155,15 @@ WhileInstrucoes:
 	call [Table + bx]	; chamada da rotina para a instrucao especifica
 	call Imprime		; escreve a linha de comando no arquivo de saida
 
+	inc di
+	
+	;; caso si seja igual a 1, entao acabaram as instrucoes e iniciarao os dados
+	cmp si, 1
+	je WhileDados
+
 	;; caso o di ainda nao tenha percorrido todo o arquivo .COM, executa novamente
 	;; para o proximo comando	
-	inc di
-	;; TESTE!!!
-	;; 	cmp di, [tam_arq_com]
-	cmp di,9
-	;; TESTE!!!
+	cmp di, [tam_arq_com]
 	jne WhileInstrucoes
 	;; caso contrario, termina a execucao
 	jmp Fim
@@ -1363,10 +1365,10 @@ caseBA:
 	mov word[linha_de_comando + 6], ', '
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
+	mov word[linha_de_comando + 10], ax
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 10], ax
+	mov word[linha_de_comando + 8], ax
 	mov byte[linha_de_comando + 12], 'h'
 	mov byte[linha_de_comando + 13], 13
 	ret
@@ -1497,6 +1499,7 @@ caseCD:
 	mov word[linha_de_comando + 4], ax
 	mov byte[linha_de_comando + 6],'h'
 	mov byte[linha_de_comando + 7],13
+	call VerificaInt
 	ret
 ;;; Funcao invalida para processador 80X86	
 caseCE:
@@ -1798,7 +1801,6 @@ HexToAscii:
 MenosSignificativoMaiorNove:
 	;; byte - significativo >= A
 	add ah, 0x37
-
 MaisSignificativo:
 	;; AL <- valor em ascii da representacao em hexa do nibble MAIS significativo
 	mov al, bh 		; al <- byte original
@@ -1812,6 +1814,34 @@ MaisSignificativoMaiorNove:
 	;; byte + significativo >= A
 	add al, 0x37
 	ret
+
+
+;; Funcao que verifica se a interrupcao chamada foi de finalizacao da execucao.
+;; Retorno: si=1 -> ultima instrucao
+;; 	    si=0 -> continua nas instrucoes
+VerificaInt:	
+	;; dois casos:	1) int 20h
+	;;		2) mov ah, 4Ch | int 21h
+
+	;; caso 1
+	cmp byte[es:bin + di], 20h
+	jne ContinuaVerificaInt
+	inc si			; si <- 1
+	ret
+ContinuaVerificaInt:	
+	;; caso 2
+	cmp byte[es:bin + di], 21h
+	;; caso a interrupcao seja do tipo 21h, verifica se a inst. ant. foi 'mov ah, 4Ch'
+	je ContinuaVerificaInt2
+	;; caso contrario, retorna sem mexer no si
+	ret
+ContinuaVerificaInt2:
+	cmp word[es:bin + di - 3], 0B44Ch
+	jne FimVerificaInt
+	inc si
+FimVerificaInt:
+	ret
+
 
 
 	
