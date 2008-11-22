@@ -894,15 +894,54 @@ case97:
 	mov word[linha_de_comando + 12],'DI'  
 	mov byte[linha_de_comando + 14],13
 	ret 	
+;;cbw 
 case98:
+	mov cx, 4
+	mov word[linha_de_comando],'cb'
+	mov byte[linha_de_comando + 2],'w'
+	mov byte[linha_de_comando + 3],13
+;;cwb 
 case99:
-case9A:
-case9B:
-case9C:
-case9D:
-case9E:
-case9F:
+	mov cx, 4
+	mov word[linha_de_comando],'cw'
+	mov byte[linha_de_comando + 2],'b'
+	mov byte[linha_de_comando + 3],13
 
+
+case9A:
+
+
+;;wait 
+case9B:
+	mov cx, 5
+	mov word[linha_de_comando],'wa'
+	mov word[linha_de_comando + 2],'it'
+	mov byte[linha_de_comando + 4],13	
+;;pushf
+case9C:
+	mov cx, 6
+	mov word[linha_de_comando],'pu'
+	mov word[linha_de_comando + 2],'sh'	
+	mov byte[linha_de_comando + 4],'f'
+	mov byte[linha_de_comando + 5],13	
+;;popf
+case9D:
+	mov cx, 5
+	mov word[linha_de_comando],'po'
+	mov word[linha_de_comando + 2],'pf'
+	mov byte[linha_de_comando + 4],13
+;;sahf
+case9E:
+	mov cx, 5
+	mov word[linha_de_comando],'sa'
+	mov word[linha_de_comando + 2],'hf'
+	mov byte[linha_de_comando + 4],13
+;;lahf
+case9F:
+	mov cx, 5
+	mov word[linha_de_comando],'la'
+	mov word[linha_de_comando + 2],'hf'
+	mov byte[linha_de_comando + 4],13
 	
 caseA0:
 caseA1:
