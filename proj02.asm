@@ -1,4 +1,4 @@
-SEGMENT code
+bSEGMENT code
 ..start:
 
 	;; inicializa segmento de pilha
@@ -201,17 +201,38 @@ case02:
 case03:
 case04:
 case05:
+;;push es
 case06:
+	mov cx, 8
+	mov word[linha_de_comando],'pu'
+	mov word[linha_de_comando + 2],'sh'
+	mov word[linha_de_comando + 4],' E'  
+	mov byte[linha_de_comando + 6],'S'
+	mov byte[linha_de_comando + 7],13	
+	ret
+;;pop es
 case07:
+	mov cx, 7
+	mov word[linha_de_comando],'po'
+	mov word[linha_de_comando + 2],'p '
+	mov word[linha_de_comando + 4],'ES'  
+	mov byte[linha_de_comando + 6],13	
+	ret	
 case08:
 case09:
 case0A:
 case0B:
 case0C:
 case0D:
+;;pop cs
 case0E:
-
-
+	mov cx, 8
+	mov word[linha_de_comando],'pu'
+	mov word[linha_de_comando + 2],'sh'
+	mov word[linha_de_comando + 4],' C'  
+	mov byte[linha_de_comando + 6],'S'
+	mov byte[linha_de_comando + 7],13	
+	ret	
 ;;; Funcao invalida para processador 80X86
 case0F:
 	mov cx, 7
@@ -228,18 +249,46 @@ case12:
 case13:
 case14:
 case15:
+;;push ss
 case16:
+	mov cx, 8
+	mov word[linha_de_comando],'pu'
+	mov word[linha_de_comando + 2],'sh'
+	mov word[linha_de_comando + 4],' S'  
+	mov byte[linha_de_comando + 6],'S'
+	mov byte[linha_de_comando + 7],13	
+	ret
+;;pop es
 case17:
+	mov cx, 7
+	mov word[linha_de_comando],'po'
+	mov word[linha_de_comando + 2],'p '
+	mov word[linha_de_comando + 4],'SS'  
+	mov byte[linha_de_comando + 6],13	
+	ret	
 case18:
 case19:
 case1A:
 case1B:
 case1C:
 case1D:
+;;push es
 case1E:
+	mov cx, 8
+	mov word[linha_de_comando],'pu'
+	mov word[linha_de_comando + 2],'sh'
+	mov word[linha_de_comando + 4],' E'  
+	mov byte[linha_de_comando + 6],'S'
+	mov byte[linha_de_comando + 7],13	
+	ret
+;;pop ds
 case1F:
-
-
+	mov cx, 7
+	mov word[linha_de_comando],'po'
+	mov word[linha_de_comando + 2],'p '
+	mov word[linha_de_comando + 4],'DS'  
+	mov byte[linha_de_comando + 6],13	
+	ret	
 case20:
 case21:
 case22:
@@ -341,47 +390,290 @@ case3F:
 	mov word[linha_de_comando + 4],'Fh'  
 	mov byte[linha_de_comando + 6],13
 	ret 
-
-
+;;inc ax
 case40:
+	mov cx, 7
+	mov word[linha_de_comando],'in'
+	mov word[linha_de_comando + 2],'c '
+	mov word[linha_de_comando + 4],'AX'  
+	mov byte[linha_de_comando + 6],13
+	ret
+;;inc cx
 case41:
+	mov cx, 7
+	mov word[linha_de_comando],'in'
+	mov word[linha_de_comando + 2],'c '
+	mov word[linha_de_comando + 4],'CX'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;inc dx
 case42:
+	mov cx, 7
+	mov word[linha_de_comando],'in'
+	mov word[linha_de_comando + 2],'c '
+	mov word[linha_de_comando + 4],'DX'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;inc bx	
 case43:
+	mov cx, 7
+	mov word[linha_de_comando],'in'
+	mov word[linha_de_comando + 2],'c '
+	mov word[linha_de_comando + 4],'BX'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;inc sp
 case44:
+	mov cx, 7
+	mov word[linha_de_comando],'in'
+	mov word[linha_de_comando + 2],'c '
+	mov word[linha_de_comando + 4],'SP'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;inc bp
 case45:
+	mov cx, 7
+	mov word[linha_de_comando],'in'
+	mov word[linha_de_comando + 2],'c '
+	mov word[linha_de_comando + 4],'BP'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;inc si	
 case46:
+	mov cx, 7
+	mov word[linha_de_comando],'in'
+	mov word[linha_de_comando + 2],'c '
+	mov word[linha_de_comando + 4],'SI'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;inc di	
 case47:
+	mov cx, 7
+	mov word[linha_de_comando],'in'
+	mov word[linha_de_comando + 2],'c '
+	mov word[linha_de_comando + 4],'DI'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+
+;;dec ax
 case48:
+	mov cx, 7
+	mov word[linha_de_comando],'de'
+	mov word[linha_de_comando + 2],'c '
+	mov word[linha_de_comando + 4],'AX'  
+	mov byte[linha_de_comando + 6],13
+	ret
+;;dec cx
 case49:
+	mov cx, 7
+	mov word[linha_de_comando],'de'
+	mov word[linha_de_comando + 2],'c '
+	mov word[linha_de_comando + 4],'CX'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;dec dx
 case4A:
+	mov cx, 7
+	mov word[linha_de_comando],'de'
+	mov word[linha_de_comando + 2],'c '
+	mov word[linha_de_comando + 4],'DX'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;dec bx	
 case4B:
+	mov cx, 7
+	mov word[linha_de_comando],'de'
+	mov word[linha_de_comando + 2],'c '
+	mov word[linha_de_comando + 4],'BX'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;dec sp
 case4C:
+	mov cx, 7
+	mov word[linha_de_comando],'de'
+	mov word[linha_de_comando + 2],'c '
+	mov word[linha_de_comando + 4],'SP'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;dec bp
 case4D:
+	mov cx, 7
+	mov word[linha_de_comando],'de'
+	mov word[linha_de_comando + 2],'c '
+	mov word[linha_de_comando + 4],'BP'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;dec si	
 case4E:
+	mov cx, 7
+	mov word[linha_de_comando],'de'
+	mov word[linha_de_comando + 2],'c '
+	mov word[linha_de_comando + 4],'SI'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;dec di	
 case4F:
+	mov cx, 7
+	mov word[linha_de_comando],'de'
+	mov word[linha_de_comando + 2],'c '
+	mov word[linha_de_comando + 4],'DI'  
+	mov byte[linha_de_comando + 6],13
+	ret
 
+;;push ax
 case50:
+	mov cx, 8
+	mov word[linha_de_comando],'pu'
+	mov word[linha_de_comando + 2],'sh'
+	mov word[linha_de_comando + 4],' A'  
+	mov byte[linha_de_comando + 6],'X'
+	mov byte[linha_de_comando + 7],13	
+	ret
+;;push cx
 case51:
+	mov cx, 8
+	mov word[linha_de_comando],'pu'
+	mov word[linha_de_comando + 2],'sh'
+	mov word[linha_de_comando + 4],' C'  
+	mov byte[linha_de_comando + 6],'X'
+	mov byte[linha_de_comando + 7],13	
+	ret 
+;;push dx
 case52:
+	mov cx, 8
+	mov word[linha_de_comando],'pu'
+	mov word[linha_de_comando + 2],'sh'
+	mov word[linha_de_comando + 4],' D'  
+	mov byte[linha_de_comando + 6],'X'
+	mov byte[linha_de_comando + 7],13	
+	ret 
+;;push bx	
 case53:
+	mov cx, 8
+	mov word[linha_de_comando],'pu'
+	mov word[linha_de_comando + 2],'sh'
+	mov word[linha_de_comando + 4],' B'  
+	mov byte[linha_de_comando + 6],'X'
+	mov byte[linha_de_comando + 7],13	
+	ret 
+;;push sp
 case54:
+	mov cx, 8
+	mov word[linha_de_comando],'pu'
+	mov word[linha_de_comando + 2],'sh'
+	mov word[linha_de_comando + 4],' S'  
+	mov byte[linha_de_comando + 6],'X'
+	mov byte[linha_de_comando + 7],13	
+	ret 
+;;push bp
 case55:
+	mov cx, 8
+	mov word[linha_de_comando],'pu'
+	mov word[linha_de_comando + 2],'sh'
+	mov word[linha_de_comando + 4],' B'  
+	mov byte[linha_de_comando + 6],'X'
+	mov byte[linha_de_comando + 7],13	
+	ret 
+;;push si	
 case56:
+	mov cx, 8
+	mov word[linha_de_comando],'pu'
+	mov word[linha_de_comando + 2],'sh'
+	mov word[linha_de_comando + 4],' S'  
+	mov by
+	mov byte[linha_de_comando + 6],'X'
+	mov byte[linha_de_comando + 7],13	
+	ret 
+;;push di	
 case57:
+	mov cx, 8
+	mov word[linha_de_comando],'pu'
+	mov word[linha_de_comando + 2],'sh'
+	mov word[linha_de_comando + 4],' D'  
+	mov byte[linha_de_comando + 6],'X'
+	mov byte[linha_de_comando + 7],13	
+	ret
+
+;;pop ax
 case58:
+	mov cx, 7
+	mov word[linha_de_comando],'po'
+	mov word[linha_de_comando + 2],'p '
+	mov word[linha_de_comando + 4],'AX'  
+	mov byte[linha_de_comando + 6],13
+	ret
+;;pop cx
 case59:
+	mov cx, 7
+	mov word[linha_de_comando],'po'
+	mov word[linha_de_comando + 2],'p '
+	mov word[linha_de_comando + 4],'CX'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;pop dx
 case5A:
+	mov cx, 7
+	mov word[linha_de_comando],'po'
+	mov word[linha_de_comando + 2],'p '
+	mov word[linha_de_comando + 4],'DX'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;pop bx	
 case5B:
+	mov cx, 7
+	mov word[linha_de_comando],'po'
+	mov word[linha_de_comando + 2],'p '
+	mov word[linha_de_comando + 4],'BX'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;pop sp
 case5C:
+	mov cx, 7
+	mov word[linha_de_comando],'po'
+	mov word[linha_de_comando + 2],'p '
+	mov word[linha_de_comando + 4],'SP'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;pop bp
 case5D:
+	mov cx, 7
+	mov word[linha_de_comando],'po'
+	mov word[linha_de_comando + 2],'p '
+	mov word[linha_de_comando + 4],'BP'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;pop si	
 case5E:
+	mov cx, 7
+	mov word[linha_de_comando],'po'
+	mov word[linha_de_comando + 2],'p '
+	mov word[linha_de_comando + 4],'SI'  
+	mov byte[linha_de_comando + 6],13
+	ret 
+;;pop di	
 case5F:
+	mov cx, 7
+	mov word[linha_de_comando],'po'
+	mov word[linha_de_comando + 2],'p '
+	mov word[linha_de_comando + 4],'DI'  
+	mov byte[linha_de_comando + 6],13
+	ret	
 
-
+;;pusha	
 case60:
+	mov cx, 7
+	mov word[linha_de_comando],'pu'
+	mov word[linha_de_comando + 2],'sh'
+	mov byte[linha_de_comando + 4],'a '  
+	mov byte[linha_de_comando + 6],13
+	ret
+;;popa
 case61:
-
-	
+	mov cx, 5
+	mov word[linha_de_comando],'po'
+	mov word[linha_de_comando + 2],'pa'
+	mov byte[linha_de_comando + 4],13
+	ret	
 
 ;;; Funcao invalida para processador 80X86	
 case62:
@@ -525,13 +817,83 @@ case8F:
 	
 
 case90:
+;;xchg ax, cx
 case91:
+	mov cx, 15
+	mov word[linha_de_comando],'xc'
+	mov word[linha_de_comando + 2],'hg'
+	mov word[linha_de_comando + 4],' A'
+	mov word[linha_de_comando + 8],'X,'
+	mov word[linha_de_comando + 10],'  '		
+	mov word[linha_de_comando + 12],'CX'  
+	mov byte[linha_de_comando + 14],13
+	ret 
+;;xchg ax, dx
 case92:
+	mov cx, 15
+	mov word[linha_de_comando],'xc'
+	mov word[linha_de_comando + 2],'hg'
+	mov word[linha_de_comando + 4],' A'
+	mov word[linha_de_comando + 8],'X,'
+	mov word[linha_de_comando + 10],'  '		
+	mov word[linha_de_comando + 12],'DX'  
+	mov byte[linha_de_comando + 14],13
+	ret 
+;;xchg ax, bx	
 case93:
+	mov cx, 15
+	mov word[linha_de_comando],'xc'
+	mov word[linha_de_comando + 2],'hg'
+	mov word[linha_de_comando + 4],' A'
+	mov word[linha_de_comando + 8],'X,'
+	mov word[linha_de_comando + 10],'  '		
+	mov word[linha_de_comando + 12],'BX'  
+	mov byte[linha_de_comando + 14],13
+	ret 
+;;xchg ax, sp
 case94:
+	mov cx, 15
+	mov word[linha_de_comando],'xc'
+	mov word[linha_de_comando + 2],'hg'
+	mov word[linha_de_comando + 4],' A'
+	mov word[linha_de_comando + 8],'X,'
+	mov word[linha_de_comando + 10],'  '		
+	mov word[linha_de_comando + 12],'SP'  
+	mov byte[linha_de_comando + 14],13
+	ret 
+;;xchg ax, bp
 case95:
+	mov cx, 15
+	mov word[linha_de_comando],'xc'
+	mov word[linha_de_comando + 2],'hg'
+	mov word[linha_de_comando + 4],' A'
+	mov word[linha_de_comando + 8],'X,'
+	mov word[linha_de_comando + 10],'  '		
+	mov word[linha_de_comando + 12],'BP'  
+	mov byte[linha_de_comando + 14],13
+	ret 
+;;xchg ax, si	
 case96:
+	mov cx, 15
+	mov word[linha_de_comando],'xc'
+	mov word[linha_de_comando + 2],'hg'
+	mov word[linha_de_comando + 4],' A'
+	mov word[linha_de_comando + 8],'X,'
+	mov word[linha_de_comando + 10],'  '		
+	mov word[linha_de_comando + 12],'SI'  
+	mov byte[linha_de_comando + 14],13
+	ret 
+;;xchg ax, di	
 case97:
+	mov cx, 15
+	mov word[linha_de_comando],'xc'
+	mov word[linha_de_comando + 2],'hg'
+	mov word[linha_de_comando + 4],' A'
+	mov word[linha_de_comando + 8],'X,'
+	mov word[linha_de_comando + 10],'  '		
+	mov word[linha_de_comando + 12],'DI'  
+	mov byte[linha_de_comando + 14],13
+	ret 	
 case98:
 case99:
 case9A:

@@ -4,31 +4,24 @@ case02:	;0000 0010 mod reg r/m (disp-lo),(disp-hi) add  reg8,reg8/mem8
 case03:	;0000 0011 mod reg r/m (disp-lo),(disp-hi) add   reg16,reg16/mem16 
 case04:	;0000 0100 data-8                          add  AL,immed8
 case05:	;0000 0101 data-lo     data-hi             add  AX,immed16
-case06:	;0000 0110                                 push ES
-case07:	;0000 0111                                 pop  ES
 case08:	;0000 0100 mod reg r/m (disp-lo),(disp-hi) or   reg8/mem8,reg8
 case09:	;0000 1001 mod reg r/m (disp-lo),(disp-hi) or   reg16/mem16,reg16
 case0A:	;0000 1010 mod reg r/m (disp-lo),(disp-hi) or   reg8,reg8/mem8
 case0B:	;0000 1011 mod reg r/m (disp-lo),(disp-hi) or   reg16,reg16/mem16
 case0C:	;0000 1100 data-8                          or   AL, immed8
 case0D:	;0000 1101 data-lo     data-hi             or   AX,immed16
-case0E:	;0000 1110                                 push CS
 case10:	;0001 0000 mod reg r/m (disp-lo),(disp-hi) adc  reg8/mem8,reg8
 case11:	;0001 0001 mod reg r/m (disp-lo),(disp-hi) adc   reg16/mem16,reg16
 case12:	;0001 0010 mod reg r/m (disp-lo),(disp-hi) adc  reg8,reg8/mem8
 case13:	;0001 0011 mod reg r/m (disp-lo),(disp-hi) adc   reg16,reg16/mem16
 case14:	;0001 0100 data-8                          adc  AL,immed8
 case15:	;0001 0101 data-lo     data-hi             adc  AX,immed16
-case16:	;0001 0110                                 push SS
-case17:	;0001 0111                                 pop  SS
 case18:	;0001 1000 mod reg r/m (disp-lo),(disp-hi) sbb  reg8/mem8,reg8
 case19:	;0001 1001 mod reg r/m (disp-lo),(disp-hi) sbb   reg16/mem16,reg16
 case1A:	;0001 1010 mod reg r/m (disp-lo),(disp-hi) sbb  reg8,reg8/mem8
 case1B:	;0001 1011 mod reg r/m (disp-lo),(disp-hi) sbb   reg16,reg16/mem16
 case1C:	;0001 1100 data-8                          sbb  AL,immed8
 case1D:	;0001 1101 data-lo     data-hi             sbb  AX,immed16
-case1E:	;0001 1110                                 push DS
-case1F:	;0001 1111                                 pop  DS
 case20:	;0010 0000 mod reg r/m (disp-lo),(disp-hi) and  reg8/mem8,reg8
 case21:	;0010 0001 mod reg r/m (disp-lo),(disp-hi) and   reg16/mem16,reg16
 case22:	;0010 0010 mod reg r/m (disp-lo),(disp-hi) and  reg8,reg8/mem8
@@ -53,40 +46,6 @@ case3A:	;0011 1010 mod reg r/m (disp-lo),(disp-hi) xor  reg8,reg8/mem8
 case3B:	;0011 1011 mod reg r/m (disp-lo),(disp-hi) xor  reg16,reg16/mem16
 case3C:	;0011 1100 data-8                          xor  AL,immed8
 case3D:	;0011 1101 data-lo     data-hi             xor  AX,immed16
-case40:	;0100 0000                                 inc  AX
-case41:	;0100 0001                                 inc  CX
-case42:	;0100 0010                                 inc  DX
-case43:	;0100 0011                                 inc  BX
-case44:	;0100 0100                                 inc  SP
-case45:	;0100 0101                                 inc  BP
-case46:	;0100 0110                                 inc  SI
-case47:	;0100 0111                                 inc  DI
-case48:	;0100 1000                                 dec  AX
-case49:	;0100 1001                                 dec  CX
-case4A:	;0100 1010                                 dec  DX
-case4B:	;0100 1011                                 dec  BX
-case4C:	;0100 1100                                 dec  SP
-case4D:	;0100 1101                                 dec  BP
-case4E:	;0100 1110                                 dec  SI
-case4F:	;0100 1111                                 dec  DI
-case50:	;0101 0000                                 push AX
-case51:	;0101 0001                                 push CX
-case52:	;0101 0010								   push DX
-case53:	;0101 0011                                 push BX
-case54:	;0101 0100                                 push SP
-case55:	;0101 0101                                 push BP
-case56:	;0101 0110                                 push SI
-case57:	;0101 0111                              push        DI
-case58:	;0101 1000                              pop         AX
-case59:	;0101 1001                              pop         CX
-case5A:	;0101 1010                              pop         DX
-case5B:	;0101 1011                              pop         BX
-case5C:	;0101 1100                              pop         SP
-case5D:	;0101 1101                              pop         BP
-case5E:	;0101 1110                              pop         SI
-case5F:	;0101 1111                              pop         DI
-case60:	;0110 0000                              pusha
-case61:	;0110 0001                              popa
 case68:	;0110 1000 data-lo     data-hi          push        immed16
 case69:	;0110 1001 mod reg r/m data-lo, data-hi imul        immed16
 case70:	;0111 0000 IP-inc-8                     jo          short-label
@@ -152,13 +111,6 @@ case8E:	;1000 1110 mod OSR r/m (disp-lo),(disp-hi)   mov    SEGREG,reg16/mem16
 	;; mod 1 - r/m                       —
 case8F:	;1000 1111                                   pop   mem16
 case90:	;1001 0000                                   nop   (xchg AX,AX)
-case91:	;1001 0001                                   xchg  AX,CX
-case92:	;1001 0010                                   xchg  AX,DX
-case93:	;1001 0011                                   xchg  AX,BX
-case94:	;1001 0100                                   xchg  AX,SP
-case95:	;1001 0101                                   xchg  AX,BP
-case96:	;1001 0110                                   xchg  AX,SI
-case97:	;1001 0111                                   xchg  AX,DI
 case98:	;1001 1000                                   cbw
 case99:	;1001 1001                                   cwd
 case9A:	;1001 1010 disp-lo     disp-hi,seg-lo,seg-hi call  far-proc
