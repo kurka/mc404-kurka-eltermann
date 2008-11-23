@@ -1843,7 +1843,7 @@ ContinuaVerificaInt:
 	;; caso contrario, retorna sem mexer no si
 	ret
 ContinuaVerificaInt2:
-	cmp word[es:bin + di - 3], 0B44Ch
+	cmp word[es:bin + di - 3], 4CB4h
 	jne FimVerificaInt
 	inc si
 FimVerificaInt:
