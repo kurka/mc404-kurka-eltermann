@@ -129,7 +129,7 @@ AbreArquivoSaida:
 Principal:	
 
 	;; escreve o inicio do codigo no arquivo de saida
-	;; linha_de_codigo recebe as primeiras diretrizes em sua definicao
+	;; linha_de_comando recebe as primeiras diretrizes em sua definicao
 	;; org 100h
 	;; section .text
 	;; start:
@@ -138,11 +138,13 @@ Principal:
 	
 
 	;; Para percorrer todos os bytes do arquivo executavel, o registrador DI sera
-	;; usado como indice de acesso (facilitando o enderecamento com o segmento ES)
-
+	;; usado como indice de acesso
+	
+	push si
 	push di			; salva di na pilha
 	xor di, di		; di <- 0x0000
-
+	xor si,si
+	
 WhileInstrucoes:	
 	;; Interpretacao dos bytes do arquivo binario:
 	;; Usaremos uma tabela com enderecos de trechos do codigo (do segmento CS).
@@ -180,8 +182,20 @@ WhileInstrucoes:
 	;;;;;;;;;;;;;;;;;;;;;;;
 
 WhileDados:
+	mov cx, 7
+	mov word[linha_de_comando], 'db'
+	mov byte[linha_de_comando + 2], ' '
+	mov byte[linha_de_comando + 5], 'h'
+	mov byte[linha_de_comando + 6],13
 	
-
+WhileDados1:	
+	call HexToAscii
+	mov word[linha_de_comando + 3], ax
+	call Imprime
+	inc di
+	cmp di, [tam_arq_com]
+	jne WhileDados1
+	jmp Fim
 
 	;;;;;;;;;;;;;;;;;;;;;;;
 	;; escrita dos dados ;;
@@ -1852,6 +1866,7 @@ Fim:
 
 	;; recupera di
 	pop di
+	pop si
 	
 	;; fecha arquivo de saida
 	mov bx, [handle_arq_out]
