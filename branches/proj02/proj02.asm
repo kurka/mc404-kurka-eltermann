@@ -262,10 +262,10 @@ case0D:
 	mov word[linha_de_comando + 6], ', '
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
+	mov word[linha_de_comando + 10], ax
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 10], ax
+	mov word[linha_de_comando + 8], ax
 	mov byte[linha_de_comando + 12], 'h'
 	mov byte[linha_de_comando + 13], 10
 ;;pop cs
@@ -315,10 +315,10 @@ case15:
 	mov word[linha_de_comando + 6], ', '
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
+	mov word[linha_de_comando + 10], ax
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 10], ax
+	mov word[linha_de_comando + 8], ax
 	mov byte[linha_de_comando + 12], 'h'
 	mov byte[linha_de_comando + 13], 10
 
@@ -1342,10 +1342,10 @@ caseB8:
 	mov word[linha_de_comando + 6], ', '
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
+	mov word[linha_de_comando + 10], ax
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 10], ax
+	mov word[linha_de_comando + 8], ax
 	mov byte[linha_de_comando + 12], 'h'
 	mov byte[linha_de_comando + 13], 10	
 ;;mov CX, XYZWh
@@ -1357,10 +1357,10 @@ caseB9:
 	mov word[linha_de_comando + 6], ', '
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
+	mov word[linha_de_comando + 10], ax
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 10], ax
+	mov word[linha_de_comando + 8], ax
 	mov byte[linha_de_comando + 12], 'h'
 	mov byte[linha_de_comando + 13], 10	
 ;; mov DX, XYZWh
@@ -1388,10 +1388,10 @@ caseBB:
 	mov word[linha_de_comando + 6], ', '
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
+	mov word[linha_de_comando + 10], ax
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 10], ax
+	mov word[linha_de_comando + 8], ax
 	mov byte[linha_de_comando + 12], 'h'
 	mov byte[linha_de_comando + 13], 10	
 	
@@ -1404,10 +1404,10 @@ caseBC:
 	mov word[linha_de_comando + 6], ', '
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
+	mov word[linha_de_comando + 10], ax
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 10], ax
+	mov word[linha_de_comando + 8], ax
 	mov byte[linha_de_comando + 12], 'h'
 	mov byte[linha_de_comando + 13], 10	
 ;;mov BP, XYZWh	
@@ -1419,10 +1419,10 @@ caseBD:
 	mov word[linha_de_comando + 6], ', '
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
+	mov word[linha_de_comando + 10], ax
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 10], ax
+	mov word[linha_de_comando + 8], ax
 	mov byte[linha_de_comando + 12], 'h'
 	mov byte[linha_de_comando + 13], 10	
 ;;mov SI, XYZWh	
@@ -1434,10 +1434,10 @@ caseBE:
 	mov word[linha_de_comando + 6], ', '
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
+	mov word[linha_de_comando + 10], ax
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 10], ax
+	mov word[linha_de_comando + 8], ax
 	mov byte[linha_de_comando + 12], 'h'
 	mov byte[linha_de_comando + 13], 10	
 ;;mov DI, XYZWh	
@@ -1449,10 +1449,10 @@ caseBF:
 	mov word[linha_de_comando + 6], ', '
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
+	mov word[linha_de_comando + 10], ax
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 10], ax
+	mov word[linha_de_comando + 8], ax
 	mov byte[linha_de_comando + 12], 'h'
 	mov byte[linha_de_comando + 13], 10	
 
