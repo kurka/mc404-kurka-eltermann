@@ -1007,7 +1007,15 @@ case85:
 case86:
 case87:
 case88:
+
+;; mov reg16/mem16,reg16	
 case89:
+	mov word[linha_de_comando],'mo'
+	mov word[linha_de_comando + 2],'v '
+	inc di
+	mov bx, 4
+	call InsereRM-Destino-16
+	ret
 case8A:
 case8B:
 case8C:
