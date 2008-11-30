@@ -1251,6 +1251,8 @@ case70:
 	mov byte[linha_de_comando + 2], ' '
 	inc di
 	call HexToAscii
+	add ax, di		;AX = INC+DI+100h=endereco efetivo
+	add ax, 100h
 	mov byte[linha_de_comando + 3], '0'
 	mov word[linha_de_comando + 4], ax
 	mov byte[linha_de_comando + 6], 'h'
@@ -1263,6 +1265,8 @@ case71:
 	mov word[linha_de_comando + 2], 'o '
 	inc di
 	call HexToAscii
+	add ax, di		;AX = INC+DI+100h=endereco efetivo
+	add ax, 100h	
 	mov byte[linha_de_comando + 4], '0'
 	mov word[linha_de_comando + 5], ax
 	mov byte[linha_de_comando + 7], 'h'
@@ -1275,6 +1279,8 @@ case72:
 	mov byte[linha_de_comando + 2], ' '
 	inc di
 	call HexToAscii
+	add ax, di		;AX = INC+DI+100h=endereco efetivo
+	add ax, 100h	
 	mov byte[linha_de_comando + 3], '0'
 	mov word[linha_de_comando + 4], ax
 	mov byte[linha_de_comando + 6], 'h'
@@ -1287,6 +1293,8 @@ case73:
 	mov word[linha_de_comando + 2], 'c '
 	inc di
 	call HexToAscii
+	add ax, di		;AX = INC+DI+100h=endereco efetivo
+	add ax, 100h	
 	mov byte[linha_de_comando + 4], '0'
 	mov word[linha_de_comando + 5], ax
 	mov byte[linha_de_comando + 7], 'h'
@@ -1299,6 +1307,8 @@ case74:
 	mov byte[linha_de_comando + 2], ' '
 	inc di
 	call HexToAscii
+	add ax, di		;AX = INC+DI+100h=endereco efetivo
+	add ax, 100h	
 	mov byte[linha_de_comando + 3], '0'
 	mov word[linha_de_comando + 4], ax
 	mov byte[linha_de_comando + 6], 'h'
@@ -1311,6 +1321,8 @@ case75:
 	mov word[linha_de_comando + 2], 'e '
 	inc di
 	call HexToAscii
+	add ax, di		;AX = INC+DI+100h=endereco efetivo
+	add ax, 100h	
 	mov byte[linha_de_comando + 4], '0'
 	mov word[linha_de_comando + 5], ax
 	mov byte[linha_de_comando + 7], 'h'
@@ -1323,6 +1335,8 @@ case76:
 	mov word[linha_de_comando + 2], 'e '
 	inc di
 	call HexToAscii
+	add ax, di		;AX = INC+DI+100h=endereco efetivo
+	add ax, 100h	
 	mov byte[linha_de_comando + 4], '0'
 	mov word[linha_de_comando + 5], ax
 	mov byte[linha_de_comando + 7], 'h'
@@ -1335,6 +1349,8 @@ case77:
 	mov byte[linha_de_comando + 2], ' '
 	inc di
 	call HexToAscii
+	add ax, di		;AX = INC+DI+100h=endereco efetivo
+	add ax, 100h	
 	mov byte[linha_de_comando + 3], '0'
 	mov word[linha_de_comando + 4], ax
 	mov byte[linha_de_comando + 6], 'h'
@@ -1347,6 +1363,8 @@ case78:
 	mov byte[linha_de_comando + 2], ' '
 	inc di
 	call HexToAscii
+	add ax, di		;AX = INC+DI+100h=endereco efetivo
+	add ax, 100h	
 	mov byte[linha_de_comando + 3], '0'
 	mov word[linha_de_comando + 4], ax
 	mov byte[linha_de_comando + 6], 'h'
@@ -1359,6 +1377,8 @@ case79:
 	mov word[linha_de_comando + 2], 's '
 	inc di
 	call HexToAscii
+	add ax, di		;AX = INC+DI+100h=endereco efetivo
+	add ax, 100h	
 	mov byte[linha_de_comando + 4], '0'
 	mov word[linha_de_comando + 5], ax
 	mov byte[linha_de_comando + 7], 'h'
@@ -1371,6 +1391,8 @@ case7A:
 	mov byte[linha_de_comando + 2], ' '
 	inc di
 	call HexToAscii
+	add ax, di		;AX = INC+DI+100h=endereco efetivo
+	add ax, 100h	
 	mov byte[linha_de_comando + 3], '0'
 	mov word[linha_de_comando + 4], ax
 	mov byte[linha_de_comando + 6], 'h'
@@ -1383,6 +1405,8 @@ case7B:
 	mov word[linha_de_comando + 2], 'p '
 	inc di
 	call HexToAscii
+	add ax, di		;AX = INC+DI+100h=endereco efetivo
+	add ax, 100h	
 	mov byte[linha_de_comando + 4], '0'
 	mov word[linha_de_comando + 5], ax
 	mov byte[linha_de_comando + 7], 'h'
@@ -1395,6 +1419,8 @@ case7C:
 	mov byte[linha_de_comando + 2], ' '
 	inc di
 	call HexToAscii
+	add ax, di		;AX = INC+DI+100h=endereco efetivo
+	add ax, 100h	
 	mov byte[linha_de_comando + 3], '0'
 	mov word[linha_de_comando + 4], ax
 	mov byte[linha_de_comando + 6], 'h'
@@ -1407,6 +1433,8 @@ case7D:
 	mov word[linha_de_comando + 2], 'e '
 	inc di
 	call HexToAscii
+	add ax, di		;AX = INC+DI+100h=endereco efetivo
+	add ax, 100h	
 	mov byte[linha_de_comando + 4], '0'
 	mov word[linha_de_comando + 5], ax
 	mov byte[linha_de_comando + 7], 'h'
@@ -1419,6 +1447,8 @@ case7E:
 	mov word[linha_de_comando + 2], 'e '
 	inc di
 	call HexToAscii
+	add ax, di		;AX = INC+DI+100h=endereco efetivo
+	add ax, 100h	
 	mov byte[linha_de_comando + 4], '0'
 	mov word[linha_de_comando + 5], ax
 	mov byte[linha_de_comando + 7], 'h'
@@ -1431,6 +1461,8 @@ case7F:
 	mov byte[linha_de_comando + 2], ' '
 	inc di
 	call HexToAscii
+	add ax, di		;AX = INC+DI+100h=endereco efetivo
+	add ax, 100h	
 	mov byte[linha_de_comando + 3], '0'
 	mov word[linha_de_comando + 4], ax
 	mov byte[linha_de_comando + 6], 'h'
@@ -2305,33 +2337,33 @@ caseE1:
 	mov word[linha_de_comando + 4],'1h'  
 	mov byte[linha_de_comando + 6],10
 	ret 
-;loop IP+XYh
+;loop XYh
 caseE2:
-	mov cx, 14
+	mov cx, 10
 	mov word[linha_de_comando], 'lo'
 	mov word[linha_de_comando + 2], 'op'
-	mov word[linha_de_comando + 4], '  '	
-	mov word[linha_de_comando + 6], 'IP'
-	mov byte[linha_de_comando + 8], '+'
+	mov word[linha_de_comando + 4], ' 0'	
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 10], ax
-	mov byte[linha_de_comando + 12], 'h'
-	mov byte[linha_de_comando + 13], 10
+	add ax, di		;AX = INC+DI+100h=endereco efetivo
+	add ax, 100h	
+	mov word[linha_de_comando + 6], ax
+	mov byte[linha_de_comando + 8], 'h'
+	mov byte[linha_de_comando + 9], 10
 	ret		
-;jcxz IP+XYh
+;jcxz XYh
 caseE3:
-	mov cx, 14
+	mov cx, 10
 	mov word[linha_de_comando], 'jc'
 	mov word[linha_de_comando + 2], 'xz'
-	mov word[linha_de_comando + 4], '  '	
-	mov word[linha_de_comando + 6], 'IP'
-	mov byte[linha_de_comando + 8], '+'
+	mov word[linha_de_comando + 4], ' 0'	
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 10], ax
-	mov byte[linha_de_comando + 12], 'h'
-	mov byte[linha_de_comando + 13], 10
+	add ax, di		;AX = INC+DI+100h=endereco efetivo
+	add ax, 100h	
+	mov word[linha_de_comando + 6], ax
+	mov byte[linha_de_comando + 8], 'h'
+	mov byte[linha_de_comando + 9], 10
 	ret	
 	
 ;in  AL, XYh
