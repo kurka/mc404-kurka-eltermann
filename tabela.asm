@@ -135,10 +135,6 @@ caseD3:	;1101 0011 mod 000 r/m (disp-lo),(disp-hi) rol           reg16/mem16,CL
 	;;             mod 111 r/m (disp-lo),(disp-hi) sar           reg16/mem16,CL
 caseE2:	;1110 0010 IP-inc-8                                        loop          short-label
 caseE3:	;1110 0011 IP-inc-8                                        jcxz          short-label
-caseE4:	;1110 0100 data-8                                          in            AL,immed8
-caseE5:	;1110 0101 data-8                                          in            AX,immed8
-caseE6:	;1110 0110 data-8                                          out           AL,immed8
-caseE7:	;1110 0111 data-8                                          out           AX,immed8
 caseE8:	;1110 1000 IP-inc-lo   IP-inc-hi                           call          near-proc
 caseE9:	;1110 1001 IP-inc-lo   IP-inc-hi                           jmp           near-label
 caseEA:	;1110 1010 IP-lo       IP-hi,CS-lo,CS-hi                   jmp           far-label
