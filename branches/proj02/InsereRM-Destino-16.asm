@@ -3,7 +3,6 @@
 ;; Entrada:	DI <- posicao do byte 'mod r/m reg'
 ;; 		BX <- posicao do vetor 'linha_de_comando' para o proximo caracter
 ;; Saidas:	CX <- numero total de letras em 'linha_de_comando'
-;; 		DI <- posicao para a proxima instrucao
 	
 ;; reg16/mem16, reg16
 InsereRM-Destino-16:
@@ -35,7 +34,6 @@ InsereRM-Destino-16:
 	add cx, 5
 	;; recupera si
 	pop si
-	inc di
 	ret
 
 
@@ -65,7 +63,6 @@ InsereRM-Destino-16-mod11:
 	add cx, 7
 	;; recupera si
 	pop si
-	inc di
 	ret
 
 
@@ -75,7 +72,6 @@ InsereRM-Destino-16-mod11:
 ;;		DI <- indice para o byte 'mod reg r/m'
 ;; 		AL <- byte 'mod reg r/m'
 ;; Saida:	BX <- inicio para a escrita posterior
-;;		DI <- indice para a proxima instrucao
 InsereMemoria:
 	mov byte[linha_de_comando + bx],'['
 	mov ah, al
