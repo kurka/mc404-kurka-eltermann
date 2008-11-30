@@ -750,8 +750,22 @@ case39:
 	mov bx, 4
 	call InsereRM-Destino-16
 	ret	
+;xor  reg8,reg8/mem8
 case3A:
+	mov word[linha_de_comando],'xo'
+	mov word[linha_de_comando + 2],'r '
+	inc di
+	mov bx, 4
+	call Origem-InsereRM-8
+	ret			
+;xor  reg16,reg16/mem16
 case3B:
+	mov word[linha_de_comando],'xo'
+	mov word[linha_de_comando + 2],'r '
+	inc di
+	mov bx, 4
+	call Origem-InsereRM-16
+	ret		
 ;;xor AL, XYh
 case3C:
 	mov cx, 12

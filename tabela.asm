@@ -1,7 +1,5 @@
 case04:	;0000 0100 data-8          add AL,immed8
 case05:	;0000 0101 data-lo data-hi add AX,immed16 
-case3A:	;0011 1010 mod reg r/m (disp-lo),(disp-hi) xor  reg8,reg8/mem8
-case3B:	;0011 1011 mod reg r/m (disp-lo),(disp-hi) xor  reg16,reg16/mem16
 case68:	;0110 1000 data-lo     data-hi          push        immed16
 case69:	;0110 1001 mod reg r/m data-lo, data-hi imul        immed16
 case70:	;0111 0000 IP-inc-8                     jo          short-label
