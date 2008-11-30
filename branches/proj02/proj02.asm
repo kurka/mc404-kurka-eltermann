@@ -1193,6 +1193,7 @@ case69:
 	mov word[linha_de_comando + 2], 'ul'
 	mov word[linha_de_comando + 4], '  '
 	inc di
+	inc di		;ignora o segundo byte e le os outros
 	call HexToAscii
 	mov word[linha_de_comando + 8], ax
 	inc di
