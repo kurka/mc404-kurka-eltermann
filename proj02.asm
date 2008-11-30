@@ -1521,7 +1521,7 @@ case8D:
 	mov word[linha_de_comando + 2],'a '
 	inc di
 	mov bx, 4
-	call Origem-InsereRM-16
+	call RMFonte16
 	ret	
 	;; REVISAR!!! ;;
 
@@ -1857,235 +1857,250 @@ caseAF:
 	mov byte[linha_de_comando + 6],10
 	ret 
 
-;;; Continuar a acrescentar os 0's...
 	
-;;mov AL, XYh
+;;mov AL, 0XYh
 caseB0:
-	mov cx, 12
+	mov cx, 13
 	mov word[linha_de_comando], 'mo'
 	mov word[linha_de_comando + 2], 'v '
 	mov word[linha_de_comando + 4], 'AL'
 	mov word[linha_de_comando + 6], ', '
+	mov byte[linha_de_comando + 8], '0'
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
-	mov byte[linha_de_comando + 10], 'h'
-	mov byte[linha_de_comando + 11], 10
+	mov word[linha_de_comando + 9], ax
+	mov byte[linha_de_comando + 11], 'h'
+	mov byte[linha_de_comando + 12], 10
 	ret	
-;;mov CL, XYh
+;;mov CL, 0XYh
 caseB1:
-	mov cx, 12
+	mov cx, 13
 	mov word[linha_de_comando], 'mo'
 	mov word[linha_de_comando + 2], 'v '
 	mov word[linha_de_comando + 4], 'CL'
 	mov word[linha_de_comando + 6], ', '
+	mov byte[linha_de_comando + 8], '0'
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
-	mov byte[linha_de_comando + 10], 'h'
-	mov byte[linha_de_comando + 11], 10
+	mov word[linha_de_comando + 9], ax
+	mov byte[linha_de_comando + 11], 'h'
+	mov byte[linha_de_comando + 12], 10
 	ret	
-;;mov DL, XYh
+;;mov DL, 0XYh
 caseB2:
-	mov cx, 12
+	mov cx, 13
 	mov word[linha_de_comando], 'mo'
 	mov word[linha_de_comando + 2], 'v '
 	mov word[linha_de_comando + 4], 'DL'
 	mov word[linha_de_comando + 6], ', '
+	mov byte[linha_de_comando + 8], '0'
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
-	mov byte[linha_de_comando + 10], 'h'
-	mov byte[linha_de_comando + 11], 10
+	mov word[linha_de_comando + 9], ax
+	mov byte[linha_de_comando + 11], 'h'
+	mov byte[linha_de_comando + 12], 10
 	ret	
-;;mov BL, XYh
+;;mov BL, 0XYh
 caseB3:
-	mov cx, 12
+	mov cx, 13
 	mov word[linha_de_comando], 'mo'
 	mov word[linha_de_comando + 2], 'v '
 	mov word[linha_de_comando + 4], 'BL'
 	mov word[linha_de_comando + 6], ', '
+	mov byte[linha_de_comando + 8], '0'
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
-	mov byte[linha_de_comando + 10], 'h'
-	mov byte[linha_de_comando + 11], 10
+	mov word[linha_de_comando + 9], ax
+	mov byte[linha_de_comando + 11], 'h'
+	mov byte[linha_de_comando + 12], 10
 	ret	
-;; mov AH, XYh
+;; mov AH, 0XYh
 caseB4:
-	mov cx, 12
+	mov cx, 13
 	mov word[linha_de_comando], 'mo'
 	mov word[linha_de_comando + 2], 'v '
 	mov word[linha_de_comando + 4], 'AH'
 	mov word[linha_de_comando + 6], ', '
+	mov byte[linha_de_comando + 8], '0'
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
-	mov byte[linha_de_comando + 10], 'h'
-	mov byte[linha_de_comando + 11], 10
+	mov word[linha_de_comando + 9], ax
+	mov byte[linha_de_comando + 11], 'h'
+	mov byte[linha_de_comando + 12], 10
 	ret
-;;mov CH, XYh
+;;mov CH, 0XYh
 caseB5:
-	mov cx, 12
+	mov cx, 13
 	mov word[linha_de_comando], 'mo'
 	mov word[linha_de_comando + 2], 'v '
 	mov word[linha_de_comando + 4], 'CH'
 	mov word[linha_de_comando + 6], ', '
+	mov byte[linha_de_comando + 8], '0'
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
-	mov byte[linha_de_comando + 10], 'h'
-	mov byte[linha_de_comando + 11], 10
+	mov word[linha_de_comando + 9], ax
+	mov byte[linha_de_comando + 11], 'h'
+	mov byte[linha_de_comando + 12], 10
 	ret	
-;;mov DH, XYh
+;;mov DH, 0XYh
 caseB6:
-	mov cx, 12
+	mov cx, 13
 	mov word[linha_de_comando], 'mo'
 	mov word[linha_de_comando + 2], 'v '
 	mov word[linha_de_comando + 4], 'DH'
 	mov word[linha_de_comando + 6], ', '
+	mov byte[linha_de_comando + 8], '0'
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
-	mov byte[linha_de_comando + 10], 'h'
-	mov byte[linha_de_comando + 11], 10
+	mov word[linha_de_comando + 9], ax
+	mov byte[linha_de_comando + 11], 'h'
+	mov byte[linha_de_comando + 12], 10
 	ret	
-;;mov BH, XYh
+;;mov BH, 0XYh
 caseB7:
-	mov cx, 12
+	mov cx, 13
 	mov word[linha_de_comando], 'mo'
 	mov word[linha_de_comando + 2], 'v '
 	mov word[linha_de_comando + 4], 'BH'
 	mov word[linha_de_comando + 6], ', '
+	mov byte[linha_de_comando + 8], '0'
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
-	mov byte[linha_de_comando + 10], 'h'
-	mov byte[linha_de_comando + 11], 10
+	mov word[linha_de_comando + 9], ax
+	mov byte[linha_de_comando + 11], 'h'
+	mov byte[linha_de_comando + 12], 10
 	ret	
 
-;;mov AX, XYZWh
+;;mov AX, 0XYZWh
 caseB8:
-	mov cx,14 
+	mov cx,15 
 	mov word[linha_de_comando], 'mo'
 	mov word[linha_de_comando + 2], 'v '
 	mov word[linha_de_comando + 4], 'AX'
 	mov word[linha_de_comando + 6], ', '
+	mov byte[linha_de_comando + 8], '0'
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 10], ax
+	mov word[linha_de_comando + 11], ax
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
-	mov byte[linha_de_comando + 12], 'h'
-	mov byte[linha_de_comando + 13], 10	
-;;mov CX, XYZWh
+	mov word[linha_de_comando + 9], ax
+	mov byte[linha_de_comando + 13], 'h'
+	mov byte[linha_de_comando + 14], 10	
+;;mov CX, 0XYZWh
 caseB9:
-	mov cx,14 
+	mov cx,15 
 	mov word[linha_de_comando], 'mo'
 	mov word[linha_de_comando + 2], 'v '
 	mov word[linha_de_comando + 4], 'CX'
 	mov word[linha_de_comando + 6], ', '
+	mov byte[linha_de_comando + 8], '0'
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 10], ax
+	mov word[linha_de_comando + 11], ax
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
-	mov byte[linha_de_comando + 12], 'h'
-	mov byte[linha_de_comando + 13], 10	
-;; mov DX, XYZWh
+	mov word[linha_de_comando + 9], ax
+	mov byte[linha_de_comando + 13], 'h'
+	mov byte[linha_de_comando + 14], 10	
+;; mov DX, 0XYZWh
 caseBA:
-	mov cx,14 
+	mov cx,15 
 	mov word[linha_de_comando], 'mo'
 	mov word[linha_de_comando + 2], 'v '
 	mov word[linha_de_comando + 4], 'DX'
 	mov word[linha_de_comando + 6], ', '
+	mov byte[linha_de_comando + 8], '0'
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 10], ax
+	mov word[linha_de_comando + 11], ax
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
-	mov byte[linha_de_comando + 12], 'h'
-	mov byte[linha_de_comando + 13], 10
+	mov word[linha_de_comando + 9], ax
+	mov byte[linha_de_comando + 13], 'h'
+	mov byte[linha_de_comando + 14], 10
 	ret
-;;mov BX, XYZWh
+;;mov BX, 0XYZWh
 caseBB:
-	mov cx,14 
+	mov cx,15 
 	mov word[linha_de_comando], 'mo'
 	mov word[linha_de_comando + 2], 'v '
 	mov word[linha_de_comando + 4], 'BX'
 	mov word[linha_de_comando + 6], ', '
+	mov byte[linha_de_comando + 8], '0'
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 10], ax
+	mov word[linha_de_comando + 11], ax
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
-	mov byte[linha_de_comando + 12], 'h'
-	mov byte[linha_de_comando + 13], 10	
+	mov word[linha_de_comando + 9], ax
+	mov byte[linha_de_comando + 13], 'h'
+	mov byte[linha_de_comando + 14], 10	
 	
-;;mov SP, XYZWh
+;;mov SP, 0XYZWh
 caseBC:
-	mov cx,14 
+	mov cx,15 
 	mov word[linha_de_comando], 'mo'
 	mov word[linha_de_comando + 2], 'v '
 	mov word[linha_de_comando + 4], 'SP'
 	mov word[linha_de_comando + 6], ', '
+	mov byte[linha_de_comando + 8], '0'
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 10], ax
+	mov word[linha_de_comando + 11], ax
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
-	mov byte[linha_de_comando + 12], 'h'
-	mov byte[linha_de_comando + 13], 10	
-;;mov BP, XYZWh	
+	mov word[linha_de_comando + 9], ax
+	mov byte[linha_de_comando + 13], 'h'
+	mov byte[linha_de_comando + 14], 10	
+;;mov BP, 0XYZWh	
 caseBD:
-	mov cx,14 
+	mov cx,15 
 	mov word[linha_de_comando], 'mo'
 	mov word[linha_de_comando + 2], 'v '
 	mov word[linha_de_comando + 4], 'BP'
 	mov word[linha_de_comando + 6], ', '
+	mov byte[linha_de_comando + 8], '0'
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 10], ax
+	mov word[linha_de_comando + 11], ax
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
-	mov byte[linha_de_comando + 12], 'h'
-	mov byte[linha_de_comando + 13], 10	
-;;mov SI, XYZWh	
+	mov word[linha_de_comando + 9], ax
+	mov byte[linha_de_comando + 13], 'h'
+	mov byte[linha_de_comando + 14], 10	
+;;mov SI, 0XYZWh	
 caseBE:
-	mov cx,14 
+	mov cx,15 
 	mov word[linha_de_comando], 'mo'
 	mov word[linha_de_comando + 2], 'v '
 	mov word[linha_de_comando + 4], 'SI'
 	mov word[linha_de_comando + 6], ', '
+	mov byte[linha_de_comando + 8], '0'
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 10], ax
+	mov word[linha_de_comando + 11], ax
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
-	mov byte[linha_de_comando + 12], 'h'
-	mov byte[linha_de_comando + 13], 10	
-;;mov DI, XYZWh	
+	mov word[linha_de_comando + 9], ax
+	mov byte[linha_de_comando + 13], 'h'
+	mov byte[linha_de_comando + 14], 10	
+;;mov DI, 0XYZWh	
 caseBF:
-	mov cx,14 
+	mov cx,15 
 	mov word[linha_de_comando], 'mo'
 	mov word[linha_de_comando + 2], 'v '
 	mov word[linha_de_comando + 4], 'DI'
 	mov word[linha_de_comando + 6], ', '
+	mov byte[linha_de_comando + 8], '0'
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 10], ax
+	mov word[linha_de_comando + 11], ax
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 8], ax
-	mov byte[linha_de_comando + 12], 'h'
-	mov byte[linha_de_comando + 13], 10	
+	mov word[linha_de_comando + 9], ax
+	mov byte[linha_de_comando + 13], 'h'
+	mov byte[linha_de_comando + 14], 10	
 
 
 caseC0:
@@ -2127,16 +2142,17 @@ caseCA:
 caseCB:
 caseCC:
 
-;; 'int XYh', 10
+;; int 0XYh
 caseCD:
-	mov cx, 8
-	mov word[linha_de_comando],'in'
-	mov word[linha_de_comando + 2],'t '
+	mov cx, 9
+	mov word[linha_de_comando], 'in'
+	mov word[linha_de_comando + 2], 't '
+	mov byte[linha_de_comando + 4], '0'
 	inc di
 	call HexToAscii		; ax <- 'XY'
-	mov word[linha_de_comando + 4], ax
-	mov byte[linha_de_comando + 6],'h'
-	mov byte[linha_de_comando + 7],10
+	mov word[linha_de_comando + 5], ax
+	mov byte[linha_de_comando + 7],'h'
+	mov byte[linha_de_comando + 8],10
 	call VerificaInt
 	ret
 ;;; Funcao invalida para processador 80X86	
@@ -2660,6 +2676,219 @@ ContinuaVerificaInt2:
 FimVerificaInt:
 	ret
 
+
+
+;; Funcoes de insercao, no vetor 'linha_de_comando': um endereco de mem ou reg,
+;; de acordo com as especificacoes
+;; Entrada:	DI <- posicao do byte 'mod r/m reg'
+;; 		BX <- posicao do vetor 'linha_de_comando' para o proximo caracter
+;; Saidas:	CX <- numero total de letras em 'linha_de_comando'
+	
+;; reg16/mem16, reg16
+RMDestino16:
+	push si
+	mov al, byte[es:bin + di] ; al <- byte 'mod reg r/m'
+	mov ah, al
+	and ah, 11000000b	; ah <- apenas os 2 bits de mod
+	cmp ah, 11000000b
+	je RMDestino16mod11
+	
+	;; r/m indica o tipo de referencia para a memoria
+	mov word[linha_de_comando + bx], 'wo'
+	mov word[linha_de_comando + bx + 2], 'rd'
+	add bx, 4
+	call InsereMemoria	; insere "[...]" no vetor
+	mov word[linha_de_comando + bx], ', '
+	;; si <- 2 * reg
+	mov si, ax
+	and si, 0000000000111000b
+	shr si, 3
+	or si, 0x0008
+	shl si, 1
+	;; escrita
+	mov cx, word[vetor_registradores + si]
+	mov word[linha_de_comando + bx + 2], cx
+	mov byte[linha_de_comando + bx + 4], 10
+	;; cx <- numero total de caracteres na linha de comando
+	mov cx, bx
+	add cx, 5
+	;; recupera si
+	pop si
+	ret
+
+;; r/m eh tratado como um registrador
+RMDestino16mod11:
+	;; si <- 2 * r/m
+	mov si, ax
+	and si, 0000000000000111b
+	or si, 0x0008
+	shl si, 1
+	;; escrita
+	mov cx, word[vetor_registradores + si]
+	mov word[linha_de_comando + bx], cx
+	mov word[linha_de_comando + bx + 2], ', '
+	;; si <- 2 * reg
+	mov si, ax
+	and si, 0000000000111000b
+	shr si, 3
+	or si, 0x0008
+	shl si, 1
+	;; escrita
+	mov cx, word[vetor_registradores + si]
+	mov word[linha_de_comando + bx + 4], cx
+	mov byte[linha_de_comando + bx + 6], 10
+	;; cx <- numero total de caracteres na linha de comando
+	mov cx, bx
+	add cx, 7
+	;; recupera si
+	pop si
+	ret
+
+;; reg8/mem8, reg8
+RMDestino8:
+;;; ...
+	
+;; reg16, reg16/mem16
+RMFonte16:
+;;; ...
+
+;; reg 8, reg8/mem8
+RMFonte8:
+;;; ...
+
+
+
+
+	
+;; Funcao que insere a memoria referenciada na linha de comando
+;; Entrada:	BX <- inicio para a escrita
+;;		DI <- indice para o byte 'mod reg r/m'
+;; 		AL <- byte 'mod reg r/m'
+;; Saida:	BX <- inicio para a escrita posterior
+InsereMemoria:
+	mov byte[linha_de_comando + bx],'['
+	mov ah, al
+	and ah, 00000111b
+	
+	cmp ah, 00000000b
+	je InsereMemoria000
+	cmp ah, 00000001b
+	je InsereMemoria001
+	cmp ah, 00000010b
+	je InsereMemoria010
+	cmp ah, 00000011b
+	je InsereMemoria011
+	cmp ah, 00000100b
+	je InsereMemoria100
+	cmp ah, 00000101b
+	je InsereMemoria101
+	cmp ah, 00000110b
+	je InsereMemoria110Ponte
+	cmp ah, 00000111b
+	je InsereMemoria111Ponte
+
+InsereMemoria000:	
+	mov word[linha_de_comando + bx + 1],'BX'
+	mov byte[linha_de_comando + bx + 3],'+'
+	mov word[linha_de_comando + bx + 4],'SI'
+	add bx, 6
+	jmp FimInsereMemoria
+InsereMemoria001:	
+	mov word[linha_de_comando + bx + 1],'BX'
+	mov byte[linha_de_comando + bx + 3],'+'
+	mov word[linha_de_comando + bx + 4],'DI'
+	add bx, 6
+	jmp FimInsereMemoria
+InsereMemoria010:	
+	mov word[linha_de_comando + bx + 1],'BP'
+	mov byte[linha_de_comando + bx + 3],'+'
+	mov word[linha_de_comando + bx + 4],'SI'
+	add bx, 6
+	jmp FimInsereMemoria
+InsereMemoria110Ponte:
+	jmp InsereMemoria110
+InsereMemoria111Ponte:
+	jmp InsereMemoria111
+InsereMemoria011:
+	mov word[linha_de_comando + bx + 1],'BP'
+	mov byte[linha_de_comando + bx + 3],'+'
+	mov word[linha_de_comando + bx + 4],'DI'
+	add bx, 6
+	jmp FimInsereMemoria
+InsereMemoria100:
+	mov word[linha_de_comando + bx + 1],'SI'
+	add bx, 3
+	jmp FimInsereMemoria
+InsereMemoria101:	
+	mov word[linha_de_comando + bx + 1],'DI'
+	add bx, 3
+	jmp FimInsereMemoria
+InsereMemoria110:
+	mov word[linha_de_comando + bx + 1],'BP'
+	add bx, 3
+	jmp FimInsereMemoria
+InsereMemoria111:
+	mov word[linha_de_comando + bx + 1],'BX'
+	add bx, 3
+	jmp FimInsereMemoria
+	
+FimInsereMemoria:
+	call InsereDeslocamento
+	mov byte[linha_de_comando + bx], ']'
+	add bx, 1
+	ret
+
+
+;; Entradas: BX, DI, AL
+;; Saidas: BX, DI
+InsereDeslocamento:
+	mov ah, al
+	and ah, 11000000b
+
+	cmp ah, 00000000b
+	je InsereDeslocamento00
+	cmp ah, 01000000b
+	je InsereDeslocamento01
+	cmp ah, 10000000b
+	je InsereDeslocamento10
+	
+;; disp=0 (exceto para r/m=110)
+InsereDeslocamento00:
+	mov ah, al
+	and ah, 00000111b
+	cmp ah, 00000110
+	je InsereDeslocamento10
+	ret
+	
+;; disp=(disp-low)
+InsereDeslocamento01:
+	mov byte[linha_de_comando + bx], '+'
+	mov byte[linha_de_comando + bx + 1], '0'
+	push ax
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + bx + 2], ax
+	mov byte[linha_de_comando + bx + 4], 'h'
+	pop ax
+	add bx, 5
+	ret
+
+;; disp=(disp-high):(disp-low)
+InsereDeslocamento10:
+	mov byte[linha_de_comando + bx], '+'
+	mov byte[linha_de_comando + bx + 1], '0'
+	push ax
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + bx + 2], ax
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + bx + 4], ax
+	mov byte[linha_de_comando + bx + 6], 'h'
+	pop ax
+	add bx, 7
+	ret
+	
 
 
 	
