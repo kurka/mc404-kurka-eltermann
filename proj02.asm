@@ -218,7 +218,7 @@ case00:
 	mov word[linha_de_comando + 2],'d '
 	inc di
 	mov bx, 4
-	call InsereRM-Destino-8
+	call RMDestino8
 	ret		
 ;;add  reg16/mem16,reg16
 case01:
@@ -226,7 +226,7 @@ case01:
 	mov word[linha_de_comando + 2],'d '
 	inc di
 	mov bx, 4
-	call InsereRM-Destino-16
+	call RMDestino16
 	ret	
 ;add  reg8,reg8/mem8
 case02:
@@ -234,7 +234,7 @@ case02:
 	mov word[linha_de_comando + 2],'d '
 	inc di
 	mov bx, 4
-	call Origem-InsereRM-8
+	call RMFonte8
 	ret			
 ;add   reg16,reg16/mem16 
 case03:
@@ -242,7 +242,7 @@ case03:
 	mov word[linha_de_comando + 2],'d '
 	inc di
 	mov bx, 4
-	call Origem-InsereRM-16
+	call RMFonte16
 	ret		
 
 ;add AL, XYh
@@ -296,7 +296,7 @@ case08:
 	mov byte[linha_de_comando + 2],' '
 	inc di
 	mov bx, 3
-	call InsereRM-Destino-8
+	call RMDestino8
 	ret		
 ;or   reg16/mem16,reg16	
 case09:
@@ -304,7 +304,7 @@ case09:
 	mov byte[linha_de_comando + 2],' '
 	inc di
 	mov bx, 3
-	call InsereRM-Destino-16
+	call RMDestino16
 	ret	
 ;or   reg8,reg8/mem8
 case0A:
@@ -312,7 +312,7 @@ case0A:
 	mov byte[linha_de_comando + 2],' '
 	inc di
 	mov bx, 3
-	call Origem-InsereRM-8
+	call RMFonte8
 	ret			
 ;or   reg16,reg16/mem16
 case0B:
@@ -320,7 +320,7 @@ case0B:
 	mov byte[linha_de_comando + 2],' '
 	inc di
 	mov bx, 3
-	call Origem-InsereRM-16
+	call RMFonte16
 	ret		
 
 ;;or AL, XYh
@@ -376,7 +376,7 @@ case10:
 	mov word[linha_de_comando + 2],'c '
 	inc di
 	mov bx, 4
-	call InsereRM-Destino-8
+	call RMDestino8
 	ret		
 ;adc   reg16/mem16,reg16	
 case11:
@@ -384,7 +384,7 @@ case11:
 	mov word[linha_de_comando + 2],'c '
 	inc di
 	mov bx, 4
-	call InsereRM-Destino-16
+	call RMDestino16
 	ret	
 ;adc  reg8,reg8/mem8
 case12:
@@ -392,7 +392,7 @@ case12:
 	mov word[linha_de_comando + 2],'c '
 	inc di
 	mov bx, 4
-	call Origem-InsereRM-8
+	call RMFonte8
 	ret			
 ;adc   reg16,reg16/mem16
 case13:
@@ -400,7 +400,7 @@ case13:
 	mov word[linha_de_comando + 2],'c '
 	inc di
 	mov bx, 4
-	call Origem-InsereRM-16
+	call RMFonte16
 	ret		
 
 ;;adc AL, XYh
@@ -456,7 +456,7 @@ case18:
 	mov word[linha_de_comando + 2],'b '
 	inc di
 	mov bx, 4
-	call InsereRM-Destino-8
+	call RMDestino8
 	ret		
 ;sbb   reg16/mem16,reg16	
 case19:
@@ -464,7 +464,7 @@ case19:
 	mov word[linha_de_comando + 2],'b '
 	inc di
 	mov bx, 4
-	call InsereRM-Destino-16
+	call RMDestino16
 	ret	
 ;sbb  reg8,reg8/mem8
 case1A:
@@ -472,7 +472,7 @@ case1A:
 	mov word[linha_de_comando + 2],'b '
 	inc di
 	mov bx, 4
-	call Origem-InsereRM-8
+	call RMFonte8
 	ret			
 ;sbb   reg16,reg16/mem16
 case1B:
@@ -480,7 +480,7 @@ case1B:
 	mov word[linha_de_comando + 2],'b '
 	inc di
 	mov bx, 4
-	call Origem-InsereRM-16
+	call RMFonte16
 	ret		
 ;;sbb AL, XYh
 case1C:
@@ -534,7 +534,7 @@ case20:
 	mov word[linha_de_comando + 2],'d '
 	inc di
 	mov bx, 4
-	call InsereRM-Destino-8
+	call RMDestino8
 	ret		
 ;and   reg16/mem16,reg16	
 case21:
@@ -542,7 +542,7 @@ case21:
 	mov word[linha_de_comando + 2],'d '
 	inc di
 	mov bx, 4
-	call InsereRM-Destino-16
+	call RMDestino16
 	ret	
 ;and  reg8,reg8/mem8
 case22:
@@ -550,7 +550,7 @@ case22:
 	mov word[linha_de_comando + 2],'d '
 	inc di
 	mov bx, 4
-	call Origem-InsereRM-8
+	call RMFonte8
 	ret			
 ;and   reg16,reg16/mem16
 case23:
@@ -558,7 +558,7 @@ case23:
 	mov word[linha_de_comando + 2],'d '
 	inc di
 	mov bx, 4
-	call Origem-InsereRM-16
+	call RMFonte16
 	ret		
 ;;and AL, XYh
 case24:
@@ -612,14 +612,14 @@ case28:
 	mov word[linha_de_comando + 2],'b '
 	inc di
 	mov bx, 4
-	call InsereRM-Destino-8
+	call RMDestino8
 	ret		
 ;sub   reg16/mem16,reg16	
 case29:
 	mov word[linha_de_comando],'su'
 	mov word[linha_de_comando + 2],'b '
 	mov bx, 4
-	call InsereRM-Destino-16
+	call RMDestino16
 	ret	
 ;sub  reg8,reg8/mem8
 case2A:
@@ -627,7 +627,7 @@ case2A:
 	mov word[linha_de_comando + 2],'b '
 	inc di
 	mov bx, 4
-	call Origem-InsereRM-8
+	call RMFonte8
 	ret			
 ;sub   reg16,reg16/mem16
 case2B:	
@@ -635,7 +635,7 @@ case2B:
 	mov word[linha_de_comando + 2],'b '
 	inc di
 	mov bx, 4
-	call Origem-InsereRM-16
+	call RMFonte16
 	ret
 ;sub   AL, XYh
 case2C:
@@ -650,7 +650,6 @@ case2C:
 	mov byte[linha_de_comando + 10], 'h'
 	mov byte[linha_de_comando + 11], 10
 	ret	
-
 ;;sub AX, XYZWh
 case2D:
 	mov cx,14 
@@ -689,7 +688,7 @@ case30:
 	mov word[linha_de_comando + 2],'r '
 	inc di
 	mov bx, 4
-	call InsereRM-Destino-8
+	call RMDestino8
 	ret		
 ;xor   reg16/mem16,reg16
 case31:
@@ -697,7 +696,7 @@ case31:
 	mov word[linha_de_comando + 2],'r '
 	inc di
 	mov bx, 4
-	call InsereRM-Destino-16
+	call RMDestino16
 	ret	
 ;xor  reg8,reg8/mem8
 case32:
@@ -705,7 +704,7 @@ case32:
 	mov word[linha_de_comando + 2],'r '
 	inc di
 	mov bx, 4
-	call Origem-InsereRM-8
+	call RMFonte8
 	ret			
 ;xor  reg16,reg16/mem16
 case33:
@@ -713,7 +712,7 @@ case33:
 	mov word[linha_de_comando + 2],'r '
 	inc di
 	mov bx, 4
-	call Origem-InsereRM-16
+	call RMFonte16
 	ret		
 ;;xor AL, XYh
 case34:
@@ -767,7 +766,7 @@ case38:
 	mov word[linha_de_comando + 2],'r '
 	inc di
 	mov bx, 4
-	call InsereRM-Destino-8
+	call RMDestino8
 	ret		
 ;xor  reg16/mem16,reg16	
 case39:
@@ -775,7 +774,7 @@ case39:
 	mov word[linha_de_comando + 2],'r '
 	inc di
 	mov bx, 4
-	call InsereRM-Destino-16
+	call RMDestino16
 	ret	
 ;xor  reg8,reg8/mem8
 case3A:
@@ -783,7 +782,7 @@ case3A:
 	mov word[linha_de_comando + 2],'r '
 	inc di
 	mov bx, 4
-	call Origem-InsereRM-8
+	call RMFonte8
 	ret			
 ;xor  reg16,reg16/mem16
 case3B:
@@ -791,7 +790,7 @@ case3B:
 	mov word[linha_de_comando + 2],'r '
 	inc di
 	mov bx, 4
-	call Origem-InsereRM-16
+	call RMFonte16
 	ret		
 ;;xor AL, XYh
 case3C:
@@ -1444,6 +1443,8 @@ case7F:
 
 case80:
 case81:
+case82:
+case83:
 ;; test reg8/mem8,reg8
 case84:
 	mov word[linha_de_comando],'te'
@@ -1451,7 +1452,7 @@ case84:
 	mov byte[linha_de_comando + 4], ' '
 	inc di
 	mov bx,5
-	call InsereRM-Destino-8
+	call RMDestino8
 ;; test reg16/mem16,reg16
 case85:
 	mov word[linha_de_comando],'te'
@@ -1459,7 +1460,7 @@ case85:
 	mov byte[linha_de_comando + 4], ' '
 	inc di
 	mov bx, 5
-	call InsereRM-Destino-16
+	call RMDestino16
 	ret
 ;xchg reg8,reg8/mem8
 case86:
@@ -1468,7 +1469,7 @@ case86:
 	mov byte[linha_de_comando + 4], ' '
 	inc di
 	mov bx,5
-	call Origem-InsereRM-8
+	call RMFonte8
 
 ;xchg reg16,reg16/mem16
 case87:
@@ -1477,7 +1478,7 @@ case87:
 	mov byte[linha_de_comando + 4], ' '
 	inc di
 	mov bx, 5
-	call Origem-InsereRM-16
+	call RMFonte16
 	ret	
 ;mov  reg8/mem8,reg8
 case88:
@@ -1485,7 +1486,7 @@ case88:
 	mov word[linha_de_comando + 2],'v '
 	inc di
 	mov bx, 4
-	call InsereRM-Destino-8
+	call RMDestino8
 	ret	
 ;; mov reg16/mem16,reg16	
 case89:
@@ -1493,7 +1494,7 @@ case89:
 	mov word[linha_de_comando + 2],'v '
 	inc di
 	mov bx, 4
-	call InsereRM-Destino-16
+	call RMDestino16
 	ret
 ;mov  reg8,reg8/mem8
 case8A:
@@ -1501,7 +1502,7 @@ case8A:
 	mov word[linha_de_comando + 2],'v '
 	inc di
 	mov bx, 4
-	call Origem-InsereRM-8
+	call RMFonte8
 	ret		
 ;mov   reg16,reg16/mem16
 case8B:
@@ -1509,10 +1510,12 @@ case8B:
 	mov word[linha_de_comando + 2],'v '
 	inc di
 	mov bx, 4
-	call Origem-InsereRM-16
+	call RMFonte16
 	ret	
 case8C:
-;lea   reg16,mem16	
+;lea   reg16,mem16
+	
+	;; REVISAR!!! ;;
 case8D:
 	mov word[linha_de_comando],'le'
 	mov word[linha_de_comando + 2],'a '
@@ -1520,6 +1523,8 @@ case8D:
 	mov bx, 4
 	call Origem-InsereRM-16
 	ret	
+	;; REVISAR!!! ;;
+
 case8E:
 ;;pop XYZWh
 case8F:
@@ -1626,6 +1631,7 @@ case99:
 	mov byte[linha_de_comando + 2],'b'
 	mov byte[linha_de_comando + 3],10
 
+	;; REVISAR!!! ;;
 ;call [XYZW:KLMN]
 case9A:
 	mov cx, 18
@@ -1647,6 +1653,7 @@ case9A:
 	mov word[linha_de_comando + 6], ax	
 	mov byte[linha_de_comando + 16], 'h'
 	mov byte[linha_de_comando + 17], 10
+	;; REVISAR!!! ;;
 
 ;;wait 
 case9B:
@@ -1679,65 +1686,65 @@ case9F:
 	mov word[linha_de_comando],'la'
 	mov word[linha_de_comando + 2],'hf'
 	mov byte[linha_de_comando + 4],10
-;;mov AL, [XYh] 
+;;mov AL, [0XYh] 
 caseA0:
-	mov cx, 14
+	mov cx, 15
 	mov word[linha_de_comando], 'mo'
 	mov word[linha_de_comando + 2], 'v '
 	mov word[linha_de_comando + 4], 'AL'
 	mov word[linha_de_comando + 6], ', '
-	mov byte[linha_de_comando + 8], '['	
+	mov word[linha_de_comando + 8], '[0'	
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 9], ax
-	mov word[linha_de_comando + 11], 'h]'
-	mov byte[linha_de_comando + 13], 10
+	mov word[linha_de_comando + 10], ax
+	mov word[linha_de_comando + 12], 'h]'
+	mov byte[linha_de_comando + 14], 10
 	ret
-;;mov AX, [XYZWh] 
+;;mov AX, [0XYZWh] 
 caseA1:
-	mov cx, 16
+	mov cx, 17
 	mov word[linha_de_comando], 'mo'
 	mov word[linha_de_comando + 2], 'v '
 	mov word[linha_de_comando + 4], 'AX'
 	mov word[linha_de_comando + 6], ', '
-	mov byte[linha_de_comando + 8], '['	
+	mov word[linha_de_comando + 8], '[0'	
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 11], ax
+	mov word[linha_de_comando + 12], ax
 	call HexToAscii
-	mov word[linha_de_comando + 9], ax	
-	mov word[linha_de_comando + 13], 'h]'
-	mov byte[linha_de_comando + 15], 10
+	mov word[linha_de_comando + 10], ax	
+	mov word[linha_de_comando + 14], 'h]'
+	mov byte[linha_de_comando + 16], 10
 	ret	
-;;mov [XYh], AL 
+;;mov [0XYh], AL 
 caseA2:
-	mov cx, 14
+	mov cx, 15
 	mov word[linha_de_comando], 'mo'
 	mov word[linha_de_comando + 2], 'v '
-	mov byte[linha_de_comando + 4], '['	
+	mov word[linha_de_comando + 4], '[0'	
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 5], ax
-	mov word[linha_de_comando + 7], 'h]'	
-	mov word[linha_de_comando + 9], 'AL'
-	mov word[linha_de_comando + 11], ', '
-	mov byte[linha_de_comando + 13], 10
+	mov word[linha_de_comando + 6], ax
+	mov word[linha_de_comando + 8], 'h]'	
+	mov word[linha_de_comando + 10], ', '
+	mov word[linha_de_comando + 12], 'AL'
+	mov byte[linha_de_comando + 14], 10
 	re	
-;;mov [XYZWh], AX
+;;mov [0XYZWh], AX
 caseA3:
-	mov cx, 16
+	mov cx, 17
 	mov word[linha_de_comando], 'mo'
 	mov word[linha_de_comando + 2], 'v '
-	mov byte[linha_de_comando + 4], '['	
+	mov word[linha_de_comando + 4], '[0'	
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 7], ax
+	mov word[linha_de_comando + 8], ax
 	call HexToAscii
-	mov word[linha_de_comando + 5], ax	
-	mov word[linha_de_comando + 9], 'h]'	
-	mov word[linha_de_comando + 11], 'AX'
-	mov word[linha_de_comando + 13], ', '
-	mov byte[linha_de_comando + 15], 10
+	mov word[linha_de_comando + 6], ax	
+	mov word[linha_de_comando + 10], 'h]'	
+	mov word[linha_de_comando + 12], ', '
+	mov word[linha_de_comando + 14], 'AX'
+	mov byte[linha_de_comando + 16], 10
 	ret	
 ;;; Funcao invalida para processador 80X86	
 caseA4:
@@ -1770,9 +1777,9 @@ caseA7:
 	mov word[linha_de_comando + 2],' A'
 	mov word[linha_de_comando + 4],'7h'  
 	mov byte[linha_de_comando + 6],10	
-;test AX, XYh
+;test AX, 0XYh
 caseA8:
-	mov cx, 13
+	mov cx, 14
 	mov word[linha_de_comando], 'te'
 	mov word[linha_de_comando + 2], 'st'
 	mov byte[linha_de_comando + 4], ' '
@@ -1780,25 +1787,27 @@ caseA8:
 	mov word[linha_de_comando + 7], ', '
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 9], ax
-	mov byte[linha_de_comando + 11], 'h'
-	mov byte[linha_de_comando + 12], 10	
-;test AX, XYZWh
+	mov byte[linha_de_comando + 9], '0'
+	mov word[linha_de_comando + 10], ax
+	mov byte[linha_de_comando + 12], 'h'
+	mov byte[linha_de_comando + 13], 10	
+;test AX, 0XYZWh
 caseA9:
-	mov cx, 15
+	mov cx, 16
 	mov word[linha_de_comando], 'te'
 	mov word[linha_de_comando + 2], 'st'
 	mov byte[linha_de_comando + 4], ' '
 	mov word[linha_de_comando + 5], 'AX'
 	mov word[linha_de_comando + 7], ', '
+	mov byte[linha_de_comando + 9], 'h'
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 11], ax
+	mov word[linha_de_comando + 12], ax
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 9], ax	
-	mov byte[linha_de_comando + 13], 'h'
-	mov byte[linha_de_comando + 14], 10
+	mov word[linha_de_comando + 10], ax	
+	mov byte[linha_de_comando + 14], 'h'
+	mov byte[linha_de_comando + 15], 10
 ;;; Funcao invalida para processador 80X86	
 caseAA:
 	mov cx, 7
@@ -1848,6 +1857,8 @@ caseAF:
 	mov byte[linha_de_comando + 6],10
 	ret 
 
+;;; Continuar a acrescentar os 0's...
+	
 ;;mov AL, XYh
 caseB0:
 	mov cx, 12
@@ -2643,7 +2654,7 @@ ContinuaVerificaInt:
 	;; caso contrario, retorna sem mexer no si
 	ret
 ContinuaVerificaInt2:
-	cmp word[es:bin + di - 3], B44Ch
+	cmp word[es:bin + di - 3], 0B44Ch
 	jne FimVerificaInt
 	inc si
 FimVerificaInt:
