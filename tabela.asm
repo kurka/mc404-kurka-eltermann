@@ -31,19 +31,10 @@ case83:	;1000 0011 mod 000 r/m (disp-lo),(disp-hi), data-SX         add reg16/me
 	;; 	           mod 110 r/m                                      —
 	;; 	           mod 111 r/m (disp-lo),(disp-hi), data-SX         cmp  reg16/mem16,immed8
 case8C:	;1000 1100 mod OSR r/m (disp-lo),(disp-hi) mov   reg16/mem16,SEGREG
-	    ;;     mod 1 - r/m                     —
+	;;         mod 1 - r/m                     —
 case8E:	;1000 1110 mod OSR r/m (disp-lo),(disp-hi)   mov    SEGREG,reg16/mem16
 	;; mod 1 - r/m                       —
-case8F:	;1000 1111                                   pop   mem16
 case90:	;1001 0000                                   nop   (xchg AX,AX)
-
-case9A:	;1001 1010 disp-lo     disp-hi,seg-lo,seg-hi call  far-proc
-caseA0:	;1010 0000 addr-lo     addr-hi               mov   AL,mem8
-caseA1:	;1010 0001 addr-lo     addr-hi               mov   AX,mem16
-caseA2:	;1010 0010 addr-lo     addr-hi               mov   mem8,AL
-caseA3:	;1010 0011 addr-lo     addr-hi               mov   mem16,AL
-caseA8:	;1010 1000 data-8                            test  AL,immed8
-caseA9:	;1010 1001 data-lo     data-hi               test  AX,immed16
 caseC0:	;1100 0000 mod 000 r/m data-8  rol     reg8/mem8, immed8
 	;;             mod 001 r/m data-8  ror     reg8/mem8, immed8
 	;;             mod 010 r/m data-8  rcl     reg8/mem8, immed8

@@ -1538,9 +1538,20 @@ case8D:
 	call Origem-InsereRM-16
 	ret	
 case8E:
+;;pop XYZWh
 case8F:
-	
-
+	mov cx,12
+	mov word[linha_de_comando], 'po'
+	mov word[linha_de_comando + 2], 'p '
+	mov word[linha_de_comando + 4], '  '
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 8], ax
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 6], ax
+	mov byte[linha_de_comando + 10], 'h'
+	mov byte[linha_de_comando + 11], 10
 case90:
 ;;xchg ax, cx
 case91:
@@ -1632,9 +1643,27 @@ case99:
 	mov byte[linha_de_comando + 2],'b'
 	mov byte[linha_de_comando + 3],10
 
-
+;call [XYZW:KLMN]
 case9A:
-
+	mov cx, 18
+	mov word[linha_de_comando], 'ca'
+	mov word[linha_de_comando + 2], 'll'
+	mov word[linha_de_comando + 4], ' ['
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 14], ax
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 12], ax
+	mov word[linha_de_comando + 10], 'h:'	
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 8], ax
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 6], ax	
+	mov byte[linha_de_comando + 16], 'h'
+	mov byte[linha_de_comando + 17], 10
 
 ;;wait 
 case9B:
@@ -1667,13 +1696,66 @@ case9F:
 	mov word[linha_de_comando],'la'
 	mov word[linha_de_comando + 2],'hf'
 	mov byte[linha_de_comando + 4],10
-	
+;;mov AL, [XYh] 
 caseA0:
+	mov cx, 14
+	mov word[linha_de_comando], 'mo'
+	mov word[linha_de_comando + 2], 'v '
+	mov word[linha_de_comando + 4], 'AL'
+	mov word[linha_de_comando + 6], ', '
+	mov byte[linha_de_comando + 8], '['	
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 9], ax
+	mov word[linha_de_comando + 11], 'h]'
+	mov byte[linha_de_comando + 13], 10
+	ret
+;;mov AX, [XYZWh] 
 caseA1:
+	mov cx, 16
+	mov word[linha_de_comando], 'mo'
+	mov word[linha_de_comando + 2], 'v '
+	mov word[linha_de_comando + 4], 'AX'
+	mov word[linha_de_comando + 6], ', '
+	mov byte[linha_de_comando + 8], '['	
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 11], ax
+	call HexToAscii
+	mov word[linha_de_comando + 9], ax	
+	mov word[linha_de_comando + 13], 'h]'
+	mov byte[linha_de_comando + 15], 10
+	ret	
+;;mov [XYh], AL 
 caseA2:
+	mov cx, 14
+	mov word[linha_de_comando], 'mo'
+	mov word[linha_de_comando + 2], 'v '
+	mov byte[linha_de_comando + 4], '['	
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 5], ax
+	mov word[linha_de_comando + 7], 'h]'	
+	mov word[linha_de_comando + 9], 'AL'
+	mov word[linha_de_comando + 11], ', '
+	mov byte[linha_de_comando + 13], 10
+	re	
+;;mov [XYZWh], AX
 caseA3:
-	
-	
+	mov cx, 16
+	mov word[linha_de_comando], 'mo'
+	mov word[linha_de_comando + 2], 'v '
+	mov byte[linha_de_comando + 4], '['	
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 7], ax
+	call HexToAscii
+	mov word[linha_de_comando + 5], ax	
+	mov word[linha_de_comando + 9], 'h]'	
+	mov word[linha_de_comando + 11], 'AX'
+	mov word[linha_de_comando + 13], ', '
+	mov byte[linha_de_comando + 15], 10
+	ret	
 ;;; Funcao invalida para processador 80X86	
 caseA4:
 	mov cx, 7
@@ -1697,13 +1779,43 @@ caseA6:
 	mov word[linha_de_comando + 2],' A'
 	mov word[linha_de_comando + 4],'6h'  
 	mov byte[linha_de_comando + 6],10
-	ret 
-
+	ret
+;;; Funcao invalida para processador 80X86	
 caseA7:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' A'
+	mov word[linha_de_comando + 4],'7h'  
+	mov byte[linha_de_comando + 6],10	
+;test AX, XYh
 caseA8:
+	mov cx, 13
+	mov word[linha_de_comando], 'te'
+	mov word[linha_de_comando + 2], 'st'
+	mov byte[linha_de_comando + 4], ' '
+	mov word[linha_de_comando + 5], 'AL'
+	mov word[linha_de_comando + 7], ', '
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 9], ax
+	mov byte[linha_de_comando + 11], 'h'
+	mov byte[linha_de_comando + 12], 10	
+;test AX, XYZWh
 caseA9:
-
-	
+	mov cx, 15
+	mov word[linha_de_comando], 'te'
+	mov word[linha_de_comando + 2], 'st'
+	mov byte[linha_de_comando + 4], ' '
+	mov word[linha_de_comando + 5], 'AX'
+	mov word[linha_de_comando + 7], ', '
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 11], ax
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 9], ax	
+	mov byte[linha_de_comando + 13], 'h'
+	mov byte[linha_de_comando + 14], 10
 ;;; Funcao invalida para processador 80X86	
 caseAA:
 	mov cx, 7
