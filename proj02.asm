@@ -1529,7 +1529,14 @@ case8B:
 	call Origem-InsereRM-16
 	ret	
 case8C:
+;lea   reg16,mem16	
 case8D:
+	mov word[linha_de_comando],'le'
+	mov word[linha_de_comando + 2],'a '
+	inc di
+	mov bx, 4
+	call Origem-InsereRM-16
+	ret	
 case8E:
 case8F:
 	
@@ -2163,9 +2170,35 @@ caseE1:
 	mov word[linha_de_comando + 4],'1h'  
 	mov byte[linha_de_comando + 6],10
 	ret 
-
-caseE2:	
+;loop IP+XYh
+caseE2:
+	mov cx, 14
+	mov word[linha_de_comando], 'lo'
+	mov word[linha_de_comando + 2], 'op'
+	mov word[linha_de_comando + 4], '  '	
+	mov word[linha_de_comando + 6], 'IP'
+	mov byte[linha_de_comando + 8], '+'
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 10], ax
+	mov byte[linha_de_comando + 12], 'h'
+	mov byte[linha_de_comando + 13], 10
+	ret		
+;jcxz IP+XYh
 caseE3:
+	mov cx, 14
+	mov word[linha_de_comando], 'jc'
+	mov word[linha_de_comando + 2], 'xz'
+	mov word[linha_de_comando + 4], '  '	
+	mov word[linha_de_comando + 6], 'IP'
+	mov byte[linha_de_comando + 8], '+'
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 10], ax
+	mov byte[linha_de_comando + 12], 'h'
+	mov byte[linha_de_comando + 13], 10
+	ret	
+	
 ;in  AL, XYh
 caseE4:
 	mov cx, 12
@@ -2192,7 +2225,7 @@ caseE5:
 	mov byte[linha_de_comando + 10], 'h'
 	mov byte[linha_de_comando + 11], 10
 	ret	
-;ou  AL, XYh
+;out  AL, XYh
 caseE6:
 	mov cx, 12
 	mov word[linha_de_comando], 'ou'
@@ -2205,7 +2238,7 @@ caseE6:
 	mov byte[linha_de_comando + 10], 'h'
 	mov byte[linha_de_comando + 11], 10
 	ret	
-;ou  AX, XYh	
+;out  AX, XYh	
 caseE7:
 	mov cx, 12
 	mov word[linha_de_comando], 'ou'
@@ -2218,17 +2251,120 @@ caseE7:
 	mov byte[linha_de_comando + 10], 'h'
 	mov byte[linha_de_comando + 11], 10
 	ret	
-
-	
-caseE8:	
-caseE9:	
-caseEA:	
-caseEB:	
-caseEC:	
-caseED:	
+;call near IP+XYZWh
+caseE8:
+	mov cx, 22
+	mov word[linha_de_comando], 'ca'
+	mov word[linha_de_comando + 2], 'll'
+	mov word[linha_de_comando + 4], ' n'
+	mov word[linha_de_comando + 8], 'ea'
+	mov word[linha_de_comando + 10], 'r '
+	mov word[linha_de_comando + 12], 'IP'
+	mov byte[linha_de_comando + 14], '+'
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 18], ax
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 16], ax	
+	mov byte[linha_de_comando + 20], 'h'
+	mov byte[linha_de_comando + 21], 10	
+;jmp near IP+XYZWh
+caseE9:
+	mov cx, 22
+	mov word[linha_de_comando], 'jm'
+	mov word[linha_de_comando + 2], 'p '
+	mov word[linha_de_comando + 4], 'ne'
+	mov word[linha_de_comando + 8], 'ar'
+	mov word[linha_de_comando + 10], '  '
+	mov word[linha_de_comando + 12], 'IP'
+	mov byte[linha_de_comando + 14], '+'
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 18], ax
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 16], ax	
+	mov byte[linha_de_comando + 20], 'h'
+	mov byte[linha_de_comando + 21], 10	
+;jmp [cs:ip]
+caseEA:
+	mov cx, 18
+	mov word[linha_de_comando], 'jm'
+	mov word[linha_de_comando + 2], 'p '
+	mov word[linha_de_comando + 4], ' ['
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 14], ax
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 12], ax
+	mov word[linha_de_comando + 10], 'h:'	
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 8], ax
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 6], ax	
+	mov byte[linha_de_comando + 16], 'h'
+	mov byte[linha_de_comando + 17], 10	
+;jmp short IP+XYh
+caseEB:
+	mov cx, 22
+	mov word[linha_de_comando], 'jm'
+	mov word[linha_de_comando + 2], 'p '
+	mov word[linha_de_comando + 4], 'sh'
+	mov word[linha_de_comando + 8], 'or'
+	mov word[linha_de_comando + 10], 't '
+	mov word[linha_de_comando + 12], '  '	
+	mov word[linha_de_comando + 14], 'IP'
+	mov byte[linha_de_comando + 16], '+'
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 18], ax
+	mov byte[linha_de_comando + 20], 'h'
+	mov byte[linha_de_comando + 21], 10
+	ret	
+;;in AL, DX
+caseEC:
+	mov cx, 11
+	mov word[linha_de_comando],'ou'
+	mov word[linha_de_comando + 2],'t '
+	mov word[linha_de_comando + 4],'AL'
+	mov word[linha_de_comando + 6],', '
+	mov word[linha_de_comando + 8],'DX'  	
+	mov byte[linha_de_comando + 10],10
+	ret	
+;;in AX, DX
+caseED:
+	mov cx, 11
+	mov word[linha_de_comando],'ou'
+	mov word[linha_de_comando + 2],'  '
+	mov word[linha_de_comando + 4],'AX'
+	mov word[linha_de_comando + 6],', '
+	mov word[linha_de_comando + 8],'DX'  	
+	mov byte[linha_de_comando + 10],10
+	ret	
+;;out AL, DX
 caseEE:	
+	mov cx, 11
+	mov word[linha_de_comando],'ou'
+	mov word[linha_de_comando + 2],'t ' 
+	mov word[linha_de_comando + 4],'AL'
+	mov word[linha_de_comando + 6],', '
+	mov word[linha_de_comando + 8],'DX'  	
+	mov byte[linha_de_comando + 10],10
+	ret
+;;out AX, DX
 caseEF:	
-
+	mov cx, 11
+	mov word[linha_de_comando],'ou'
+	mov word[linha_de_comando + 2],'t '
+	mov word[linha_de_comando + 4],'AX'
+	mov word[linha_de_comando + 6],', '
+	mov word[linha_de_comando + 8],'DX'  	
+	mov byte[linha_de_comando + 10],10
+	ret
 
 ;;; Funcao invalida para processador 80X86	
 caseF0:
