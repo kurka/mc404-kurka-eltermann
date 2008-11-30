@@ -244,8 +244,35 @@ case03:
 	mov bx, 4
 	call Origem-InsereRM-16
 	ret		
+
+;add AL, XYh
 case04:
+	mov cx, 12
+	mov word[linha_de_comando], 'ad'
+	mov word[linha_de_comando + 2], 'd '
+	mov word[linha_de_comando + 4], 'AL'
+	mov word[linha_de_comando + 6], ', '
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 8], ax
+	mov byte[linha_de_comando + 10], 'h'
+	mov byte[linha_de_comando + 11], 10
+	ret
+;add AX, XYZW
 case05:
+	mov cx,14 
+	mov word[linha_de_comando], 'ad'
+	mov word[linha_de_comando + 2], 'd '
+	mov word[linha_de_comando + 4], 'AX'
+	mov word[linha_de_comando + 6], ', '
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 10], ax
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 8], ax
+	mov byte[linha_de_comando + 12], 'h'
+	mov byte[linha_de_comando + 13], 10	
 ;;push es
 case06:
 	mov cx, 8
@@ -1143,9 +1170,20 @@ case67:
 	mov word[linha_de_comando + 4],'7h'  
 	mov byte[linha_de_comando + 6],10
 	ret 
-
-
+;push XYZWh
 case68:
+	mov cx,12
+	mov word[linha_de_comando], 'pu'
+	mov word[linha_de_comando + 2], 'sh'
+	mov word[linha_de_comando + 4], '  '
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 8], ax
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 6], ax
+	mov byte[linha_de_comando + 10], 'h'
+	mov byte[linha_de_comando + 11], 10	
 case69:
 
 
