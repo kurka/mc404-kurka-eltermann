@@ -1,29 +1,13 @@
-case70:	;0111 0000 IP-inc-8                     jo          short-label
-case71:	;0111 0001 IP-inc-8                     jno         short-label
-case72:	;0111 0010 IP-inc-8                     jb/jnae/jc   short-label
-case73:	;0111 0011 IP-inc-8                     jnb/jae/jnc  short-label
-case74:	;0111 0100 IP-inc-8                     je/jz       short-label
-case75:	;0111 0101 IP-inc-8                     jne/jnz     short-label
-case76:	;0111 0110 IP-inc-8                     jbe/jna     short-label
-case77:	;0111 0111 IP-inc-8                     jnbe/ja     short-label 
-case78:	;0111 1000 IP-inc-8                     js          short-label
-case79:	;0111 1001 IP-inc-8                     jns         short-label
-case7A:	;0111 1010 IP-inc-8                     jp/jpe      short-label
-case7B:	;0111 1011 IP-inc-8                     jnp/jpo     short-label
-case7C:	;0111 1100 IP-inc-8                     jl/jnge     short-label
-case7D:	;0111 1101 IP-inc-8                     jnl/jge     short-label
-case7E:	;0111 1110 IP-inc-8                     jle/jng short-label
-case7F:	;0111 1111 IP-inc-8                     jnle/jg short-label
-case80: ;1000 0000 mod 000 r/m (disp-lo),(disp-hi), data-8          add reg8/mem8,immed8
-	;;             mod 001 r/m (disp-lo),(disp-hi), data-8          or  reg8/mem8,immed8 
+case80: ;1000 0000         mod 000 r/m (disp-lo),(disp-hi), data-8          add reg8/mem8,immed8
+	;;                 mod 001 r/m (disp-lo),(disp-hi), data-8          or  reg8/mem8,immed8 
 	;; 	           mod 010 r/m (disp-lo),(disp-hi), data-8          adc reg8/mem8,immed8
 	;; 	           mod 011 r/m (disp-lo),(disp-hi), data-8          sbb reg8/mem8,immed8
 	;; 	           mod 100 r/m (disp-lo),(disp-hi), data-8          and reg8/mem8,immed8
 	;; 	           mod 101 r/m (disp-lo),(disp-hi), data-8          sub reg8/mem8,immed8
 	;; 	           mod 110 r/m (disp-lo),(disp-hi), data-8          xor reg8/mem8,immed8
 	;; 	           mod 111 r/m (disp-lo),(disp-hi), data-8          cmp reg8/mem8,immed8
-case81:	;1000 0001 mod 000 r/m (disp-lo),(disp-hi), data-lo,data-hi add reg16/mem16,immed16
-	;;             mod 001 r/m (disp-lo),(disp-hi), data-lo,data-hi or  reg16/mem16,immed16
+case81:	;1000 0001         mod 000 r/m (disp-lo),(disp-hi), data-lo,data-hi add reg16/mem16,immed16
+	;;                 mod 001 r/m (disp-lo),(disp-hi), data-lo,data-hi or  reg16/mem16,immed16
 	;; 	           mod 010 r/m (disp-lo),(disp-hi), data-lo,data-hi adc reg16/mem16,immed16
 	;; 	           mod 011 r/m (disp-lo),(disp-hi), data-lo,data-hi sbb reg16/mem16,immed16
 	;; 	           mod 100 r/m (disp-lo),(disp-hi), data-lo,data-hi and reg16/mem16,immed16
@@ -47,8 +31,7 @@ case83:	;1000 0011 mod 000 r/m (disp-lo),(disp-hi), data-SX         add reg16/me
 	;; 	           mod 110 r/m                                      —
 	;; 	           mod 111 r/m (disp-lo),(disp-hi), data-SX         cmp  reg16/mem16,immed8
 case8C:	;1000 1100 mod OSR r/m (disp-lo),(disp-hi) mov   reg16/mem16,SEGREG
-	    ;;         mod 1 - r/m                     —
-case8D:	;1000 1101 mod reg r/m (disp-lo),(disp-hi)   lea   reg16,mem16
+	    ;;     mod 1 - r/m                     —
 case8E:	;1000 1110 mod OSR r/m (disp-lo),(disp-hi)   mov    SEGREG,reg16/mem16
 	;; mod 1 - r/m                       —
 case8F:	;1000 1111                                   pop   mem16
@@ -83,8 +66,8 @@ caseC4:	;1100 0100 mod reg r/m (disp-lo),(disp-hi)                 les     reg16
 caseC5:	;1100 0101 mod reg r/m (disp-lo),(disp-hi)                 lds     reg16,mem16
 caseC6:	;1100 0110 mod 000 r/m (disp-lo),(disp-hi),data-8          mov     mem8,immed8
 	;;             mod 001 r/m                                     —
-	;; 			   mod 010 r/m                                     —
-	;;    		   mod 011 r/m                                     —
+	;; 	       mod 010 r/m                                     —
+	;;    	       mod 011 r/m                                     —
 	;;             mod 100 r/m                                     —
 	;;             mod 101 r/m                                     —
 	;;             mod 110 r/m                                     —
@@ -134,14 +117,6 @@ caseD3:	;1101 0011 mod 000 r/m (disp-lo),(disp-hi) rol           reg16/mem16,CL
 	;;             mod 111 r/m (disp-lo),(disp-hi) sar           reg16/mem16,CL
 caseE2:	;1110 0010 IP-inc-8                                        loop          short-label
 caseE3:	;1110 0011 IP-inc-8                                        jcxz          short-label
-caseE8:	;1110 1000 IP-inc-lo   IP-inc-hi                           call          near-proc
-caseE9:	;1110 1001 IP-inc-lo   IP-inc-hi                           jmp           near-label
-caseEA:	;1110 1010 IP-lo       IP-hi,CS-lo,CS-hi                   jmp           far-label
-caseEB:	;1110 1011 IP-inc-8                                        jmp           short-label
-caseEC:	;1110 1100                                                 in            AL,DX
-caseED:	;1110 1101                                                 in            AX,DX
-caseEE:	;1110 1110                                                 out           AL,DX
-caseEF:	;1110 1111                                                 out           AX,DX
 caseF6:	;1111 0110 mod 000 r/m (disp-lo),(disp-hi),data-8          test           reg8/mem8,immed8
 	;; mod 001 r/m                                     —
 	;; mod 010 r/m (disp-lo),(disp-hi)                 not           reg8/mem8
