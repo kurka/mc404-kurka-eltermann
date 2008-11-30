@@ -1,4 +1,4 @@
-SEGMENT code
+ SEGMENT code
 ..start:
 
 	;; inicializa segmento de pilha
@@ -210,11 +210,40 @@ WhileDados1:
 	;; Cada funcao, quando chamada, deve retornar o vetor 'linha_de_comando' montado
 	;; de acordo com a instrucao do byte lido. Alem disso, retorna tambem no registrador
 	;; CX o numero de caracteres a serem escritos (incluindo o byte 10 <nova linha>)
-	
+
+
+;add  reg8/mem8, reg8 	
 case00:
+	mov word[linha_de_comando],'ad'
+	mov word[linha_de_comando + 2],'d '
+	inc di
+	mov bx, 4
+	call InsereRM-Destino-8
+	ret		
+;;add  reg16/mem16,reg16
 case01:
+	mov word[linha_de_comando],'ad'
+	mov word[linha_de_comando + 2],'d '
+	inc di
+	mov bx, 4
+	call InsereRM-Destino-16
+	ret	
+;add  reg8,reg8/mem8
 case02:
+	mov word[linha_de_comando],'ad'
+	mov word[linha_de_comando + 2],'d '
+	inc di
+	mov bx, 4
+	call Origem-InsereRM-8
+	ret			
+;add   reg16,reg16/mem16 
 case03:
+	mov word[linha_de_comando],'ad'
+	mov word[linha_de_comando + 2],'d '
+	inc di
+	mov bx, 4
+	call Origem-InsereRM-16
+	ret		
 case04:
 case05:
 ;;push es
@@ -234,10 +263,38 @@ case07:
 	mov word[linha_de_comando + 4],'ES'  
 	mov byte[linha_de_comando + 6],10	
 	ret	
+;or   reg8/mem8,reg8
 case08:
+	mov word[linha_de_comando],'or'
+	mov byte[linha_de_comando + 2],' '
+	inc di
+	mov bx, 3
+	call InsereRM-Destino-8
+	ret		
+;or   reg16/mem16,reg16	
 case09:
+	mov word[linha_de_comando],'or'
+	mov byte[linha_de_comando + 2],' '
+	inc di
+	mov bx, 3
+	call InsereRM-Destino-16
+	ret	
+;or   reg8,reg8/mem8
 case0A:
+	mov word[linha_de_comando],'or'
+	mov byte[linha_de_comando + 2],' '
+	inc di
+	mov bx, 3
+	call Origem-InsereRM-8
+	ret			
+;or   reg16,reg16/mem16
 case0B:
+	mov word[linha_de_comando],'or'
+	mov byte[linha_de_comando + 2],' '
+	inc di
+	mov bx, 3
+	call Origem-InsereRM-16
+	ret		
 
 ;;or AL, XYh
 case0C:
@@ -286,11 +343,38 @@ case0F:
 	mov byte[linha_de_comando + 6],10
 	ret 
 
-
+;adc  reg8/mem8,reg8
 case10:
+	mov word[linha_de_comando],'ad'
+	mov word[linha_de_comando + 2],'c '
+	inc di
+	mov bx, 4
+	call InsereRM-Destino-8
+	ret		
+;adc   reg16/mem16,reg16	
 case11:
+	mov word[linha_de_comando],'ad'
+	mov word[linha_de_comando + 2],'c '
+	inc di
+	mov bx, 4
+	call InsereRM-Destino-16
+	ret	
+;adc  reg8,reg8/mem8
 case12:
+	mov word[linha_de_comando],'ad'
+	mov word[linha_de_comando + 2],'c '
+	inc di
+	mov bx, 4
+	call Origem-InsereRM-8
+	ret			
+;adc   reg16,reg16/mem16
 case13:
+	mov word[linha_de_comando],'ad'
+	mov word[linha_de_comando + 2],'c '
+	inc di
+	mov bx, 4
+	call Origem-InsereRM-16
+	ret		
 
 ;;adc AL, XYh
 case14:
@@ -339,10 +423,38 @@ case17:
 	mov word[linha_de_comando + 4],'SS'  
 	mov byte[linha_de_comando + 6],10	
 	ret	
+;sbb  reg8/mem8,reg8
 case18:
+	mov word[linha_de_comando],'sb'
+	mov word[linha_de_comando + 2],'b '
+	inc di
+	mov bx, 4
+	call InsereRM-Destino-8
+	ret		
+;sbb   reg16/mem16,reg16	
 case19:
+	mov word[linha_de_comando],'sb'
+	mov word[linha_de_comando + 2],'b '
+	inc di
+	mov bx, 4
+	call InsereRM-Destino-16
+	ret	
+;sbb  reg8,reg8/mem8
 case1A:
+	mov word[linha_de_comando],'sb'
+	mov word[linha_de_comando + 2],'b '
+	inc di
+	mov bx, 4
+	call Origem-InsereRM-8
+	ret			
+;sbb   reg16,reg16/mem16
 case1B:
+	mov word[linha_de_comando],'sb'
+	mov word[linha_de_comando + 2],'b '
+	inc di
+	mov bx, 4
+	call Origem-InsereRM-16
+	ret		
 ;;sbb AL, XYh
 case1C:
 	mov cx, 12
@@ -389,10 +501,38 @@ case1F:
 	mov word[linha_de_comando + 4],'DS'  
 	mov byte[linha_de_comando + 6],10	
 	ret	
+;and  reg8/mem8,reg8
 case20:
+	mov word[linha_de_comando],'an'
+	mov word[linha_de_comando + 2],'d '
+	inc di
+	mov bx, 4
+	call InsereRM-Destino-8
+	ret		
+;and   reg16/mem16,reg16	
 case21:
+	mov word[linha_de_comando],'an'
+	mov word[linha_de_comando + 2],'d '
+	inc di
+	mov bx, 4
+	call InsereRM-Destino-16
+	ret	
+;and  reg8,reg8/mem8
 case22:
+	mov word[linha_de_comando],'an'
+	mov word[linha_de_comando + 2],'d '
+	inc di
+	mov bx, 4
+	call Origem-InsereRM-8
+	ret			
+;and   reg16,reg16/mem16
 case23:
+	mov word[linha_de_comando],'an'
+	mov word[linha_de_comando + 2],'d '
+	inc di
+	mov bx, 4
+	call Origem-InsereRM-16
+	ret		
 ;;and AL, XYh
 case24:
 	mov cx, 12
@@ -439,12 +579,38 @@ case27:
 	mov word[linha_de_comando + 4],'7h'  
 	mov byte[linha_de_comando + 6],10
 	ret 
-
+;sub  reg8/mem8,reg8
 case28:
+	mov word[linha_de_comando],'su'
+	mov word[linha_de_comando + 2],'b '
+	inc di
+	mov bx, 4
+	call InsereRM-Destino-8
+	ret		
+;sub   reg16/mem16,reg16	
 case29:
+	mov word[linha_de_comando],'su'
+	mov word[linha_de_comando + 2],'b '
+	mov bx, 4
+	call InsereRM-Destino-16
+	ret	
+;sub  reg8,reg8/mem8
 case2A:
-case2B:
-;;sub AL, XYh
+	mov word[linha_de_comando],'su'
+	mov word[linha_de_comando + 2],'b '
+	inc di
+	mov bx, 4
+	call Origem-InsereRM-8
+	ret			
+;sub   reg16,reg16/mem16
+case2B:	
+	mov word[linha_de_comando],'su'
+	mov word[linha_de_comando + 2],'b '
+	inc di
+	mov bx, 4
+	call Origem-InsereRM-16
+	ret
+;sub   AL, XYh
 case2C:
 	mov cx, 12
 	mov word[linha_de_comando], 'su'
@@ -490,11 +656,38 @@ case2F:
 	mov word[linha_de_comando + 4],'Fh'  
 	mov byte[linha_de_comando + 6],10
 	ret 
-
+;xor  reg8/mem8,reg8	
 case30:
+	mov word[linha_de_comando],'xo'
+	mov word[linha_de_comando + 2],'r '
+	inc di
+	mov bx, 4
+	call InsereRM-Destino-8
+	ret		
+;xor   reg16/mem16,reg16
 case31:
+	mov word[linha_de_comando],'xo'
+	mov word[linha_de_comando + 2],'r '
+	inc di
+	mov bx, 4
+	call InsereRM-Destino-16
+	ret	
+;xor  reg8,reg8/mem8
 case32:
+	mov word[linha_de_comando],'xo'
+	mov word[linha_de_comando + 2],'r '
+	inc di
+	mov bx, 4
+	call Origem-InsereRM-8
+	ret			
+;xor  reg16,reg16/mem16
 case33:
+	mov word[linha_de_comando],'xo'
+	mov word[linha_de_comando + 2],'r '
+	inc di
+	mov bx, 4
+	call Origem-InsereRM-16
+	ret		
 ;;xor AL, XYh
 case34:
 	mov cx, 12
@@ -541,9 +734,22 @@ case37:
 	mov word[linha_de_comando + 4],'7h'  
 	mov byte[linha_de_comando + 6],10
 	ret 
-
+;xor  reg8/mem8,reg8
 case38:
+	mov word[linha_de_comando],'xo'
+	mov word[linha_de_comando + 2],'r '
+	inc di
+	mov bx, 4
+	call InsereRM-Destino-8
+	ret		
+;xor  reg16/mem16,reg16	
 case39:
+	mov word[linha_de_comando],'xo'
+	mov word[linha_de_comando + 2],'r '
+	inc di
+	mov bx, 4
+	call InsereRM-Destino-16
+	ret	
 case3A:
 case3B:
 ;;xor AL, XYh
@@ -1000,14 +1206,49 @@ case7F:
 
 case80:
 case81:
-case82:
-case83:
+;; test reg8/mem8,reg8
 case84:
+	mov word[linha_de_comando],'te'
+	mov word[linha_de_comando + 2],'st'
+	mov byte[linha_de_comando + 4], ' '
+	inc di
+	mov bx,5
+	call InsereRM-Destino-8
+;; test reg16/mem16,reg16
 case85:
+	mov word[linha_de_comando],'te'
+	mov word[linha_de_comando + 2],'st'
+	mov byte[linha_de_comando + 4], ' '
+	inc di
+	mov bx, 5
+	call InsereRM-Destino-16
+	ret
+;xchg reg8,reg8/mem8
 case86:
-case87:
-case88:
+	mov word[linha_de_comando],'xc'
+	mov word[linha_de_comando + 2],'hg'
+	mov byte[linha_de_comando + 4], ' '
+	inc di
+	mov bx,5
+	call Origem-InsereRM-8
 
+;xchg reg16,reg16/mem16
+case87:
+	mov word[linha_de_comando],'xc'
+	mov word[linha_de_comando + 2],'hg'
+	mov byte[linha_de_comando + 4], ' '
+	inc di
+	mov bx, 5
+	call Origem-InsereRM-16
+	ret	
+;mov  reg8/mem8,reg8
+case88:
+	mov word[linha_de_comando],'mo'
+	mov word[linha_de_comando + 2],'v '
+	inc di
+	mov bx, 4
+	call InsereRM-Destino-8
+	ret	
 ;; mov reg16/mem16,reg16	
 case89:
 	mov word[linha_de_comando],'mo'
@@ -1016,8 +1257,22 @@ case89:
 	mov bx, 4
 	call InsereRM-Destino-16
 	ret
+;mov  reg8,reg8/mem8
 case8A:
+	mov word[linha_de_comando],'mo'
+	mov word[linha_de_comando + 2],'v '
+	inc di
+	mov bx, 4
+	call Origem-InsereRM-8
+	ret		
+;mov   reg16,reg16/mem16
 case8B:
+	mov word[linha_de_comando],'mo'
+	mov word[linha_de_comando + 2],'v '
+	inc di
+	mov bx, 4
+	call Origem-InsereRM-16
+	ret	
 case8C:
 case8D:
 case8E:
