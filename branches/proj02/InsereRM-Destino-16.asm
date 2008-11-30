@@ -5,7 +5,7 @@
 ;; Saidas:	CX <- numero total de letras em 'linha_de_comando'
 	
 ;; reg16/mem16, reg16
-InsereRM-Destino-16:
+RMDestino16:
 	push si
 	mov al, byte[es:bin + di] ; al <- byte 'mod reg r/m'
 	mov ah, al
@@ -38,7 +38,7 @@ InsereRM-Destino-16:
 
 
 ;; r/m eh tratado como um registrador
-InsereRM-Destino-16-mod11:
+RMDestino16mod11:
 	;; si <- 2 * r/m
 	mov si, ax
 	and si, 0000000000000111b
@@ -191,4 +191,3 @@ InsereDeslocamento10:
 	pop ax
 	add bx, 7
 	ret
-
