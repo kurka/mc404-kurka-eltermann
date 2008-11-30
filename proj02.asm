@@ -1184,7 +1184,22 @@ case68:
 	mov word[linha_de_comando + 6], ax
 	mov byte[linha_de_comando + 10], 'h'
 	mov byte[linha_de_comando + 11], 10	
+
+;;PROBLEMATICO! (comparar com tabela pra ver se nao tem nada de errado!)
+;;imul XYZWh
 case69:
+	mov cx,12 
+	mov word[linha_de_comando], 'im'
+	mov word[linha_de_comando + 2], 'ul'
+	mov word[linha_de_comando + 4], '  '
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 8], ax
+	inc di
+	call HexToAscii
+	mov word[linha_de_comando + 6], ax
+	mov byte[linha_de_comando + 10], 'h'
+	mov byte[linha_de_comando + 11], 10	
 ;;; Funcao invalida para processador 80X86	
 case6A:
 	mov cx, 7

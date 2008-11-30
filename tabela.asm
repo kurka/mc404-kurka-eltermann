@@ -1,4 +1,3 @@
-case69:	;0110 1001 mod reg r/m data-lo, data-hi imul        immed16
 case70:	;0111 0000 IP-inc-8                     jo          short-label
 case71:	;0111 0001 IP-inc-8                     jno         short-label
 case72:	;0111 0010 IP-inc-8                     jb/jnae/jc   short-label
