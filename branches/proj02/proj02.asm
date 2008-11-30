@@ -244,7 +244,6 @@ case03:
 	mov bx, 4
 	call RMFonte16
 	ret		
-
 ;add AL, XYh
 case04:
 	mov cx, 12
@@ -272,7 +271,8 @@ case05:
 	call HexToAscii
 	mov word[linha_de_comando + 8], ax
 	mov byte[linha_de_comando + 12], 'h'
-	mov byte[linha_de_comando + 13], 10	
+	mov byte[linha_de_comando + 13], 10
+	ret
 ;;push es
 case06:
 	mov cx, 8
@@ -322,7 +322,6 @@ case0B:
 	mov bx, 3
 	call RMFonte16
 	ret		
-
 ;;or AL, XYh
 case0C:
 	mov cx, 12
@@ -336,7 +335,6 @@ case0C:
 	mov byte[linha_de_comando + 10], 'h'
 	mov byte[linha_de_comando + 11], 10
 	ret	
-
 ;;or AX, XYZWh
 case0D:
 	mov cx,14 
@@ -352,6 +350,7 @@ case0D:
 	mov word[linha_de_comando + 8], ax
 	mov byte[linha_de_comando + 12], 'h'
 	mov byte[linha_de_comando + 13], 10
+	ret
 ;;pop cs
 case0E:
 	mov cx, 8
@@ -369,7 +368,6 @@ case0F:
 	mov word[linha_de_comando + 4],'Fh'
 	mov byte[linha_de_comando + 6],10
 	ret 
-
 ;adc  reg8/mem8,reg8
 case10:
 	mov word[linha_de_comando],'ad'
@@ -402,7 +400,6 @@ case13:
 	mov bx, 4
 	call RMFonte16
 	ret		
-
 ;;adc AL, XYh
 case14:
 	mov cx, 12
@@ -416,7 +413,6 @@ case14:
 	mov byte[linha_de_comando + 10], 'h'
 	mov byte[linha_de_comando + 11], 10
 	ret	
-
 ;;adc AX, XYZWh
 case15:
 	mov cx,14 
@@ -432,7 +428,7 @@ case15:
 	mov word[linha_de_comando + 8], ax
 	mov byte[linha_de_comando + 12], 'h'
 	mov byte[linha_de_comando + 13], 10
-
+	ret
 ;;push ss
 case16:
 	mov cx, 8
@@ -495,7 +491,6 @@ case1C:
 	mov byte[linha_de_comando + 10], 'h'
 	mov byte[linha_de_comando + 11], 10
 	ret	
-
 ;;sbb AX, XYZWh
 case1D:
 	mov cx,14 
@@ -511,6 +506,7 @@ case1D:
 	mov word[linha_de_comando + 8], ax
 	mov byte[linha_de_comando + 12], 'h'
 	mov byte[linha_de_comando + 13], 10
+	ret
 ;;push es
 case1E:
 	mov cx, 8
@@ -589,7 +585,7 @@ case25:
 	mov word[linha_de_comando + 8], ax
 	mov byte[linha_de_comando + 12], 'h'
 	mov byte[linha_de_comando + 13], 10
-	
+	ret
 ;;; Funcao invalida para processador 80X86
 case26:
 	mov cx, 7
@@ -665,7 +661,7 @@ case2D:
 	mov word[linha_de_comando + 8], ax
 	mov byte[linha_de_comando + 12], 'h'
 	mov byte[linha_de_comando + 13], 10
-
+	ret
 ;;; Funcao invalida para processador 80X86	
 case2E:
 	mov cx, 7
@@ -727,7 +723,6 @@ case34:
 	mov byte[linha_de_comando + 10], 'h'
 	mov byte[linha_de_comando + 11], 10
 	ret	
-
 ;;xor AX, XYZWh
 case35:
 	mov cx,14 
@@ -743,7 +738,7 @@ case35:
 	mov word[linha_de_comando + 8], ax
 	mov byte[linha_de_comando + 12], 'h'
 	mov byte[linha_de_comando + 13], 10
-
+	ret
 ;;; Funcao invalida para processador 80X86	
 case36:
 	mov cx, 7
@@ -805,7 +800,6 @@ case3C:
 	mov byte[linha_de_comando + 10], 'h'
 	mov byte[linha_de_comando + 11], 10
 	ret	
-
 ;;xor AX, XYZWh
 case3D:
 	mov cx,14 
@@ -821,7 +815,7 @@ case3D:
 	mov word[linha_de_comando + 8], ax
 	mov byte[linha_de_comando + 12], 'h'
 	mov byte[linha_de_comando + 13], 10
-
+	ret
 ;;; Funcao invalida para processador 80X86	
 case3E:
 	mov cx, 7
@@ -1182,7 +1176,8 @@ case68:
 	call HexToAscii
 	mov word[linha_de_comando + 6], ax
 	mov byte[linha_de_comando + 10], 'h'
-	mov byte[linha_de_comando + 11], 10	
+	mov byte[linha_de_comando + 11], 10
+	ret
 
 ;;PROBLEMATICO! (comparar com tabela pra ver se nao tem nada de errado!)
 ;;imul XYZWh
@@ -1199,7 +1194,8 @@ case69:
 	call HexToAscii
 	mov word[linha_de_comando + 6], ax
 	mov byte[linha_de_comando + 10], 'h'
-	mov byte[linha_de_comando + 11], 10	
+	mov byte[linha_de_comando + 11], 10
+	ret
 ;;; Funcao invalida para processador 80X86	
 case6A:
 	mov cx, 7
@@ -1453,6 +1449,7 @@ case84:
 	inc di
 	mov bx,5
 	call RMDestino8
+	ret
 ;; test reg16/mem16,reg16
 case85:
 	mov word[linha_de_comando],'te'
@@ -1470,7 +1467,7 @@ case86:
 	inc di
 	mov bx,5
 	call RMFonte8
-
+	ret
 ;xchg reg16,reg16/mem16
 case87:
 	mov word[linha_de_comando],'xc'
@@ -1540,6 +1537,7 @@ case8F:
 	mov word[linha_de_comando + 6], ax
 	mov byte[linha_de_comando + 10], 'h'
 	mov byte[linha_de_comando + 11], 10
+	ret
 case90:
 ;;xchg ax, cx
 case91:
@@ -1624,13 +1622,15 @@ case98:
 	mov word[linha_de_comando],'cb'
 	mov byte[linha_de_comando + 2],'w'
 	mov byte[linha_de_comando + 3],10
+	ret
 ;;cwb 
 case99:
 	mov cx, 4
 	mov word[linha_de_comando],'cw'
 	mov byte[linha_de_comando + 2],'b'
 	mov byte[linha_de_comando + 3],10
-
+	ret
+	
 	;; REVISAR!!! ;;
 ;call [XYZW:KLMN]
 case9A:
@@ -1653,6 +1653,7 @@ case9A:
 	mov word[linha_de_comando + 6], ax	
 	mov byte[linha_de_comando + 16], 'h'
 	mov byte[linha_de_comando + 17], 10
+	ret
 	;; REVISAR!!! ;;
 
 ;;wait 
@@ -1660,32 +1661,37 @@ case9B:
 	mov cx, 5
 	mov word[linha_de_comando],'wa'
 	mov word[linha_de_comando + 2],'it'
-	mov byte[linha_de_comando + 4],10	
+	mov byte[linha_de_comando + 4],10
+	ret
 ;;pushf
 case9C:
 	mov cx, 6
 	mov word[linha_de_comando],'pu'
 	mov word[linha_de_comando + 2],'sh'	
 	mov byte[linha_de_comando + 4],'f'
-	mov byte[linha_de_comando + 5],10	
+	mov byte[linha_de_comando + 5],10
+	ret
 ;;popf
 case9D:
 	mov cx, 5
 	mov word[linha_de_comando],'po'
 	mov word[linha_de_comando + 2],'pf'
 	mov byte[linha_de_comando + 4],10
+	ret
 ;;sahf
 case9E:
 	mov cx, 5
 	mov word[linha_de_comando],'sa'
 	mov word[linha_de_comando + 2],'hf'
 	mov byte[linha_de_comando + 4],10
+	ret
 ;;lahf
 case9F:
 	mov cx, 5
 	mov word[linha_de_comando],'la'
 	mov word[linha_de_comando + 2],'hf'
 	mov byte[linha_de_comando + 4],10
+	ret
 ;;mov AL, [0XYh] 
 caseA0:
 	mov cx, 15
@@ -1729,7 +1735,7 @@ caseA2:
 	mov word[linha_de_comando + 10], ', '
 	mov word[linha_de_comando + 12], 'AL'
 	mov byte[linha_de_comando + 14], 10
-	re	
+	ret
 ;;mov [0XYZWh], AX
 caseA3:
 	mov cx, 17
@@ -1776,7 +1782,8 @@ caseA7:
 	mov word[linha_de_comando],'db'
 	mov word[linha_de_comando + 2],' A'
 	mov word[linha_de_comando + 4],'7h'  
-	mov byte[linha_de_comando + 6],10	
+	mov byte[linha_de_comando + 6],10
+	ret
 ;test AX, 0XYh
 caseA8:
 	mov cx, 14
@@ -1790,7 +1797,8 @@ caseA8:
 	mov byte[linha_de_comando + 9], '0'
 	mov word[linha_de_comando + 10], ax
 	mov byte[linha_de_comando + 12], 'h'
-	mov byte[linha_de_comando + 13], 10	
+	mov byte[linha_de_comando + 13], 10
+	ret
 ;test AX, 0XYZWh
 caseA9:
 	mov cx, 16
@@ -1808,6 +1816,7 @@ caseA9:
 	mov word[linha_de_comando + 10], ax	
 	mov byte[linha_de_comando + 14], 'h'
 	mov byte[linha_de_comando + 15], 10
+	ret
 ;;; Funcao invalida para processador 80X86	
 caseAA:
 	mov cx, 7
@@ -1856,7 +1865,6 @@ caseAF:
 	mov word[linha_de_comando + 4],'Fh'  
 	mov byte[linha_de_comando + 6],10
 	ret 
-
 	
 ;;mov AL, 0XYh
 caseB0:
@@ -1986,7 +1994,8 @@ caseB8:
 	call HexToAscii
 	mov word[linha_de_comando + 9], ax
 	mov byte[linha_de_comando + 13], 'h'
-	mov byte[linha_de_comando + 14], 10	
+	mov byte[linha_de_comando + 14], 10
+	ret
 ;;mov CX, 0XYZWh
 caseB9:
 	mov cx,15 
@@ -2002,7 +2011,8 @@ caseB9:
 	call HexToAscii
 	mov word[linha_de_comando + 9], ax
 	mov byte[linha_de_comando + 13], 'h'
-	mov byte[linha_de_comando + 14], 10	
+	mov byte[linha_de_comando + 14], 10
+	ret
 ;; mov DX, 0XYZWh
 caseBA:
 	mov cx,15 
@@ -2036,7 +2046,7 @@ caseBB:
 	mov word[linha_de_comando + 9], ax
 	mov byte[linha_de_comando + 13], 'h'
 	mov byte[linha_de_comando + 14], 10	
-	
+	ret
 ;;mov SP, 0XYZWh
 caseBC:
 	mov cx,15 
@@ -2052,7 +2062,8 @@ caseBC:
 	call HexToAscii
 	mov word[linha_de_comando + 9], ax
 	mov byte[linha_de_comando + 13], 'h'
-	mov byte[linha_de_comando + 14], 10	
+	mov byte[linha_de_comando + 14], 10
+	ret
 ;;mov BP, 0XYZWh	
 caseBD:
 	mov cx,15 
@@ -2068,7 +2079,8 @@ caseBD:
 	call HexToAscii
 	mov word[linha_de_comando + 9], ax
 	mov byte[linha_de_comando + 13], 'h'
-	mov byte[linha_de_comando + 14], 10	
+	mov byte[linha_de_comando + 14], 10
+	ret
 ;;mov SI, 0XYZWh	
 caseBE:
 	mov cx,15 
@@ -2084,7 +2096,8 @@ caseBE:
 	call HexToAscii
 	mov word[linha_de_comando + 9], ax
 	mov byte[linha_de_comando + 13], 'h'
-	mov byte[linha_de_comando + 14], 10	
+	mov byte[linha_de_comando + 14], 10
+	ret
 ;;mov DI, 0XYZWh	
 caseBF:
 	mov cx,15 
@@ -2101,7 +2114,7 @@ caseBF:
 	mov word[linha_de_comando + 9], ax
 	mov byte[linha_de_comando + 13], 'h'
 	mov byte[linha_de_comando + 14], 10	
-
+	ret
 
 caseC0:
 caseC1:
@@ -2390,7 +2403,8 @@ caseE8:
 	call HexToAscii
 	mov word[linha_de_comando + 16], ax	
 	mov byte[linha_de_comando + 20], 'h'
-	mov byte[linha_de_comando + 21], 10	
+	mov byte[linha_de_comando + 21], 10
+	ret
 ;jmp near IP+XYZWh
 caseE9:
 	mov cx, 22
@@ -2408,7 +2422,8 @@ caseE9:
 	call HexToAscii
 	mov word[linha_de_comando + 16], ax	
 	mov byte[linha_de_comando + 20], 'h'
-	mov byte[linha_de_comando + 21], 10	
+	mov byte[linha_de_comando + 21], 10
+	ret
 ;jmp [cs:ip]
 caseEA:
 	mov cx, 18
@@ -2429,7 +2444,8 @@ caseEA:
 	call HexToAscii
 	mov word[linha_de_comando + 6], ax	
 	mov byte[linha_de_comando + 16], 'h'
-	mov byte[linha_de_comando + 17], 10	
+	mov byte[linha_de_comando + 17], 10
+	ret
 ;jmp short IP+XYh
 caseEB:
 	mov cx, 22
@@ -2545,37 +2561,43 @@ caseF8:
 	mov cx, 4
 	mov word[linha_de_comando],'cl'
 	mov byte[linha_de_comando + 2],'c'
-	mov byte[linha_de_comando + 3],10	
+	mov byte[linha_de_comando + 3],10
+	ret
 ;;stc
 caseF9:
 	mov cx, 4
 	mov word[linha_de_comando],'st'
 	mov byte[linha_de_comando + 2],'c'
-	mov byte[linha_de_comando + 3],10	
+	mov byte[linha_de_comando + 3],10
+	ret
 ;;cli
 caseFA:
 	mov cx, 4
 	mov word[linha_de_comando],'cl'
 	mov byte[linha_de_comando + 2],'i'
-	mov byte[linha_de_comando + 3],10	
+	mov byte[linha_de_comando + 3],10
+	ret
 ;;sti
 caseFB:
 	mov cx, 4
 	mov word[linha_de_comando],'st'
 	mov byte[linha_de_comando + 2],'i'
-	mov byte[linha_de_comando + 3],10	
+	mov byte[linha_de_comando + 3],10
+	ret
 ;;cld
 caseFC:
 	mov cx, 4
 	mov word[linha_de_comando],'cl'
 	mov byte[linha_de_comando + 2],'d'
-	mov byte[linha_de_comando + 3],10	
+	mov byte[linha_de_comando + 3],10
+	ret
 ;;std
 caseFD:
 	mov cx, 4
 	mov word[linha_de_comando],'st'
 	mov byte[linha_de_comando + 2],'d'
 	mov byte[linha_de_comando + 3],10	
+	ret
 	
 ;;; Funcao invalida para processador 80X86	
 caseFE:
