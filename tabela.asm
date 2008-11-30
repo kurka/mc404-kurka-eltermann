@@ -115,8 +115,6 @@ caseD3:	;1101 0011 mod 000 r/m (disp-lo),(disp-hi) rol           reg16/mem16,CL
 	;;             mod 101 r/m (disp-lo),(disp-hi) shr           reg16/mem16,CL
 	;;             mod 110 r/m                     —
 	;;             mod 111 r/m (disp-lo),(disp-hi) sar           reg16/mem16,CL
-caseE2:	;1110 0010 IP-inc-8                                        loop          short-label
-caseE3:	;1110 0011 IP-inc-8                                        jcxz          short-label
 caseF6:	;1111 0110 mod 000 r/m (disp-lo),(disp-hi),data-8          test           reg8/mem8,immed8
 	;; mod 001 r/m                                     —
 	;; mod 010 r/m (disp-lo),(disp-hi)                 not           reg8/mem8
