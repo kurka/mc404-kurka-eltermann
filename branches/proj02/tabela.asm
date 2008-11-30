@@ -1,33 +1,5 @@
-case00:	;0000 0000 mod reg r/m (disp-lo),(disp-hi) add  reg8/mem8, reg8 
-case01:	;0000 0001 mod reg r/m (disp-lo),(disp-hi) add  reg16/mem16,reg16
-case02:	;0000 0010 mod reg r/m (disp-lo),(disp-hi) add  reg8,reg8/mem8
-case03:	;0000 0011 mod reg r/m (disp-lo),(disp-hi) add   reg16,reg16/mem16 
-case08:	;0000 0100 mod reg r/m (disp-lo),(disp-hi) or   reg8/mem8,reg8
-case09:	;0000 1001 mod reg r/m (disp-lo),(disp-hi) or   reg16/mem16,reg16
-case0A:	;0000 1010 mod reg r/m (disp-lo),(disp-hi) or   reg8,reg8/mem8
-case0B:	;0000 1011 mod reg r/m (disp-lo),(disp-hi) or   reg16,reg16/mem16
-case10:	;0001 0000 mod reg r/m (disp-lo),(disp-hi) adc  reg8/mem8,reg8
-case11:	;0001 0001 mod reg r/m (disp-lo),(disp-hi) adc   reg16/mem16,reg16
-case12:	;0001 0010 mod reg r/m (disp-lo),(disp-hi) adc  reg8,reg8/mem8
-case13:	;0001 0011 mod reg r/m (disp-lo),(disp-hi) adc   reg16,reg16/mem16
-case18:	;0001 1000 mod reg r/m (disp-lo),(disp-hi) sbb  reg8/mem8,reg8
-case19:	;0001 1001 mod reg r/m (disp-lo),(disp-hi) sbb   reg16/mem16,reg16
-case1A:	;0001 1010 mod reg r/m (disp-lo),(disp-hi) sbb  reg8,reg8/mem8
-case1B:	;0001 1011 mod reg r/m (disp-lo),(disp-hi) sbb   reg16,reg16/mem16
-case20:	;0010 0000 mod reg r/m (disp-lo),(disp-hi) and  reg8/mem8,reg8
-case21:	;0010 0001 mod reg r/m (disp-lo),(disp-hi) and   reg16/mem16,reg16
-case22:	;0010 0010 mod reg r/m (disp-lo),(disp-hi) and  reg8,reg8/mem8
-case23:	;0010 0011 mod reg r/m (disp-lo),(disp-hi) and   reg16,reg16/mem16
-case28:	;0010 1000 mod reg r/m (disp-lo),(disp-hi) sub  reg8/mem8,reg8
-case29:	;0010 1001 mod reg r/m (disp-lo),(disp-hi) sub   reg16/mem16,reg16
-case2A:	;0010 1010 mod reg r/m (disp-lo),(disp-hi) sub  reg8,reg8/mem8
-case2B:	;0010 1011 mod reg r/m (disp-lo),(disp-hi) sub   reg16,reg16/mem16
-case30:	;0011 0000 mod reg r/m (disp-lo),(disp-hi) xor  reg8/mem8,reg8
-case31:	;0011 0001 mod reg r/m (disp-lo),(disp-hi) xor   reg16/mem16,reg16
-case32:	;0011 0010 mod reg r/m (disp-lo),(disp-hi) xor  reg8,reg8/mem8
-case33:	;0011 0011 mod reg r/m (disp-lo),(disp-hi) xor  reg16,reg16/mem16
-case38:	;0011 1000 mod reg r/m (disp-lo),(disp-hi) xor  reg8/mem8,reg8
-case39:	;0011 1001 mod reg r/m (disp-lo),(disp-hi) xor  reg16/mem16,reg16
+case04:	;0000 0100 data-8          add AL,immed8
+case05:	;0000 0101 data-lo data-hi add AX,immed16 
 case3A:	;0011 1010 mod reg r/m (disp-lo),(disp-hi) xor  reg8,reg8/mem8
 case3B:	;0011 1011 mod reg r/m (disp-lo),(disp-hi) xor  reg16,reg16/mem16
 case68:	;0110 1000 data-lo     data-hi          push        immed16
@@ -80,14 +52,6 @@ case83:	;1000 0011 mod 000 r/m (disp-lo),(disp-hi), data-SX         add reg16/me
 	;; 	           mod 101 r/m (disp-lo),(disp-hi), data-SX         sub  reg16/mem16,immed8
 	;; 	           mod 110 r/m                                      —
 	;; 	           mod 111 r/m (disp-lo),(disp-hi), data-SX         cmp  reg16/mem16,immed8
-case84:	;1000 0100 mod reg r/m (disp-lo),(disp-hi) test reg8/mem8,reg8
-case85:	;1000 0101 mod reg r/m (disp-lo),(disp-hi) test reg16/mem16,reg16
-case86:	;1000 0110 mod reg r/m (disp-lo),(disp-hi) xchg reg8,reg8/mem8
-case87:	;1000 0111 mod reg r/m (disp-lo),(disp-hi) xchg reg16,reg16/mem16
-case88:	;1000 0100 mod reg r/m (disp-lo),(disp-hi) mov  reg8/mem8,reg8
-case89:	;1000 1001 mod reg r/m (disp-lo),(disp-hi) mov   reg16/mem16,reg16
-case8A:	;1000 1010 mod reg r/m (disp-lo),(disp-hi) mov  reg8,reg8/mem8
-case8B:	;1000 1011 mod reg r/m (disp-lo),(disp-hi) mov   reg16,reg16/mem16
 case8C:	;1000 1100 mod OSR r/m (disp-lo),(disp-hi) mov   reg16/mem16,SEGREG
 	    ;;         mod 1 - r/m                     —
 case8D:	;1000 1101 mod reg r/m (disp-lo),(disp-hi)   lea   reg16,mem16
