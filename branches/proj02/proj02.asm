@@ -1246,229 +1246,372 @@ case6F:
 	ret 
 ;;jo 0XYh
 case70:
-	mov cx, 8
 	mov word[linha_de_comando], 'jo'
 	mov byte[linha_de_comando + 2], ' '
 	inc di
-	call HexToAscii
-	add ax, di		;AX = INC+DI+100h=endereco efetivo
-	add ax, 100h
+	xor ax,ax		
+	mov al, byte[es:bin + di] ;AL=INC
+	cbw			  ;transforma o byte em word
+	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
+	inc ax			  ;considera um valor a frente de DI	
+	add ax, 100h		  
+	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
+	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
+	call HexToAsciiJ
 	mov byte[linha_de_comando + 3], '0'
 	mov word[linha_de_comando + 4], ax
-	mov byte[linha_de_comando + 6], 'h'
-	mov byte[linha_de_comando + 7], 10
+	mov bl, cl		
+	call HexToAsciiJ
+	mov word[linha_de_comando + 6], ax	
+	mov byte[linha_de_comando + 8], 'h'
+	mov byte[linha_de_comando + 9], 10
+	mov cx, 10
 	ret	
 ;;jno 0XYh
 case71:
-	mov cx, 9
 	mov word[linha_de_comando], 'jn'
 	mov word[linha_de_comando + 2], 'o '
 	inc di
-	call HexToAscii
-	add ax, di		;AX = INC+DI+100h=endereco efetivo
-	add ax, 100h	
+	xor ax,ax		
+	mov al, byte[es:bin + di] ;AL=INC
+	cbw			  ;transforma o byte em word
+	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
+	inc ax			  ;considera um valor a frente de DI	
+	add ax, 100h		  
+	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
+	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
+	call HexToAsciiJ
 	mov byte[linha_de_comando + 4], '0'
 	mov word[linha_de_comando + 5], ax
-	mov byte[linha_de_comando + 7], 'h'
-	mov byte[linha_de_comando + 8], 10
+	mov bl, cl		
+	call HexToAsciiJ
+	mov word[linha_de_comando + 7], ax	
+	mov byte[linha_de_comando + 9], 'h'
+	mov byte[linha_de_comando + 10], 10
+	mov cx, 11
 	ret
 ;;jc 0XYh
 case72:
-	mov cx, 8
 	mov word[linha_de_comando], 'jc'
 	mov byte[linha_de_comando + 2], ' '
 	inc di
-	call HexToAscii
-	add ax, di		;AX = INC+DI+100h=endereco efetivo
-	add ax, 100h	
+	xor ax,ax		
+	mov al, byte[es:bin + di] ;AL=INC
+	cbw			  ;transforma o byte em word
+	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
+	inc ax			  ;considera um valor a frente de DI		
+	add ax, 100h		  
+	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
+	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
+	call HexToAsciiJ
 	mov byte[linha_de_comando + 3], '0'
 	mov word[linha_de_comando + 4], ax
-	mov byte[linha_de_comando + 6], 'h'
-	mov byte[linha_de_comando + 7], 10
+	mov bl, cl		
+	call HexToAsciiJ
+	mov word[linha_de_comando + 6], ax	
+	mov byte[linha_de_comando + 8], 'h'
+	mov byte[linha_de_comando + 9], 10
+	mov cx, 10
 	ret
 ;;jnc 0XYh
 case73:
-	mov cx, 9
 	mov word[linha_de_comando], 'jn'
 	mov word[linha_de_comando + 2], 'c '
 	inc di
-	call HexToAscii
-	add ax, di		;AX = INC+DI+100h=endereco efetivo
-	add ax, 100h	
+	xor ax,ax		
+	mov al, byte[es:bin + di] ;AL=INC
+	cbw			  ;transforma o byte em word
+	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
+	inc ax			  ;considera um valor a frente de DI		
+	add ax, 100h		  
+	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
+	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
+	call HexToAsciiJ
 	mov byte[linha_de_comando + 4], '0'
 	mov word[linha_de_comando + 5], ax
-	mov byte[linha_de_comando + 7], 'h'
-	mov byte[linha_de_comando + 8], 10
+	mov bl, cl		
+	call HexToAsciiJ
+	mov word[linha_de_comando + 7], ax	
+	mov byte[linha_de_comando + 9], 'h'
+	mov byte[linha_de_comando + 10], 10
+	mov cx, 11
 	ret
 ;;je 0XYh
 case74:
-	mov cx, 8
 	mov word[linha_de_comando], 'je'
 	mov byte[linha_de_comando + 2], ' '
 	inc di
-	call HexToAscii
-	add ax, di		;AX = INC+DI+100h=endereco efetivo
-	add ax, 100h	
+	xor ax,ax		
+	mov al, byte[es:bin + di] ;AL=INC
+	cbw			  ;transforma o byte em word
+	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
+	inc ax			  ;considera um valor a frente de DI		
+	add ax, 100h		  
+	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
+	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
+	call HexToAsciiJ
 	mov byte[linha_de_comando + 3], '0'
 	mov word[linha_de_comando + 4], ax
-	mov byte[linha_de_comando + 6], 'h'
-	mov byte[linha_de_comando + 7], 10
+	mov bl, cl		
+	call HexToAsciiJ
+	mov word[linha_de_comando + 6], ax	
+	mov byte[linha_de_comando + 8], 'h'
+	mov byte[linha_de_comando + 9], 10
+	mov cx, 10
 	ret
 ;;jne 0XYh
 case75:
-	mov cx, 9
 	mov word[linha_de_comando], 'jn'
 	mov word[linha_de_comando + 2], 'e '
 	inc di
-	call HexToAscii
-	add ax, di		;AX = INC+DI+100h=endereco efetivo
-	add ax, 100h	
+	xor ax,ax		
+	mov al, byte[es:bin + di] ;AL=INC
+	cbw			  ;transforma o byte em word
+	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
+	inc ax			  ;considera um valor a frente de DI		
+	add ax, 100h		  
+	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
+	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
+	call HexToAsciiJ
 	mov byte[linha_de_comando + 4], '0'
 	mov word[linha_de_comando + 5], ax
-	mov byte[linha_de_comando + 7], 'h'
-	mov byte[linha_de_comando + 8], 10
+	mov bl, cl		
+	call HexToAsciiJ
+	mov word[linha_de_comando + 7], ax	
+	mov byte[linha_de_comando + 9], 'h'
+	mov byte[linha_de_comando + 10], 10
+	mov cx, 11
 	ret
 ;;jbe 0XYh
 case76:
-	mov cx, 9
 	mov word[linha_de_comando], 'jb'
 	mov word[linha_de_comando + 2], 'e '
 	inc di
-	call HexToAscii
-	add ax, di		;AX = INC+DI+100h=endereco efetivo
-	add ax, 100h	
+	xor ax,ax		
+	mov al, byte[es:bin + di] ;AL=INC
+	cbw			  ;transforma o byte em word
+	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
+	inc ax			  ;considera um valor a frente de DI		
+	add ax, 100h		  
+	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
+	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
+	call HexToAsciiJ
 	mov byte[linha_de_comando + 4], '0'
 	mov word[linha_de_comando + 5], ax
-	mov byte[linha_de_comando + 7], 'h'
-	mov byte[linha_de_comando + 8], 10
+	mov bl, cl		
+	call HexToAsciiJ
+	mov word[linha_de_comando + 7], ax	
+	mov byte[linha_de_comando + 9], 'h'
+	mov byte[linha_de_comando + 10], 10
+	mov cx, 11
 	ret
 ;;ja 0XYh
 case77:
-	mov cx, 8
 	mov word[linha_de_comando], 'ja'
 	mov byte[linha_de_comando + 2], ' '
 	inc di
-	call HexToAscii
-	add ax, di		;AX = INC+DI+100h=endereco efetivo
-	add ax, 100h	
+	xor ax,ax		
+	mov al, byte[es:bin + di] ;AL=INC
+	cbw			  ;transforma o byte em word
+	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
+	inc ax			  ;considera um valor a frente de DI		
+	add ax, 100h		  
+	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
+	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
+	call HexToAsciiJ
 	mov byte[linha_de_comando + 3], '0'
 	mov word[linha_de_comando + 4], ax
-	mov byte[linha_de_comando + 6], 'h'
-	mov byte[linha_de_comando + 7], 10
+	mov bl, cl		
+	call HexToAsciiJ
+	mov word[linha_de_comando + 6], ax	
+	mov byte[linha_de_comando + 8], 'h'
+	mov byte[linha_de_comando + 9], 10
+	mov cx, 10
 	ret
 ;;js 0XYh
 case78:
-	mov cx, 8
 	mov word[linha_de_comando], 'js'
 	mov byte[linha_de_comando + 2], ' '
 	inc di
-	call HexToAscii
-	add ax, di		;AX = INC+DI+100h=endereco efetivo
-	add ax, 100h	
+	xor ax,ax		
+	mov al, byte[es:bin + di] ;AL=INC
+	cbw			  ;transforma o byte em word
+	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
+	inc ax			  ;considera um valor a frente de DI		
+	add ax, 100h		  
+	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
+	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
+	call HexToAsciiJ
 	mov byte[linha_de_comando + 3], '0'
 	mov word[linha_de_comando + 4], ax
-	mov byte[linha_de_comando + 6], 'h'
-	mov byte[linha_de_comando + 7], 10
+	mov bl, cl		
+	call HexToAsciiJ
+	mov word[linha_de_comando + 6], ax	
+	mov byte[linha_de_comando + 8], 'h'
+	mov byte[linha_de_comando + 9], 10
+	mov cx, 10
 	ret
 ;;jns 0XYh
 case79:
-	mov cx, 9
 	mov word[linha_de_comando], 'jn'
 	mov word[linha_de_comando + 2], 's '
 	inc di
-	call HexToAscii
-	add ax, di		;AX = INC+DI+100h=endereco efetivo
-	add ax, 100h	
+	xor ax,ax		
+	mov al, byte[es:bin + di] ;AL=INC
+	cbw			  ;transforma o byte em word
+	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
+	inc ax			  ;considera um valor a frente de DI		
+	add ax, 100h		  
+	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
+	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
+	call HexToAsciiJ
 	mov byte[linha_de_comando + 4], '0'
 	mov word[linha_de_comando + 5], ax
-	mov byte[linha_de_comando + 7], 'h'
-	mov byte[linha_de_comando + 8], 10
+	mov bl, cl		
+	call HexToAsciiJ
+	mov word[linha_de_comando + 7], ax	
+	mov byte[linha_de_comando + 9], 'h'
+	mov byte[linha_de_comando + 10], 10
+	mov cx, 11
 	ret
 ;;jp  0XYh
 case7A:
-	mov cx, 8
 	mov word[linha_de_comando], 'jp'
 	mov byte[linha_de_comando + 2], ' '
 	inc di
-	call HexToAscii
-	add ax, di		;AX = INC+DI+100h=endereco efetivo
-	add ax, 100h	
+	xor ax,ax		
+	mov al, byte[es:bin + di] ;AL=INC
+	cbw			  ;transforma o byte em word
+	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
+	inc ax			  ;considera um valor a frente de DI		
+	add ax, 100h		  
+	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
+	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
+	call HexToAsciiJ
 	mov byte[linha_de_comando + 3], '0'
 	mov word[linha_de_comando + 4], ax
-	mov byte[linha_de_comando + 6], 'h'
-	mov byte[linha_de_comando + 7], 10
+	mov bl, cl		
+	call HexToAsciiJ
+	mov word[linha_de_comando + 6], ax	
+	mov byte[linha_de_comando + 8], 'h'
+	mov byte[linha_de_comando + 9], 10
+	mov cx, 10
 	ret
 ;;jnp 0XYh
 case7B:
-	mov cx, 9
 	mov word[linha_de_comando], 'jn'
 	mov word[linha_de_comando + 2], 'p '
 	inc di
-	call HexToAscii
-	add ax, di		;AX = INC+DI+100h=endereco efetivo
-	add ax, 100h	
+	xor ax,ax		
+	mov al, byte[es:bin + di] ;AL=INC
+	cbw			  ;transforma o byte em word
+	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
+	inc ax			  ;considera um valor a frente de DI		
+	add ax, 100h		  
+	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
+	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
+	call HexToAsciiJ
 	mov byte[linha_de_comando + 4], '0'
 	mov word[linha_de_comando + 5], ax
-	mov byte[linha_de_comando + 7], 'h'
-	mov byte[linha_de_comando + 8], 10
+	mov bl, cl		
+	call HexToAsciiJ
+	mov word[linha_de_comando + 7], ax	
+	mov byte[linha_de_comando + 9], 'h'
+	mov byte[linha_de_comando + 10], 10
+	mov cx, 11
 	ret
 ;;jl 0XYh
 case7C:	
-	mov cx, 8
 	mov word[linha_de_comando], 'jl'
 	mov byte[linha_de_comando + 2], ' '
 	inc di
-	call HexToAscii
-	add ax, di		;AX = INC+DI+100h=endereco efetivo
-	add ax, 100h	
+	xor ax,ax		
+	mov al, byte[es:bin + di] ;AL=INC
+	cbw			  ;transforma o byte em word
+	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
+	inc ax			  ;considera um valor a frente de DI		
+	add ax, 100h		  
+	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
+	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
+	call HexToAsciiJ
 	mov byte[linha_de_comando + 3], '0'
 	mov word[linha_de_comando + 4], ax
-	mov byte[linha_de_comando + 6], 'h'
-	mov byte[linha_de_comando + 7], 10
+	mov bl, cl		
+	call HexToAsciiJ
+	mov word[linha_de_comando + 6], ax	
+	mov byte[linha_de_comando + 8], 'h'
+	mov byte[linha_de_comando + 9], 10
+	mov cx, 10
 	ret
 ;;jge 0XYh
 case7D:
-	mov cx, 9
 	mov word[linha_de_comando], 'jg'
 	mov word[linha_de_comando + 2], 'e '
 	inc di
-	call HexToAscii
-	add ax, di		;AX = INC+DI+100h=endereco efetivo
-	add ax, 100h	
+	xor ax,ax		
+	mov al, byte[es:bin + di] ;AL=INC
+	cbw			  ;transforma o byte em word
+	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
+	inc ax			  ;considera um valor a frente de DI		
+	add ax, 100h		  
+	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
+	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
+	call HexToAsciiJ
 	mov byte[linha_de_comando + 4], '0'
 	mov word[linha_de_comando + 5], ax
-	mov byte[linha_de_comando + 7], 'h'
-	mov byte[linha_de_comando + 8], 10
+	mov bl, cl		
+	call HexToAsciiJ
+	mov word[linha_de_comando + 7], ax	
+	mov byte[linha_de_comando + 9], 'h'
+	mov byte[linha_de_comando + 10], 10
+	mov cx, 11
 	ret
 ;;jle 0XYh
 case7E:
-	mov cx, 9
 	mov word[linha_de_comando], 'jl'
 	mov word[linha_de_comando + 2], 'e '
 	inc di
-	call HexToAscii
-	add ax, di		;AX = INC+DI+100h=endereco efetivo
-	add ax, 100h	
+	xor ax,ax		
+	mov al, byte[es:bin + di] ;AL=INC
+	cbw			  ;transforma o byte em word
+	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
+	inc ax			  ;considera um valor a frente de DI		
+	add ax, 100h		  
+	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
+	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
+	call HexToAsciiJ
 	mov byte[linha_de_comando + 4], '0'
 	mov word[linha_de_comando + 5], ax
-	mov byte[linha_de_comando + 7], 'h'
-	mov byte[linha_de_comando + 8], 10
+	mov bl, cl		
+	call HexToAsciiJ
+	mov word[linha_de_comando + 7], ax	
+	mov byte[linha_de_comando + 9], 'h'
+	mov byte[linha_de_comando + 10], 10
+	mov cx, 11
 	ret
 ;;jg 0XYh
 case7F:
-	mov cx, 8
 	mov word[linha_de_comando], 'jg'
 	mov byte[linha_de_comando + 2], ' '
 	inc di
-	call HexToAscii
-	add ax, di		;AX = INC+DI+100h=endereco efetivo
-	add ax, 100h	
+	xor ax,ax		
+	mov al, byte[es:bin + di] ;AL=INC
+	cbw			  ;transforma o byte em word
+	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
+	inc ax			  ;considera um valor a frente de DI		
+	add ax, 100h		  
+	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
+	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
+	call HexToAsciiJ
 	mov byte[linha_de_comando + 3], '0'
 	mov word[linha_de_comando + 4], ax
-	mov byte[linha_de_comando + 6], 'h'
-	mov byte[linha_de_comando + 7], 10
+	mov bl, cl		
+	call HexToAsciiJ
+	mov word[linha_de_comando + 6], ax	
+	mov byte[linha_de_comando + 8], 'h'
+	mov byte[linha_de_comando + 9], 10
+	mov cx, 10
 	ret
-
 ;; Nao deu tempo de implementar
 case80:
 	mov cx, 7
@@ -2505,33 +2648,50 @@ caseE1:
 	ret 
 ;loop XYh
 caseE2:
-	mov cx, 10
 	mov word[linha_de_comando], 'lo'
 	mov word[linha_de_comando + 2], 'op'
 	mov word[linha_de_comando + 4], ' 0'	
 	inc di
-	call HexToAscii
-	add ax, di		;AX = INC+DI+100h=endereco efetivo
-	add ax, 100h	
+	xor ax,ax		
+	mov al, byte[es:bin + di] ;AL=INC
+	cbw			  ;transforma o byte em word
+	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
+	inc ax			  ;considera um valor a frente de DI
+	add ax, 100h		  
+	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
+	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
+	call HexToAsciiJ
 	mov word[linha_de_comando + 6], ax
-	mov byte[linha_de_comando + 8], 'h'
-	mov byte[linha_de_comando + 9], 10
-	ret		
+	mov bl, cl		
+	call HexToAsciiJ
+	mov word[linha_de_comando + 8], ax	
+	mov byte[linha_de_comando + 10], 'h'
+	mov byte[linha_de_comando + 11], 10
+	mov cx, 12
+	ret
 ;jcxz XYh
 caseE3:
-	mov cx, 10
 	mov word[linha_de_comando], 'jc'
 	mov word[linha_de_comando + 2], 'xz'
 	mov word[linha_de_comando + 4], ' 0'	
 	inc di
-	call HexToAscii
-	add ax, di		;AX = INC+DI+100h=endereco efetivo
-	add ax, 100h	
+	xor ax,ax		
+	mov al, byte[es:bin + di] ;AL=INC
+	cbw			  ;transforma o byte em word
+	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
+	inc ax			  ;considera um valor a frente de DI	
+	add ax, 100h		  
+	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
+	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
+	call HexToAsciiJ
 	mov word[linha_de_comando + 6], ax
-	mov byte[linha_de_comando + 8], 'h'
-	mov byte[linha_de_comando + 9], 10
-	ret	
-	
+	mov bl, cl		
+	call HexToAsciiJ
+	mov word[linha_de_comando + 8], ax	
+	mov byte[linha_de_comando + 10], 'h'
+	mov byte[linha_de_comando + 11], 10
+	mov cx, 12
+	ret
 ;in  AL, XYh
 caseE4:
 	mov cx, 12
@@ -2900,6 +3060,41 @@ MaisSignificativoMaiorNove:
 	ret
 
 
+;; Funcao de conversao de um byte para uma word que contem sua representacao em hexa (valores ascii) usado em funcoes de jmps
+;; Entrada: bl -> numero a ser convertido
+	
+;; Saida: AX <- valor em ascii do byte atual apontado por DI	
+HexToAsciiJ:
+	xor ax,ax		; ax <- 0x0000
+	mov bh, bl 		; bh <- copia do byte
+	and bl, 00001111b	; bl <- apenas o nibble - significativo do byte
+
+	;; AH <- valor em ascii da representacao em hexa do nibble MENOS significativo
+	mov ah, bl
+	cmp ah, 9
+	ja MenosSignificativoMaiorNovej
+	;; 0 <= byte - significativo <= 9
+	add ah, 0x30
+	jmp MaisSignificativoj
+MenosSignificativoMaiorNovej:
+	;; byte - significativo >= A
+	add ah, 0x37
+MaisSignificativoj:
+	;; AL <- valor em ascii da representacao em hexa do nibble MAIS significativo
+	mov al, bh 		; al <- byte original
+	shr al, 4 		; al <- apenas o nibble + significativo do byte
+	cmp al, 9
+	ja MaisSignificativoMaiorNovej
+	;; 0 <= byte + significativo <= 9
+	add al, 0x30
+	ret
+MaisSignificativoMaiorNovej:	
+	;; byte + significativo >= A
+	add al, 0x37
+	ret
+
+
+	
 ;; Funcao que verifica se a interrupcao chamada foi de finalizacao da execucao.
 ;; Retorno: si=1 -> ultima instrucao
 ;; 	    si=0 -> continua nas instrucoes
