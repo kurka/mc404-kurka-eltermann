@@ -2726,17 +2726,35 @@ caseE7:
 	mov byte[linha_de_comando + 10], 'h'
 	mov byte[linha_de_comando + 11], 10
 	ret	
-;call near IP+XYZWh
+;call near XYZWh
 caseE8:
-	mov cx, 22
 	mov word[linha_de_comando], 'ca'
 	mov word[linha_de_comando + 2], 'll'
 	mov word[linha_de_comando + 4], ' n'
 	mov word[linha_de_comando + 8], 'ea'
 	mov word[linha_de_comando + 10], 'r '
-	mov word[linha_de_comando + 12], 'IP'
-	mov byte[linha_de_comando + 14], '+'
 	inc di
+	xor ax,ax		
+	mov al, byte[es:bin + di] 
+	inc di
+	mov ah, byte[es:bin + di] ;AX=INC	
+	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
+	inc ax			  ;considera um valor a frente de DI		
+	add ax, 100h		  
+	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
+	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
+	call HexToAsciiJ
+	mov byte[linha_de_comando + 12], '0'
+	mov word[linha_de_comando + 13], ax
+	mov bl, cl		
+	call HexToAsciiJ
+	mov word[linha_de_comando + 15], ax	
+	mov byte[linha_de_comando + 17], 'h'
+	mov byte[linha_de_comando + 18], 10
+	mov cx, 19
+	ret
+
+	
 	call HexToAscii
 	mov word[linha_de_comando + 18], ax
 	inc di
@@ -2745,24 +2763,32 @@ caseE8:
 	mov byte[linha_de_comando + 20], 'h'
 	mov byte[linha_de_comando + 21], 10
 	ret
-;jmp near IP+XYZWh
+;jmp near XYZWh
 caseE9:
-	mov cx, 22
 	mov word[linha_de_comando], 'jm'
 	mov word[linha_de_comando + 2], 'p '
 	mov word[linha_de_comando + 4], 'ne'
 	mov word[linha_de_comando + 8], 'ar'
-	mov word[linha_de_comando + 10], '  '
-	mov word[linha_de_comando + 12], 'IP'
-	mov byte[linha_de_comando + 14], '+'
+	mov byte[linha_de_comando + 10], ' '
 	inc di
-	call HexToAscii
-	mov word[linha_de_comando + 18], ax
+	xor ax,ax		
+	mov al, byte[es:bin + di] 
 	inc di
-	call HexToAscii
-	mov word[linha_de_comando + 16], ax	
-	mov byte[linha_de_comando + 20], 'h'
-	mov byte[linha_de_comando + 21], 10
+	mov ah, byte[es:bin + di] ;AX=INC	
+	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
+	inc ax			  ;considera um valor a frente de DI		
+	add ax, 100h		  
+	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
+	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
+	call HexToAsciiJ
+	mov byte[linha_de_comando + 11], '0'
+	mov word[linha_de_comando + 12], ax
+	mov bl, cl		
+	call HexToAsciiJ
+	mov word[linha_de_comando + 14], ax	
+	mov byte[linha_de_comando + 16], 'h'
+	mov byte[linha_de_comando + 17], 10
+	mov cx, 18
 	ret
 ;jmp [cs:ip]
 caseEA:
@@ -2786,7 +2812,7 @@ caseEA:
 	mov byte[linha_de_comando + 16], 'h'
 	mov byte[linha_de_comando + 17], 10
 	ret
-;jmp short IP+XYh
+;jmp short XYh
 caseEB:
 	mov word[linha_de_comando], 'jm'
 	mov word[linha_de_comando + 2], 'p '
