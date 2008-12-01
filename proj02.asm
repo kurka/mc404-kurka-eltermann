@@ -1253,7 +1253,6 @@ case70:
 	mov al, byte[es:bin + di] ;AL=INC
 	cbw			  ;transforma o byte em word
 	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
-	inc ax			  ;considera um valor a frente de DI	
 	add ax, 100h		  
 	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
 	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
@@ -1276,7 +1275,6 @@ case71:
 	mov al, byte[es:bin + di] ;AL=INC
 	cbw			  ;transforma o byte em word
 	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
-	inc ax			  ;considera um valor a frente de DI	
 	add ax, 100h		  
 	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
 	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
@@ -1299,7 +1297,6 @@ case72:
 	mov al, byte[es:bin + di] ;AL=INC
 	cbw			  ;transforma o byte em word
 	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
-	inc ax			  ;considera um valor a frente de DI		
 	add ax, 100h		  
 	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
 	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
@@ -1322,7 +1319,6 @@ case73:
 	mov al, byte[es:bin + di] ;AL=INC
 	cbw			  ;transforma o byte em word
 	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
-	inc ax			  ;considera um valor a frente de DI		
 	add ax, 100h		  
 	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
 	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
@@ -1345,7 +1341,6 @@ case74:
 	mov al, byte[es:bin + di] ;AL=INC
 	cbw			  ;transforma o byte em word
 	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
-	inc ax			  ;considera um valor a frente de DI		
 	add ax, 100h		  
 	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
 	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
@@ -1368,7 +1363,6 @@ case75:
 	mov al, byte[es:bin + di] ;AL=INC
 	cbw			  ;transforma o byte em word
 	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
-	inc ax			  ;considera um valor a frente de DI		
 	add ax, 100h		  
 	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
 	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
@@ -1391,7 +1385,6 @@ case76:
 	mov al, byte[es:bin + di] ;AL=INC
 	cbw			  ;transforma o byte em word
 	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
-	inc ax			  ;considera um valor a frente de DI		
 	add ax, 100h		  
 	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
 	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
@@ -1414,7 +1407,6 @@ case77:
 	mov al, byte[es:bin + di] ;AL=INC
 	cbw			  ;transforma o byte em word
 	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
-	inc ax			  ;considera um valor a frente de DI		
 	add ax, 100h		  
 	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
 	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
@@ -1437,7 +1429,6 @@ case78:
 	mov al, byte[es:bin + di] ;AL=INC
 	cbw			  ;transforma o byte em word
 	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
-	inc ax			  ;considera um valor a frente de DI		
 	add ax, 100h		  
 	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
 	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
@@ -1460,7 +1451,6 @@ case79:
 	mov al, byte[es:bin + di] ;AL=INC
 	cbw			  ;transforma o byte em word
 	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
-	inc ax			  ;considera um valor a frente de DI		
 	add ax, 100h		  
 	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
 	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
@@ -1483,7 +1473,6 @@ case7A:
 	mov al, byte[es:bin + di] ;AL=INC
 	cbw			  ;transforma o byte em word
 	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
-	inc ax			  ;considera um valor a frente de DI		
 	add ax, 100h		  
 	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
 	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
@@ -1506,7 +1495,6 @@ case7B:
 	mov al, byte[es:bin + di] ;AL=INC
 	cbw			  ;transforma o byte em word
 	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
-	inc ax			  ;considera um valor a frente de DI		
 	add ax, 100h		  
 	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
 	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
@@ -1529,7 +1517,6 @@ case7C:
 	mov al, byte[es:bin + di] ;AL=INC
 	cbw			  ;transforma o byte em word
 	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
-	inc ax			  ;considera um valor a frente de DI		
 	add ax, 100h		  
 	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
 	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
@@ -1552,7 +1539,6 @@ case7D:
 	mov al, byte[es:bin + di] ;AL=INC
 	cbw			  ;transforma o byte em word
 	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
-	inc ax			  ;considera um valor a frente de DI		
 	add ax, 100h		  
 	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
 	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
@@ -1575,7 +1561,6 @@ case7E:
 	mov al, byte[es:bin + di] ;AL=INC
 	cbw			  ;transforma o byte em word
 	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
-	inc ax			  ;considera um valor a frente de DI		
 	add ax, 100h		  
 	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
 	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
@@ -1598,7 +1583,6 @@ case7F:
 	mov al, byte[es:bin + di] ;AL=INC
 	cbw			  ;transforma o byte em word
 	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
-	inc ax			  ;considera um valor a frente de DI		
 	add ax, 100h		  
 	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
 	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
@@ -2656,7 +2640,6 @@ caseE2:
 	mov al, byte[es:bin + di] ;AL=INC
 	cbw			  ;transforma o byte em word
 	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
-	inc ax			  ;considera um valor a frente de DI
 	add ax, 100h		  
 	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
 	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
@@ -2679,7 +2662,6 @@ caseE3:
 	mov al, byte[es:bin + di] ;AL=INC
 	cbw			  ;transforma o byte em word
 	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
-	inc ax			  ;considera um valor a frente de DI	
 	add ax, 100h		  
 	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
 	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
@@ -2806,21 +2788,31 @@ caseEA:
 	ret
 ;jmp short IP+XYh
 caseEB:
-	mov cx, 20
 	mov word[linha_de_comando], 'jm'
 	mov word[linha_de_comando + 2], 'p '
 	mov word[linha_de_comando + 4], 'sh'
 	mov word[linha_de_comando + 6], 'or'
 	mov word[linha_de_comando + 8], 't '
-	mov word[linha_de_comando + 10], '  '	
-	mov word[linha_de_comando + 12], 'IP'
-	mov byte[linha_de_comando + 14], '+'
+	mov byte[linha_de_comando + 10], ' '	
 	inc di
-	call HexToAscii
-	mov word[linha_de_comando + 16], ax
-	mov byte[linha_de_comando + 18], 'h'
-	mov byte[linha_de_comando + 19], 10
-	ret	
+	xor ax,ax		
+	mov al, byte[es:bin + di] ;AL=INC
+	cbw			  ;transforma o byte em word
+	add ax, di		  ;AX = INC+DI+100h=endereco efetivo
+	inc ax			  ;considera um valor a frente de DI		
+	add ax, 100h		  
+	mov cx, ax		  ;guarda em cx (temporariamente o resultado)
+	mov bl, ch		  ;calcula o asccii do maior byte do end. efet.
+	call HexToAsciiJ
+	mov byte[linha_de_comando + 11], '0'
+	mov word[linha_de_comando + 12], ax
+	mov bl, cl		
+	call HexToAsciiJ
+	mov word[linha_de_comando + 14], ax	
+	mov byte[linha_de_comando + 16], 'h'
+	mov byte[linha_de_comando + 17], 10
+	mov cx, 18
+	ret
 ;;in AL, DX
 caseEC:
 	mov cx, 11
