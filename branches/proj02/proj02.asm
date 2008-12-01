@@ -1469,10 +1469,42 @@ case7F:
 	mov byte[linha_de_comando + 7], 10
 	ret
 
+;; Nao deu tempo de implementar
 case80:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 8'
+	mov word[linha_de_comando + 4],'0h'  
+	mov byte[linha_de_comando + 6],10
+	ret 
+
+;; Nao deu tempo de implementar
 case81:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 8'
+	mov word[linha_de_comando + 4],'1h'  
+	mov byte[linha_de_comando + 6],10
+	ret 
+
+;; Nao deu tempo de implementar
 case82:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 8'
+	mov word[linha_de_comando + 4],'2h'  
+	mov byte[linha_de_comando + 6],10
+	ret 
+
+;; Nao deu tempo de implementar
 case83:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 8'
+	mov word[linha_de_comando + 4],'3h'  
+	mov byte[linha_de_comando + 6],10
+	ret 
+
 ;; test reg8/mem8,reg8
 case84:
 	mov word[linha_de_comando],'te'
@@ -1554,7 +1586,17 @@ case8D:
 	ret	
 	;; REVISAR!!! ;;
 
+;; Nao deu tempo de implementar
 case8E:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 8'
+	mov word[linha_de_comando + 4],'Eh'  
+	mov byte[linha_de_comando + 6],10
+	ret 
+
+
+
 ;;pop XYZWh
 case8F:
 	mov cx,12
@@ -1570,7 +1612,18 @@ case8F:
 	mov byte[linha_de_comando + 10], 'h'
 	mov byte[linha_de_comando + 11], 10
 	ret
+
+	
+;; Nao deu tempo de implementar
 case90:
+	mov cx, 7
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 9'
+	mov word[linha_de_comando + 4],'0h'  
+	mov byte[linha_de_comando + 6],10
+	ret 
+
+	
 ;;xchg ax, cx
 case91:
 	mov cx, 15
@@ -2148,12 +2201,62 @@ caseBF:
 	mov byte[linha_de_comando + 14], 10	
 	ret
 
+;; Nao deu tempo de implementar
 caseC0:
+	mov cx, 8
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 0'
+	mov word[linha_de_comando + 4],'C0'  
+	mov byte[linha_de_comando + 6], 'h'
+	mov byte[linha_de_comando + 7],10
+	ret 
+
+;; Nao deu tempo de implementar
 caseC1:
-caseC2:
+	mov cx, 8
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 0'
+	mov word[linha_de_comando + 4],'C1'  
+	mov byte[linha_de_comando + 6], 'h'
+	mov byte[linha_de_comando + 7],10
+	ret 
+
+;; Nao deu tempo de implementar
+caseC2:	
+	mov cx, 8
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 0'
+	mov word[linha_de_comando + 4],'C2'  
+	mov byte[linha_de_comando + 6], 'h'
+	mov byte[linha_de_comando + 7],10
+	ret 
+;; Nao deu tempo de implementar
 caseC3:
+	mov cx, 8
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 0'
+	mov word[linha_de_comando + 4],'C3'  
+	mov byte[linha_de_comando + 6], 'h'
+	mov byte[linha_de_comando + 7],10
+	ret 
+;; Nao deu tempo de implementar
 caseC4:
+	mov cx, 8
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 0'
+	mov word[linha_de_comando + 4],'C4'  
+	mov byte[linha_de_comando + 6], 'h'
+	mov byte[linha_de_comando + 7],10
+	ret 
+;; Nao deu tempo de implementar
 caseC5:
+	mov cx, 8
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 0'
+	mov word[linha_de_comando + 4],'C5'  
+	mov byte[linha_de_comando + 6], 'h'
+	mov byte[linha_de_comando + 7],10
+	ret 
 
 ;;; Funcao invalida para processador 80X86	
 caseC6:
@@ -2164,7 +2267,16 @@ caseC6:
 	mov byte[linha_de_comando + 6],10
 	ret 
 
+;; Nao deu tempo de implementar
 caseC7:
+	mov cx, 8
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 0'
+	mov word[linha_de_comando + 4],'C7'  
+	mov byte[linha_de_comando + 6], 'h'
+	mov byte[linha_de_comando + 7],10
+	ret 
+
 
 ;;; Funcao invalida para processador 80X86	
 caseC8:
@@ -2182,10 +2294,33 @@ caseC9:
 	mov word[linha_de_comando + 4],'9h'  
 	mov byte[linha_de_comando + 6],10
 	ret 
-
+;; Nao deu tempo de implementar
 caseCA:
+	mov cx, 8
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 0'
+	mov word[linha_de_comando + 4],'CA'  
+	mov byte[linha_de_comando + 6], 'h'
+	mov byte[linha_de_comando + 7],10
+	ret 
+;; Nao deu tempo de implementar
 caseCB:
+	mov cx, 8
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 0'
+	mov word[linha_de_comando + 4],'CB'  
+	mov byte[linha_de_comando + 6], 'h'
+	mov byte[linha_de_comando + 7],10
+	ret 
+;; Nao deu tempo de implementar
 caseCC:
+	mov cx, 8
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 0'
+	mov word[linha_de_comando + 4],'CC'  
+	mov byte[linha_de_comando + 6], 'h'
+	mov byte[linha_de_comando + 7],10
+	ret 
 
 ;; int 0XYh
 caseCD:
@@ -2217,11 +2352,42 @@ caseCF:
 	mov byte[linha_de_comando + 6],10
 	ret 
 
-	
+;; Nao deu tempo de implementar
 caseD0:
+	mov cx, 8
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 0'
+	mov word[linha_de_comando + 4],'D0'  
+	mov byte[linha_de_comando + 6], 'h'
+	mov byte[linha_de_comando + 7],10
+	ret 
+;; Nao deu tempo de implementar
 caseD1:
+	mov cx, 8
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 0'
+	mov word[linha_de_comando + 4],'D1'  
+	mov byte[linha_de_comando + 6], 'h'
+	mov byte[linha_de_comando + 7],10
+	ret 
+;; Nao deu tempo de implementar
 caseD2:
+	mov cx, 8
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 0'
+	mov word[linha_de_comando + 4],'D2'  
+	mov byte[linha_de_comando + 6], 'h'
+	mov byte[linha_de_comando + 7],10
+	ret 
+;; Nao deu tempo de implementar
 caseD3:
+	mov cx, 8
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 0'
+	mov word[linha_de_comando + 4],'D3'  
+	mov byte[linha_de_comando + 6], 'h'
+	mov byte[linha_de_comando + 7],10
+	ret 
 
 ;;; Funcao invalida para processador 80X86	
 caseD4:
@@ -2585,9 +2751,24 @@ caseF5:
 	mov byte[linha_de_comando + 6],10
 	ret
 
+;; Nao deu tempo de implementar
 caseF6:	
+	mov cx, 8
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 0'
+	mov word[linha_de_comando + 4],'F6'  
+	mov byte[linha_de_comando + 6],'h'
+	mov byte[linha_de_comando + 7],10
+	ret 
+;; Nao deu tempo de implementar
 caseF7:	
-
+	mov cx, 8
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 0'
+	mov word[linha_de_comando + 4],'F7'  
+	mov byte[linha_de_comando + 6],'h'
+	mov byte[linha_de_comando + 7],10
+	ret 
 ;;clc
 caseF8:
 	mov cx, 4
@@ -2633,18 +2814,33 @@ caseFD:
 	
 ;;; Funcao invalida para processador 80X86	
 caseFE:
-	mov cx, 7
+	mov cx, 8
 	mov word[linha_de_comando],'db'
-	mov word[linha_de_comando + 2],' F'
-	mov word[linha_de_comando + 4],'Eh'  
-	mov byte[linha_de_comando + 6],10
+	mov word[linha_de_comando + 2],' 0'
+	mov word[linha_de_comando + 4],'FE'  
+	mov byte[linha_de_comando + 6],'h'
+	mov byte[linha_de_comando + 7],10
 	ret 
-	
-caseFF:	
-	
 
+;; Nao deu tempo de implementar
+caseFF:	
+	mov cx, 8
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 0'
+	mov word[linha_de_comando + 4],'FF'  
+	mov byte[linha_de_comando + 6],'h'
+	mov byte[linha_de_comando + 7],10
+	ret 
 
 caseDefault:
+	call HexToAscii
+	mov cx, 8
+	mov word[linha_de_comando],'db'
+	mov word[linha_de_comando + 2],' 0'
+	mov word[linha_de_comando + 4],ax  
+	mov byte[linha_de_comando + 6],'h'
+	mov byte[linha_de_comando + 7],10
+	ret 
 	
 
 
@@ -2769,7 +2965,6 @@ RMDestino16:
 	;; recupera si
 	pop si
 	ret
-
 ;; r/m eh tratado como um registrador
 RMDestino16mod11:
 	;; si <- 2 * r/m
@@ -2800,16 +2995,175 @@ RMDestino16mod11:
 
 ;; reg8/mem8, reg8
 RMDestino8:
-;;; ...
+	push si
+	mov al, byte[es:bin + di] ; al <- byte 'mod reg r/m'
+	mov ah, al
+	and ah, 11000000b	; ah <- apenas os 2 bits de mod
+	cmp ah, 11000000b
+	je RMDestino8mod11
+	
+	;; r/m indica o tipo de referencia para a memoria
+	mov word[linha_de_comando + bx], 'by'
+	mov word[linha_de_comando + bx + 2], 'te'
+	add bx, 4
+	call InsereMemoria	; insere "[...]" no vetor
+	mov word[linha_de_comando + bx], ', '
+	;; si <- 2 * reg
+	mov si, ax
+	and si, 0000000000111000b
+	shr si, 3
+	shl si, 1
+	;; escrita
+	mov cx, word[vetor_registradores + si]
+	mov word[linha_de_comando + bx + 2], cx
+	mov byte[linha_de_comando + bx + 4], 10
+	;; cx <- numero total de caracteres na linha de comando
+	mov cx, bx
+	add cx, 5
+	;; recupera si
+	pop si
+	ret
+
+;; r/m eh tratado como um registrador
+RMDestino8mod11:
+	;; si <- 2 * r/m
+	mov si, ax
+	and si, 0000000000000111b
+	shl si, 1
+	;; escrita
+	mov cx, word[vetor_registradores + si]
+	mov word[linha_de_comando + bx], cx
+	mov word[linha_de_comando + bx + 2], ', '
+	;; si <- 2 * reg
+	mov si, ax
+	and si, 0000000000111000b
+	shr si, 3
+	shl si, 1
+	;; escrita
+	mov cx, word[vetor_registradores + si]
+	mov word[linha_de_comando + bx + 4], cx
+	mov byte[linha_de_comando + bx + 6], 10
+	;; cx <- numero total de caracteres na linha de comando
+	mov cx, bx
+	add cx, 7
+	;; recupera si
+	pop si
+	ret
+
 	
 ;; reg16, reg16/mem16
 RMFonte16:
-;;; ...
+	push si
+	mov al, byte[es:bin + di] ; al <- byte 'mod reg r/m'
+	mov ah, al
+	and ah, 11000000b	; ah <- apenas os 2 bits de mod
+	cmp ah, 11000000b
+	je RMFonte16mod11
+	;; si <- 2 * reg
+	mov si, ax
+	and si, 0000000000111000b
+	shr si, 3
+	or si, 0x0008
+	shl si, 1
+	;; escrita
+	mov cx, word[vetor_registradores + si]
+	mov word[linha_de_comando + bx], cx
+	mov word[linha_de_comando + bx + 2], ', '
+	;; r/m indica o tipo de referencia para a memoria
+	mov word[linha_de_comando + bx + 4], 'wo'
+	mov word[linha_de_comando + bx + 6], 'rd'
+	add bx, 8
+	call InsereMemoria	; insere "[...]" no vetor
+	mov byte[linha_de_comando + bx], 10
+	;; cx <- numero total de caracteres na linha de comando
+	mov cx, bx
+	add cx, 1
+	;; recupera si
+	pop si
+	ret
+;; r/m eh tratado como um registrador
+RMFonte16mod11:
+	;; si <- 2 * r/m
+	mov si, ax
+	and si, 0000000000000111b
+	or si, 0x0008
+	shl si, 1
+	;; escrita
+	mov cx, word[vetor_registradores + si]
+	mov word[linha_de_comando + bx], cx
+	mov word[linha_de_comando + bx + 2], ', '
+	;; si <- 2 * reg
+	mov si, ax
+	and si, 0000000000111000b
+	shr si, 3
+	or si, 0x0008
+	shl si, 1
+	;; escrita
+	mov cx, word[vetor_registradores + si]
+	mov word[linha_de_comando + bx + 4], cx
+	mov byte[linha_de_comando + bx + 6], 10
+	;; cx <- numero total de caracteres na linha de comando
+	mov cx, bx
+	add cx, 7
+	;; recupera si
+	pop si
+	ret
+	
 
 ;; reg 8, reg8/mem8
 RMFonte8:
-;;; ...
-
+	push si
+	mov al, byte[es:bin + di] ; al <- byte 'mod reg r/m'
+	mov ah, al
+	and ah, 11000000b	; ah <- apenas os 2 bits de mod
+	cmp ah, 11000000b
+	je RMFonte8mod11
+	;; si <- 2 * reg
+	mov si, ax
+	and si, 0000000000111000b
+	shr si, 3
+	shl si, 1
+	;; escrita
+	mov cx, word[vetor_registradores + si]
+	mov word[linha_de_comando + bx], cx
+	mov word[linha_de_comando + bx + 2], ', '
+	;; r/m indica o tipo de referencia para a memoria
+	mov word[linha_de_comando + bx + 4], 'by'
+	mov word[linha_de_comando + bx + 6], 'te'
+	add bx, 8
+	call InsereMemoria	; insere "[...]" no vetor
+	mov byte[linha_de_comando + bx], 10
+	;; cx <- numero total de caracteres na linha de comando
+	mov cx, bx
+	add cx, 1
+	;; recupera si
+	pop si
+	ret
+;; r/m eh tratado como um registrador
+RMFonte8mod11:
+	;; si <- 2 * r/m
+	mov si, ax
+	and si, 0000000000000111b
+	shl si, 1
+	;; escrita
+	mov cx, word[vetor_registradores + si]
+	mov word[linha_de_comando + bx], cx
+	mov word[linha_de_comando + bx + 2], ', '
+	;; si <- 2 * reg
+	mov si, ax
+	and si, 0000000000111000b
+	shr si, 3
+	shl si, 1
+	;; escrita
+	mov cx, word[vetor_registradores + si]
+	mov word[linha_de_comando + bx + 4], cx
+	mov byte[linha_de_comando + bx + 6], 10
+	;; cx <- numero total de caracteres na linha de comando
+	mov cx, bx
+	add cx, 7
+	;; recupera si
+	pop si
+	ret
 
 
 
