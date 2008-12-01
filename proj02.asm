@@ -2806,20 +2806,20 @@ caseEA:
 	ret
 ;jmp short IP+XYh
 caseEB:
-	mov cx, 22
+	mov cx, 20
 	mov word[linha_de_comando], 'jm'
 	mov word[linha_de_comando + 2], 'p '
 	mov word[linha_de_comando + 4], 'sh'
-	mov word[linha_de_comando + 8], 'or'
-	mov word[linha_de_comando + 10], 't '
-	mov word[linha_de_comando + 12], '  '	
-	mov word[linha_de_comando + 14], 'IP'
-	mov byte[linha_de_comando + 16], '+'
+	mov word[linha_de_comando + 6], 'or'
+	mov word[linha_de_comando + 8], 't '
+	mov word[linha_de_comando + 10], '  '	
+	mov word[linha_de_comando + 12], 'IP'
+	mov byte[linha_de_comando + 14], '+'
 	inc di
 	call HexToAscii
-	mov word[linha_de_comando + 18], ax
-	mov byte[linha_de_comando + 20], 'h'
-	mov byte[linha_de_comando + 21], 10
+	mov word[linha_de_comando + 16], ax
+	mov byte[linha_de_comando + 18], 'h'
+	mov byte[linha_de_comando + 19], 10
 	ret	
 ;;in AL, DX
 caseEC:
